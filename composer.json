@@ -1,0 +1,41 @@
+{
+  "name": "geminilabs/blackbar",
+  "type": "wordpress-plugin",
+  "description": "BlackBar is a plugin for WordPress developers. It collects and displays errors, executed queries, globals, templates, and provides a profiler.",
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "debugging",
+    "debug bar",
+    "blackbar"
+  ],
+  "license": "GPL3",
+  "authors": [
+    {
+      "name": "Paul Ryley",
+      "email": "paul@geminilabs.io"
+    }
+  ],
+  "config": {
+    "preferred-install": "dist"
+  },
+  "archive": {
+    "exclude": [
+      "/+",
+      "/tests",
+      "/.*",
+      "/*.md",
+      "/*.js",
+      "/*.json",
+      "/*.lock",
+      "/*.sh",
+      "/*.xml"
+    ]
+  },
+  "prefer-stable": true,
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.4",
+    "composer/installers": "^1.5.0"
+  }
+}
