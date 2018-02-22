@@ -18,6 +18,36 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: qps-ploc\n"
 
+#: activate.php:91
+msgid "The BlackBar plugin was deactivated."
+msgstr "The BlackBar plugin was deactivated."
+
+#: activate.php:92
+msgid "Sorry, this plugin requires %s or greater in order to work properly."
+msgstr "Sorry, this plugin requires %s or greater in order to work properly."
+
+#: activate.php:93
+msgid ""
+"Please contact your hosting provider or server administrator to upgrade the "
+"version of PHP on your server (your server is running PHP version %s), or "
+"try to find an alternative plugin."
+msgstr ""
+"Please contact your hosting provider or server administrator to upgrade the "
+"version of PHP on your server (your server is running PHP version %s), or "
+"try to find an alternative plugin."
+
+#: activate.php:94
+msgid "PHP version"
+msgstr "PHP version"
+
+#: activate.php:95
+msgid "WordPress version"
+msgstr "WordPress version"
+
+#: activate.php:96
+msgid "Update WordPress"
+msgstr "Update WordPress"
+
 #: src/Application.php:190
 msgid "%s on line %s in file %s"
 msgstr "%s on line %s in file %s"
