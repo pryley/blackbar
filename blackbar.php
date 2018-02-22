@@ -4,9 +4,9 @@
  * ║ ╦║╣ ║║║║║║║║  ║  ╠═╣╠╩╗╚═╗
  * ╚═╝╚═╝╩ ╩╩╝╚╝╩  ╩═╝╩ ╩╚═╝╚═╝
  *
- * Plugin Name: Blackbar
+ * Plugin Name: BlackBar
  * Plugin URI:  https://wordpress.org/plugins/blackbar
- * Description: Blackbar is a development tool that displays executed queries, global variables, notices, warnings, theme templates, and a profiler.
+ * Description: BlackBar is a development tool that displays executed queries, global variables, notices, warnings, theme templates, and a profiler.
  * Version:     1.0.0
  * Author:      Paul Ryley
  * Author URI:  http://geminilabs.io
@@ -17,5 +17,9 @@
  */
 
 defined( 'WPINC' ) || die;
+
+require_once __DIR__.'/activate.php';
+if( \GL_BlackBar_Activate::shouldDeactivate() )return;
+
 require_once __DIR__.'/autoload.php';
 (new \GeminiLabs\Blackbar\Application)->init();

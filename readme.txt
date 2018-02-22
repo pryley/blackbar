@@ -1,7 +1,7 @@
 === BlackBar ===
 Contributors: geminilabs, pryley
 Donate link: https://www.paypal.me/pryley
-Tags: debugging, debug bar
+Tags: blackbox, blackbar, debug bar, debugbar, debugging, development
 Requires at least: 4.0.0
 Requires PHP: 5.6
 Tested up to: 4.9
@@ -9,20 +9,19 @@ Stable tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-BlackBar is a plugin for WordPress developers. It collects and displays errors, executed queries, globals, templates, and provides a profiler.
+BlackBar is a Debug Bar for WordPress developers. It collects and displays errors, executed queries, globals, templates (if using the [Castor Framework](https://github.com/geminilabs/castor-framework)), and provides a profiler.
 
 == Description ==
 
-BlackBar is an unobtrusive debug bar attached to the bottom of the browser window.
+BlackBar is an unobtrusive Debug Bar for WordPress developers that attaches itself to the bottom of the browser window. It is a rewrite of [blackbox-debug-bar](https://wordpress.org/plugins/blackbox-debug-bar/) by [Grzegorz Winiarski](https://profiles.wordpress.org/gwin) which appears to be abandoned as it has not been updated since 2013.
 
-How can it help you with development:
-1. Inspect global variables (GET, POST, COOKIE, SERVER)
-2. Debug both front-end and admin area
-3. Displays executed MySQL queries and the time it took to execute each query
-4. Profiler for measuring performance of your plugins and themes
-5. Shows any PHP errors that occurred when loading a page
-
-BlackBar is a rewrite of [blackbox-debug-bar](https://wordpress.org/plugins/blackbox-debug-bar/) by [Grzegorz Winiarski](https://profiles.wordpress.org/gwin) which appears to be abandoned as it has not been updated since 2013.
+How it helps you with development:
+- Debug both the front-end and admin area
+- Displays any PHP errors that occur when loading a page
+- Displays executed MySQL queries and the time it took to execute each query
+- Displays the loaded theme template files (if using the [Castor Framework](https://github.com/geminilabs/castor-framework))
+- Inspect global variables (GET, POST, COOKIE, SERVER)
+- Use the Profiler for measuring performance of your plugins and themes
 
 == Installation ==
 
@@ -38,10 +37,18 @@ Download the BlackBar plugin and uploading it to your server via your favorite F
 
 == Frequently Asked Questions ==
 
-== Screenshots ==
+= How do I use the Profiler? =
+
+To use the profiler, simply put the following line of PHP before and after the code you wish to profile:
+
+`apply_filters( 'debug', 'Enter a description here' );`
+
+= How do I view which template files of my active theme have been loaded? =
+
+To use this feature your theme must be built on the [Castor Framework](https://github.com/geminilabs/castor-framework).
 
 == Changelog ==
 
-= 1.0.0 (2018-02-20) =
+= 1.0.0 (2018-02-22) =
 
 - Initial plugin release
