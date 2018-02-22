@@ -12,7 +12,7 @@ BlackBar is an unobtrusive Debug Bar for WordPress developers that attaches itse
 - Displays any PHP errors that occur when loading a page
 - Displays executed MySQL queries and the time it took to execute each query
 - Displays the loaded theme template files (if using the [Castor Framework](https://github.com/geminilabs/castor-framework))
-- Inspect global variables (GET, POST, COOKIE, SERVER)
+- Inspect global variables (COOKIE, GET, POST, SERVER, SESSION)
 - Use the Profiler for measuring performance of your plugins and themes
 
 ### Minimum plugin requirements
