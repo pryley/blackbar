@@ -25,15 +25,6 @@
 .glbb-on::before {
 	content: "\f344";
 }
-.glbb-close {
-	padding-left: 4px;
-	&::before {
-		top: 0;
-		font-size: 24px;
-		content: "\f158";
-		margin-right: 2px;
-	}
-}
 
 body.blackbar #adminmenu {
 	margin-bottom: 46px;
@@ -67,9 +58,6 @@ body.blackbar #adminmenu {
 
 #glbb-debug-bar.glbb-mini a.glbb-toggle {
 	display:inline;
-	&::before {
-		margin: 0 8px;
-	}
 }
 
 #glbb-debug-bar .hljs {
@@ -82,6 +70,8 @@ body.blackbar #adminmenu {
 	bottom: 32px;
 	left: 0;
 	right: 0;
+	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+	font-size: 14px;
 	max-height: 400px;
 	background: #32373c;
 	padding: 15px;
@@ -90,6 +80,10 @@ body.blackbar #adminmenu {
 
 #glbb-debug-bar table {
 	margin: 0;
+}
+
+#glbb-debug-bar tr {
+	border: none;
 }
 
 #glbb-debug-bar td.number {
@@ -102,7 +96,7 @@ body.blackbar #adminmenu {
 
 #glbb-debug-bar td {
 	line-height: 1.5;
-	padding: 0 15px 15px 0;
+	padding: 0 15px 10px 0;
 	margin: 0;
 	vertical-align: top;
 }
@@ -112,20 +106,22 @@ body.blackbar #adminmenu {
 }
 
 #glbb-debug-bar a {
-	display: block;
-	height: 32px;
-	color: white;
-	font-weight: normal;
-	line-height: 32px;
-	text-decoration: none;
-	padding: 0 8px 0 7px;
-	margin: 0;
-	background-color: #23282d;
-	color: white;
 	float: left;
+	position: relative;
+	display: block;
+	width: 40px;
+	height: 32px;
+	line-height: 32px;
+	text-indent: 100%;
+	text-overflow: clip;
+	text-decoration: none;
+	font-weight: normal;
 	white-space: nowrap;
+	color: white;
+	background-color: #23282d;
 	overflow: hidden;
-	text-overflow: ellipsis;
+	padding: 0;
+	margin: 0;
 	-webkit-font-smoothing: subpixel-antialiased;
 	-moz-osx-font-smoothing: auto;
 }
@@ -154,15 +150,26 @@ body.blackbar #adminmenu {
 	color: #00b9eb;
 }
 
-#glbb-debug-bar a.glbb-close:hover,
-#glbb-debug-bar a.glbb-close:hover::before {
-	color: #e00;
+#glbb-debug-bar a.glbb-close {
+	&::before {
+		top: 0;
+		font-size: 24px;
+		content: "\f158";
+		margin-right: 2px;
+	}
+	&:hover,
+	&:hover::before {
+		color: #e00;
+	}
 }
 
 #glbb-debug-bar a::before {
-	float: left;
-	position: relative;
+	position: absolute;
+	left: 0;
 	top: 2px;
+	width: 40px;
+	text-indent: 0;
+	text-align: center;
 	font: normal 20px/1 dashicons;
 	color: rgba(240,245,250,0.6);
 	speak: none;
@@ -183,8 +190,9 @@ body.blackbar #adminmenu {
 #glbb-debug-bar code {
 	background-color: #32373c;
 	line-height: 1.5;
-	font-size: 12px !important;
-	padding:0;
+	font-size: 14px !important;
+	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+	padding: 0;
 	margin: 0;
 }
 #glbb-debug-bar form {
@@ -193,46 +201,50 @@ body.blackbar #adminmenu {
 	margin: 0;
 }
 
-#glbb-debug-bar label {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-	line-height: normal;
-	text-transform: none;
-	font-size: 12px;
-}
-
 #glbb-debug-bar input[type=text] {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+	width: 100%;
+	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 	background-color: #32373c;
+	font-size: 14px;
+	color: #ccc;
 	border: 1px solid gray;
+	border-radius: 0;
 	color: silver;
-	padding: 6px 10px;
+	padding: 4px 10px;
 	margin: 0 0 15px;
-	width: 200px;
 }
 
-@media screen and (max-width: 782px) {
+#glbb-debug-bar input[type=text]::placeholder {
+	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+	color: rgba(255,255,255,0.25);
+}
+
+@media screen and (min-width: 480px) {
 	#glbb-debug-bar input[type=text] {
 		float: left;
-		width: 50%;
+		width: calc(50% - 5px);
+		max-width: 320px;
 	}
+	#glbb-debug-bar input[type=text]:first-of-type {
+		margin-right: 5px;
+	}
+	#glbb-debug-bar input[type=text]:last-of-type {
+		margin-left: 5px;
+	}
+}
+
+@media screen and (min-width: 783px) {
 	#glbb-debug-bar a {
-		position: relative;
-		text-indent: 100%;
-		text-overflow: clip;
-		white-space: nowrap;
-		overflow: hidden;
-		width: 40px;
-		height: 32px;
-		line-height: 32px;
-		padding: 0;
+		position: unset;
+		width: unset;
+		text-indent: unset;
+		text-overflow: ellipsis;
+		padding: 0 8px 0 7px;
 	}
 	#glbb-debug-bar a::before {
-		position: absolute;
-		left: 0;
-		top: 2px;
-		width: 40px;
-		text-indent: 0;
-		text-align: center;
+		float: left;
+		position: relative;
+		width: unset;
 	}
 	#glbb-debug-bar.glbb-mini > a.glbb-toggle::before {
 		margin: 0;
@@ -240,10 +252,11 @@ body.blackbar #adminmenu {
 	#glbb-debug-bar a.glbb-close {
 		padding-left: 0;
 	}
-}
-
-@media screen and (max-width: 480px) {
-	#glbb-debug-bar input[type=text] {
-		width: 100%;
+	#glbb-debug-bar.glbb-mini > a.glbb-toggle::before {
+		margin: 0 8px;
+	}
+	#glbb-debug-bar a.glbb-close {
+		padding-left: 4px;
 	}
 }
+
