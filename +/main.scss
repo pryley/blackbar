@@ -46,24 +46,19 @@ body.blackbar #adminmenu {
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	direction: ltr;
 }
-
 #glbb-debug-bar.glbb-mini {
 	width: 36px;
 }
-
 #glbb-debug-bar.glbb-mini a {
 	display: none;
 	padding: 0;
 }
-
 #glbb-debug-bar.glbb-mini a.glbb-toggle {
 	display:inline;
 }
-
 #glbb-debug-bar .hljs {
 	background-color: #32373c;
 }
-
 #glbb-debug-bar .glbb-debug-panel {
 	display:none;
 	position: fixed;
@@ -77,34 +72,30 @@ body.blackbar #adminmenu {
 	padding: 15px;
 	overflow:auto;
 }
-
 #glbb-debug-bar table {
 	margin: 0;
 }
-
 #glbb-debug-bar tr {
 	border: none;
 }
-
 #glbb-debug-bar td.number {
 	text-align: right;
 }
-
 #glbb-debug-bar td.err-name {
 	width: 60px;
 }
-
 #glbb-debug-bar td {
-	line-height: 1.5;
-	padding: 0 15px 10px 0;
-	margin: 0;
 	vertical-align: top;
+	line-height: 1.5;
+	padding: 0 15px 0 0;
+	margin: 0;
 }
-
-#glbb-debug-bar tr:last-child td {
+#glbb-debug-bar .glbb-queries-table td {
+	padding-bottom: 10px;
+}
+#glbb-debug-bar .glbb-queries-table tr:last-child td {
 	padding-bottom: 0;
 }
-
 #glbb-debug-bar a {
 	float: left;
 	position: relative;
@@ -125,31 +116,25 @@ body.blackbar #adminmenu {
 	-webkit-font-smoothing: subpixel-antialiased;
 	-moz-osx-font-smoothing: auto;
 }
-
 #glbb-debug-bar a:focus {
 	box-shadow: none;
 }
-
 #glbb-debug-bar a.glbb-active,
 #glbb-debug-bar a.glbb-active:hover {
 	background-color: #0073aa;
 	color: #fff;
 }
-
 #glbb-debug-bar a.glbb-active::before,
 #glbb-debug-bar a.glbb-active:hover::before {
 	color: #fff;
 }
-
 #glbb-debug-bar a:hover {
 	background-color: #191e23;
 }
-
 #glbb-debug-bar a:hover,
 #glbb-debug-bar a:hover::before {
 	color: #00b9eb;
 }
-
 #glbb-debug-bar a.glbb-close {
 	&::before {
 		top: 0;
@@ -162,7 +147,6 @@ body.blackbar #adminmenu {
 		color: #e00;
 	}
 }
-
 #glbb-debug-bar a::before {
 	position: absolute;
 	left: 0;
@@ -178,29 +162,28 @@ body.blackbar #adminmenu {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-
-#glbb-debug-bar pre {
+#glbb-debug-bar pre,
+#glbb-debug-bar code {
 	background-color: #32373c;
 	background-image: none;
 	border: none;
+	font-size: 14px !important;
+	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace !important;
+	line-height: 1.5;
 	color: #ccc;
 	padding:0;
 	margin: 0;
 }
-#glbb-debug-bar code {
-	background-color: #32373c;
-	line-height: 1.5;
-	font-size: 14px !important;
-	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
-	padding: 0;
-	margin: 0;
+#glbb-debug-bar .glbb-queries-filter::after {
+	display: block;
+	content: '';
+	clear: both;
 }
 #glbb-debug-bar form {
 	line-height: normal;
 	padding: 0;
 	margin: 0;
 }
-
 #glbb-debug-bar input[type=text] {
 	width: 100%;
 	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
@@ -213,7 +196,6 @@ body.blackbar #adminmenu {
 	padding: 4px 10px;
 	margin: 0 0 15px;
 }
-
 #glbb-debug-bar input[type=text]::placeholder {
 	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 	color: rgba(255,255,255,0.25);

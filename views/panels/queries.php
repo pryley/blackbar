@@ -4,7 +4,7 @@
 	<input type="text" name="glbb_query_filter" id="glbb_query_filter" placeholder="<?= __( 'Find queries containing', 'blackbar' ); ?>">
 	<input type="text" name="glbb_query_min_time" id="glbb_query_min_time" placeholder="<?= __( 'Minimum Execution Time', 'blackbar' ); ?>">
 </form>
-<table>
+<table class="glbb-queries-table">
 	<tbody>
 		<?php foreach( $queries as $query ) : ?>
 		<tr>

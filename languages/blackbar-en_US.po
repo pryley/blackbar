@@ -88,6 +88,10 @@ msgstr "Templates"
 msgid "Close"
 msgstr "Close"
 
+#: views/panels/errors.php:7
+msgid "No errors found."
+msgstr "No errors found."
+
 #: views/panels/queries.php:4
 msgid "Find queries containing"
 msgstr "Find queries containing"
