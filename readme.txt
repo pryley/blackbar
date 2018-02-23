@@ -1,7 +1,7 @@
-=== BlackBar ===
+=== Black Bar ===
 Contributors: geminilabs, pryley
 Donate link: https://www.paypal.me/pryley
-Tags: blackbox, blackbar, debug bar, debugbar, debugging, development
+Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.0.0
 Requires PHP: 5.6
 Tested up to: 4.9
@@ -9,11 +9,11 @@ Stable tag: 1.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-BlackBar is a Debug Bar for WordPress developers. It collects and displays errors, executed queries, globals, templates (if using the [Castor Framework](https://github.com/geminilabs/castor-framework)), and provides a profiler.
+Black Bar is a Debug Bar for WordPress developers. It collects and displays errors, executed queries, globals, templates (if using the [Castor Framework](https://github.com/geminilabs/castor-framework)), and provides a profiler.
 
 == Description ==
 
-BlackBar is an unobtrusive Debug Bar for WordPress developers that attaches itself to the bottom of the browser window. It is a rewrite of [blackbox-debug-bar](https://wordpress.org/plugins/blackbox-debug-bar/) by [Grzegorz Winiarski](https://profiles.wordpress.org/gwin) which appears to be abandoned as it has not been updated since 2013.
+Black Bar is an unobtrusive Debug Bar for WordPress developers that attaches itself to the bottom of the browser window. It is a rewrite of [blackbox-debug-bar](https://wordpress.org/plugins/blackbox-debug-bar/) by [Grzegorz Winiarski](https://profiles.wordpress.org/gwin) which appears to be abandoned as it has not been updated since 2013.
 
 How it helps you with development:
 
@@ -30,11 +30,11 @@ How it helps you with development:
 
 Log in to your WordPress dashboard, navigate to the Plugins menu and click "Add New".
 
-In the search field type "BlackBar" and click Search Plugins. Once you have found the plugin you can view details about it such as the point release, rating and description. You can install it by simply clicking "Install Now".
+In the search field type "Black Bar" and click Search Plugins. Once you have found the plugin you can view details about it such as the point release, rating and description. You can install it by simply clicking "Install Now".
 
 = Manual installation =
 
-Download the BlackBar plugin and uploading it to your server via your favorite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
+Download the Black Bar plugin and uploading it to your server via your favorite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
 
 == Frequently Asked Questions ==
 

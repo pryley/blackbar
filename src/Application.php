@@ -1,8 +1,8 @@
 <?php
 
-namespace GeminiLabs\Blackbar;
+namespace GeminiLabs\BlackBar;
 
-use GeminiLabs\Blackbar\Profiler;
+use GeminiLabs\BlackBar\Profiler;
 
 final class Application
 {

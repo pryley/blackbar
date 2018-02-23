@@ -19,8 +19,8 @@ msgstr ""
 "Language: qps-ploc\n"
 
 #: activate.php:91
-msgid "The BlackBar plugin was deactivated."
-msgstr "The BlackBar plugin was deactivated."
+msgid "The Black Bar plugin was deactivated."
+msgstr "The Black Bar plugin was deactivated."
 
 #: activate.php:92
 msgid "Sorry, this plugin requires %s or greater in order to work properly."
@@ -64,7 +64,7 @@ msgstr "Profiler (%s ms)"
 msgid "SQL (%s queries in %s ms)"
 msgstr "SQL (%s queries in %s ms)"
 
-#: src/Profiler.php:37
+#: src/Profiler.php:43
 msgid "kB"
 msgstr "kB"
 

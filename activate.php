@@ -88,7 +88,7 @@ class GL_BlackBar_Activate
 	{
 		$noticeTemplate = '<div id="message" class="notice notice-error error is-dismissible"><p><strong>%s</strong></p><p>%s</p><p>%s</p></div>';
 		$messages = array(
-			__( 'The BlackBar plugin was deactivated.', 'blackbar' ),
+			__( 'The Black Bar plugin was deactivated.', 'blackbar' ),
 			__( 'Sorry, this plugin requires %s or greater in order to work properly.', 'blackbar' ),
 			__( 'Please contact your hosting provider or server administrator to upgrade the version of PHP on your server (your server is running PHP version %s), or try to find an alternative plugin.', 'blackbar' ),
 			__( 'PHP version', 'blackbar' ).' '.static::MIN_PHP_VERSION,

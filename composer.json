@@ -1,7 +1,7 @@
 {
   "name": "geminilabs/blackbar",
   "type": "wordpress-plugin",
-  "description": "BlackBar is a plugin for WordPress developers. It collects and displays errors, executed queries, globals, templates, and provides a profiler.",
+  "description": "Black Bar is a Debug Bar for WordPress developers",
   "keywords": [
     "wordpress",
     "plugin",

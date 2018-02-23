@@ -8,8 +8,8 @@ defined( 'WPINC' ) || die;
 spl_autoload_register( function( $class )
 {
 	$namespaces = [
-		'GeminiLabs\\Blackbar\\' => __DIR__.'/src/',
-		'GeminiLabs\\Blackbar\\Tests\\' => __DIR__.'/tests/',
+		'GeminiLabs\\BlackBar\\' => __DIR__.'/src/',
+		'GeminiLabs\\BlackBar\\Tests\\' => __DIR__.'/tests/',
 	];
 	foreach( $namespaces as $prefix => $base_dir ) {
 		$len = strlen( $prefix );
