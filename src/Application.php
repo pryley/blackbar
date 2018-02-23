@@ -108,8 +108,8 @@ final class Application
 		add_filter( 'all',                      array( $this, 'initProfiler' ));
 		add_filter( 'gform_noconflict_scripts', array( $this, 'filterNoconflictScripts' ) );
 		add_filter( 'gform_noconflict_styles',  array( $this, 'filterNoconflictStyles' ) );
-		apply_filters( 'debug', 'Profiler Initiated' );
-		apply_filters( 'debug', 'Profiler Noise' );
+		apply_filters( 'debug', 'Profiler Started' );
+		apply_filters( 'debug', 'blackbar/profiler/noise' );
 		set_error_handler( array( $this, 'errorHandler' ), E_ALL|E_STRICT );
 	}
 

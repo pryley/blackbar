@@ -5,6 +5,12 @@ namespace GeminiLabs\Blackbar;
 class Profiler
 {
 	/**
+	 * This is the time that WordPress takes to execute the profiler hook
+	 * @var int
+	 */
+	protected $noise = 0;
+
+	/**
 	 * @var array
 	 */
 	protected $timers = array();
@@ -48,21 +54,15 @@ class Profiler
 	}
 
 	/**
-	 * @return int
-	 */
-	public function getStartTime()
-	{
-		return $this->start;
-	}
-
-	/**
 	 * @param array $timer
 	 * @return string
 	 */
 	public function getTimeString( $timer )
 	{
 		$timer = $this->normalize( $timer );
-		$time = number_format( round(( $timer['time'] - $this->start ) * 1000, 4 ), 4 );
+		$index = array_search( $timer['name'], array_column( $this->timers, 'name' ));
+		$start = $this->start + ( $index * $this->noise );
+		$time = number_format( round(( $timer['time'] - $start ) * 1000, 4 ), 4 );
 		return sprintf( '%s %s', $time, __( 'ms', 'blackbar' ));
 	}
 
@@ -71,7 +71,8 @@ class Profiler
 	 */
 	public function getTotalTime()
 	{
-		return $this->stop - $this->start;
+		$totalNoise = ( count( $this->timers ) - 1 ) * $this->noise;
+		return $this->stop - $this->start - $totalNoise;
 	}
 
 	/**
@@ -82,6 +83,10 @@ class Profiler
 		$microtime = microtime( true );
 		if( !$this->start ) {
 			$this->start = $microtime;
+		}
+		if( $name === 'blackbar/profiler/noise' ) {
+			$this->noise = $microtime - $this->start;
+			return;
 		}
 		$this->timers[] = array(
 			'name' => $name,
