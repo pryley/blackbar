@@ -21,6 +21,6 @@ defined( 'WPINC' ) || die;
 require_once __DIR__.'/activate.php';
 require_once __DIR__.'/autoload.php';
 
-if( !GL_BlackBar_Activate::shouldDeactivate() ) {
+if( !GL_Activate::shouldDeactivate( __FILE__, array( 'wordpress' => '4.0.0' ))) {
 	(new GeminiLabs\BlackBar\Application)->init();
 }

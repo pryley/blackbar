@@ -106,8 +106,8 @@ final class Application
 		add_action( 'wp_footer',                array( $this, 'renderBar' ));
 		add_filter( 'admin_body_class',         array( $this, 'filterBodyClasses' ));
 		add_filter( 'all',                      array( $this, 'initProfiler' ));
-		add_filter( 'gform_noconflict_scripts', array( $this, 'filterNoconflictScripts' ) );
-		add_filter( 'gform_noconflict_styles',  array( $this, 'filterNoconflictStyles' ) );
+		add_filter( 'gform_noconflict_scripts', array( $this, 'filterNoconflictScripts' ));
+		add_filter( 'gform_noconflict_styles',  array( $this, 'filterNoconflictStyles' ));
 		apply_filters( 'debug', 'Profiler Started' );
 		apply_filters( 'debug', 'blackbar/profiler/noise' );
 		set_error_handler( array( $this, 'errorHandler' ), E_ALL|E_STRICT );
@@ -210,7 +210,7 @@ final class Application
 		}
 		$errorCount = count( $this->errors );
 		$warnings = $warningCount > 0 ? sprintf( ', %d!', $warningCount ) : '';
-		return sprintf( __( 'Errors (%d%s)', 'blackbar' ), $errorCount, $warnings );
+		return sprintf( __( 'Errors (%s)', 'blackbar' ), $errorCount.$warnings );
 	}
 
 	/**
@@ -286,6 +286,6 @@ final class Application
 	 */
 	protected function url( $path = '' )
 	{
-		return esc_url( plugin_dir_url( $this->file ) . ltrim( trim( $path ), '/' ));
+		return esc_url( plugin_dir_url( $this->file ).ltrim( trim( $path ), '/' ));
 	}
 }

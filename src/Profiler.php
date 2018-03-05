@@ -40,7 +40,7 @@ class Profiler
 	public function getMemoryString( $timer )
 	{
 		$timer = $this->normalize( $timer );
-		return sprintf( '%s %s', round( $timer['memory'] / 1000 ), __( 'kB', 'blackbar' ));
+		return sprintf( '%s kB', round( $timer['memory'] / 1000 ));
 	}
 
 	/**
@@ -63,7 +63,7 @@ class Profiler
 		$index = array_search( $timer['name'], array_column( $this->timers, 'name' ));
 		$start = $this->start + ( $index * $this->noise );
 		$time = number_format( round(( $timer['time'] - $start ) * 1000, 4 ), 4 );
-		return sprintf( '%s %s', $time, __( 'ms', 'blackbar' ));
+		return sprintf( '%s ms', $time );
 	}
 
 	/**

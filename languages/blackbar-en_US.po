@@ -18,15 +18,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: qps-ploc\n"
 
-#: activate.php:91
-msgid "The Black Bar plugin was deactivated."
-msgstr "The Black Bar plugin was deactivated."
+#: activate.php:124
+msgid "The %s plugin was deactivated."
+msgstr "The %s plugin was deactivated."
 
-#: activate.php:92
+#: activate.php:125
 msgid "Sorry, this plugin requires %s or greater in order to work properly."
 msgstr "Sorry, this plugin requires %s or greater in order to work properly."
 
-#: activate.php:93
+#: activate.php:126
 msgid ""
 "Please contact your hosting provider or server administrator to upgrade the "
 "version of PHP on your server (your server is running PHP version %s), or "
@@ -36,15 +36,15 @@ msgstr ""
 "version of PHP on your server (your server is running PHP version %s), or "
 "try to find an alternative plugin."
 
-#: activate.php:94
+#: activate.php:127
 msgid "PHP version"
 msgstr "PHP version"
 
-#: activate.php:95
+#: activate.php:128
 msgid "WordPress version"
 msgstr "WordPress version"
 
-#: activate.php:96
+#: activate.php:129
 msgid "Update WordPress"
 msgstr "Update WordPress"
 
@@ -53,8 +53,8 @@ msgid "%s on line %s in file %s"
 msgstr "%s on line %s in file %s"
 
 #: src/Application.php:213
-msgid "Errors (%d%s)"
-msgstr "Errors (%d%s)"
+msgid "Errors (%s)"
+msgstr "Errors (%s)"
 
 #: src/Application.php:222
 msgid "Profiler (%s ms)"
@@ -63,14 +63,6 @@ msgstr "Profiler (%s ms)"
 #: src/Application.php:271
 msgid "SQL (%s queries in %s ms)"
 msgstr "SQL (%s queries in %s ms)"
-
-#: src/Profiler.php:43
-msgid "kB"
-msgstr "kB"
-
-#: src/Profiler.php:66
-msgid "ms"
-msgstr "ms"
 
 #: views/debug-bar.php:6
 msgid "Toggle"

@@ -3,7 +3,7 @@ Contributors: geminilabs, pryley
 Donate link: https://www.paypal.me/pryley
 Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.0.0
-Requires PHP: 5.6
+Requires PHP: 5.6.0
 Tested up to: 4.9
 Stable tag: 1.0.0
 License: GPLv3
