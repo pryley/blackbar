@@ -18,9 +18,11 @@
 
 defined( 'WPINC' ) || die;
 
-require_once __DIR__.'/activate.php';
+if( !class_exists( 'GL_Plugin_Check' )) {
+	require_once __DIR__.'/activate.php';
+}
 require_once __DIR__.'/autoload.php';
 
-if( !GL_Activate::shouldDeactivate( __FILE__, array( 'wordpress' => '4.0.0' ))) {
+if( !GL_Plugin_Check::shouldDeactivate( __FILE__, array( 'wordpress' => '4.0.0' ))) {
 	(new GeminiLabs\BlackBar\Application)->init();
 }

@@ -4,9 +4,9 @@ defined( 'WPINC' ) || die;
 
 /**
  * Checks for minimum system requirments on plugin activation
- * @version 1.0.0
+ * @version 1.0.1
  */
-class GL_Activate
+class GL_Plugin_Check
 {
 	const MIN_PHP_VERSION = '5.6.0';
 	const MIN_WORDPRESS_VERSION = '4.7.0';
@@ -27,22 +27,26 @@ class GL_Activate
 	protected static $versions;
 
 	/**
-	 * @return bool
-	 */
-	public static function isValid( array $args = array() )
-	{
-		$versions = static::normalize( $args );
-		return static::isPhpValid( $versions->php ) && static::isWpValid( $versions->wordpress );
-	}
-
-	/**
 	 * @param string $version
 	 * @return bool
 	 */
 	public static function isPhpValid( $version = '' )
 	{
-		$versions = static::normalize( array( 'php' => $version ));
-		return !version_compare( PHP_VERSION, $versions->php, '<' );
+		if( !empty( $version )) {
+			static::normalize( array( 'php' => $version ));
+		}
+		return !version_compare( PHP_VERSION, static::$versions->php, '<' );
+	}
+
+	/**
+	 * @return bool
+	 */
+	public static function isValid( array $args = array() )
+	{
+		if( !empty( $args )) {
+			static::normalize( $args );
+		}
+		return static::isPhpValid() && static::isWpValid();
 	}
 
 	/**
@@ -52,14 +56,16 @@ class GL_Activate
 	public static function isWpValid( $version = '' )
 	{
 		global $wp_version;
-		$versions = static::normalize( array( 'wordpress' => $version ));
-		return !version_compare( $wp_version, $versions->wordpress, '<' );
+		if( !empty( $version )) {
+			static::normalize( array( 'wordpress' => $version ));
+		}
+		return !version_compare( $wp_version, static::$versions->wordpress, '<' );
 	}
 
 	/**
 	 * @return bool
 	 */
-	public static function shouldDeactivate( $file, array $args = [] )
+	public static function shouldDeactivate( $file, array $args = array() )
 	{
 		if( empty( static::$instance )) {
 			static::$file = realpath( $file );
@@ -92,9 +98,9 @@ class GL_Activate
 	/**
 	 * @return object
 	 */
-	protected static function normalize( array $args = [] )
+	protected static function normalize( array $args = array() )
 	{
-		return (object) wp_parse_args( $args, array(
+		return (object)wp_parse_args( $args, array(
 			'php' => static::MIN_PHP_VERSION,
 			'wordpress' => static::MIN_WORDPRESS_VERSION,
 		));

@@ -53,6 +53,7 @@ To use this feature your theme must be built on the [Castor Framework](https://g
 = 1.0.1 (2018-04-21) =
 
 - Fixed CSS styles
+- Fixed plugin activation class
 
 = 1.0.0 (2018-02-22) =
 
