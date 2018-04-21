@@ -23,6 +23,6 @@ if( !class_exists( 'GL_Plugin_Check' )) {
 }
 require_once __DIR__.'/autoload.php';
 
-if( !GL_Plugin_Check::shouldDeactivate( __FILE__, array( 'wordpress' => '4.0.0' ))) {
+if( !GL_Plugin_Check::shouldDeactivate( __FILE__, array( 'php' => '5.4', 'wordpress' => '4.0.0' ))) {
 	(new GeminiLabs\BlackBar\Application)->init();
 }

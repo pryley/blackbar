@@ -3,7 +3,7 @@ Contributors: geminilabs, pryley
 Donate link: https://www.paypal.me/pryley
 Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.0.0
-Requires PHP: 5.6.0
+Requires PHP: 5.4.0
 Tested up to: 4.9
 Stable tag: 1.0.1
 License: GPLv3
@@ -54,6 +54,7 @@ To use this feature your theme must be built on the [Castor Framework](https://g
 
 - Fixed CSS styles
 - Fixed plugin activation class
+- Lower PHP requirement to 5.4
 
 = 1.0.0 (2018-02-22) =
 
