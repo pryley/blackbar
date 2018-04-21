@@ -5,7 +5,7 @@ Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.0.0
 Requires PHP: 5.4.0
 Tested up to: 4.9
-Stable tag: 1.0.1
+Stable tag: 1.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -50,7 +50,7 @@ To use this feature your theme must be built on the [Castor Framework](https://g
 
 == Changelog ==
 
-= 1.0.1 (2018-04-21) =
+= 1.1.0 (2018-04-21) =
 
 - Fixed CSS styles
 - Fixed plugin activation class
