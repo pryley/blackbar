@@ -9,7 +9,7 @@
 		<?php else : ?>
 		<?php foreach( $errors as $error ) : ?>
 		<tr>
-			<td><?= $error['name']; ?></td>
+			<td class="glbb-small"><?= $error['name']; ?></td>
 			<td><?= $error['message']; ?></td>
 		</tr>
 		<?php endforeach; ?>

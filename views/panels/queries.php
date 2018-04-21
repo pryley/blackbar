@@ -8,7 +8,7 @@
 	<tbody>
 		<?php foreach( $queries as $query ) : ?>
 		<tr>
-			<td class="glbb-number"><?= $query['ms']; ?></td>
+			<td class="glbb-small"><?= $query['ms']; ?></td>
 			<td><pre><code class="sql"><?= $query['sql']; ?></code></pre></td>
 		</tr>
 		<?php endforeach; ?>

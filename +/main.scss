@@ -1,3 +1,5 @@
+$active_color: #0073aa;
+
 .glbb-globals::before {
 	content: "\f107";
 }
@@ -49,11 +51,11 @@ body.blackbar #adminmenu {
 #glbb-debug-bar.glbb-mini {
 	width: 36px;
 }
-#glbb-debug-bar.glbb-mini a {
+#glbb-debug-bar.glbb-mini > a {
 	display: none;
 	padding: 0;
 }
-#glbb-debug-bar.glbb-mini a.glbb-toggle {
+#glbb-debug-bar.glbb-mini > a.glbb-toggle {
 	display:inline;
 }
 #glbb-debug-bar .hljs {
@@ -74,6 +76,13 @@ body.blackbar #adminmenu {
 	background: #32373c;
 	padding: 15px;
 	overflow:auto;
+}
+#glbb-debug-bar .glbb-debug-panel a {
+	color: $active_color;
+	text-decoration: none;
+	font-weight: normal;
+	padding: 0;
+	margin: 0;
 }
 #glbb-debug-bar table {
 	width: 100%;
@@ -99,16 +108,19 @@ body.blackbar #adminmenu {
 #glbb-debug-bar tr:last-child td {
 	padding-bottom: 0;
 }
-#glbb-debug-bar td.number {
+#glbb-debug-bar td.glbb-small,
+#glbb-debug-bar td.glbb-medium {
+	display: table-cell;
+	width: 80px;
 	text-align: right;
 }
-#glbb-debug-bar td.err-name {
-	width: 60px;
+#glbb-debug-bar td.glbb-medium {
+	width: 150px;
 }
 #glbb-debug-bar .glbb-queries-table tr:last-child td {
 	padding-bottom: 0;
 }
-#glbb-debug-bar a {
+#glbb-debug-bar > a {
 	float: left;
 	position: relative;
 	display: block;
@@ -128,26 +140,28 @@ body.blackbar #adminmenu {
 	-webkit-font-smoothing: subpixel-antialiased;
 	-moz-osx-font-smoothing: auto;
 }
-#glbb-debug-bar a:focus {
+#glbb-debug-bar > a:focus {
 	box-shadow: none;
 }
-#glbb-debug-bar a.glbb-active,
-#glbb-debug-bar a.glbb-active:hover {
-	background-color: #0073aa;
+#glbb-debug-bar > a.glbb-active,
+#glbb-debug-bar > a.glbb-active:hover,
+#glbb-debug-bar > a.glbb-active:hover span {
+	background-color: $active_color;
 	color: #fff;
 }
-#glbb-debug-bar a.glbb-active::before,
-#glbb-debug-bar a.glbb-active:hover::before {
+#glbb-debug-bar > a.glbb-active::before,
+#glbb-debug-bar > a.glbb-active:hover::before {
 	color: #fff;
 }
-#glbb-debug-bar a:hover {
+#glbb-debug-bar > a:hover {
 	background-color: #191e23;
 }
-#glbb-debug-bar a:hover,
-#glbb-debug-bar a:hover::before {
+#glbb-debug-bar > a:hover,
+#glbb-debug-bar > a:hover::before,
+#glbb-debug-bar > a:hover span {
 	color: #00b9eb;
 }
-#glbb-debug-bar a.glbb-close {
+#glbb-debug-bar > a.glbb-close {
 	&::before {
 		top: 0;
 		font-size: 24px;
@@ -159,7 +173,7 @@ body.blackbar #adminmenu {
 		color: #e00;
 	}
 }
-#glbb-debug-bar a::before {
+#glbb-debug-bar > a::before {
 	position: absolute;
 	left: 0;
 	top: 2px;
@@ -174,7 +188,7 @@ body.blackbar #adminmenu {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
-#glbb-debug-bar a span {
+#glbb-debug-bar > a span {
 	color: #fff;
 }
 #glbb-debug-bar pre,
@@ -232,14 +246,14 @@ body.blackbar #adminmenu {
 }
 
 @media screen and (min-width: 783px) {
-	#glbb-debug-bar a {
+	#glbb-debug-bar > a {
 		position: unset;
 		width: unset;
 		text-indent: unset;
 		text-overflow: ellipsis;
 		padding: 0 8px 0 7px;
 	}
-	#glbb-debug-bar a::before {
+	#glbb-debug-bar > a::before {
 		float: left;
 		position: relative;
 		width: unset;
@@ -247,13 +261,13 @@ body.blackbar #adminmenu {
 	#glbb-debug-bar.glbb-mini > a.glbb-toggle::before {
 		margin: 0;
 	}
-	#glbb-debug-bar a.glbb-close {
+	#glbb-debug-bar > a.glbb-close {
 		padding-left: 0;
 	}
 	#glbb-debug-bar.glbb-mini > a.glbb-toggle::before {
 		margin: 0 8px;
 	}
-	#glbb-debug-bar a.glbb-close {
+	#glbb-debug-bar > a.glbb-close {
 		padding-left: 4px;
 	}
 }
