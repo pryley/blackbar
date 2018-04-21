@@ -261,6 +261,9 @@ final class Application
 	 */
 	protected function getQueriesLabel()
 	{
+		if( !SAVEQUERIES ) {
+			return __( 'SQL', 'blackbar' );
+		}
 		global $wpdb;
 		$queryTime = 0;
 		foreach( $wpdb->queries as $query ) {

@@ -54,6 +54,7 @@ To use this feature your theme must be built on the [Castor Framework](https://g
 
 - Fixed CSS styles
 - Fixed plugin activation class
+- Fixed query logging
 - Lower PHP requirement to 5.4
 
 = 1.0.0 (2018-02-22) =

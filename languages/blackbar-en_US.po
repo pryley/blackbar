@@ -18,15 +18,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: qps-ploc\n"
 
-#: activate.php:124
+#: activate.php:130
 msgid "The %s plugin was deactivated."
 msgstr "The %s plugin was deactivated."
 
-#: activate.php:125
+#: activate.php:131
 msgid "Sorry, this plugin requires %s or greater in order to work properly."
 msgstr "Sorry, this plugin requires %s or greater in order to work properly."
 
-#: activate.php:126
+#: activate.php:132
 msgid ""
 "Please contact your hosting provider or server administrator to upgrade the "
 "version of PHP on your server (your server is running PHP version %s), or "
@@ -36,15 +36,15 @@ msgstr ""
 "version of PHP on your server (your server is running PHP version %s), or "
 "try to find an alternative plugin."
 
-#: activate.php:127
+#: activate.php:133
 msgid "PHP version"
 msgstr "PHP version"
 
-#: activate.php:128
+#: activate.php:134
 msgid "WordPress version"
 msgstr "WordPress version"
 
-#: activate.php:129
+#: activate.php:135
 msgid "Update WordPress"
 msgstr "Update WordPress"
 
@@ -60,7 +60,11 @@ msgstr "Errors (%s)"
 msgid "Profiler (%s ms)"
 msgstr "Profiler (%s ms)"
 
-#: src/Application.php:271
+#: src/Application.php:265
+msgid "SQL"
+msgstr "SQL"
+
+#: src/Application.php:274
 msgid "SQL (%s queries in %s ms)"
 msgstr "SQL (%s queries in %s ms)"
 
@@ -84,10 +88,14 @@ msgstr "Close"
 msgid "No errors found."
 msgstr "No errors found."
 
-#: views/panels/queries.php:4
+#: views/panels/queries.php:7
+msgid "must be enabled to view SQL queries"
+msgstr "must be enabled to view SQL queries"
+
+#: views/panels/queries.php:13
 msgid "Find queries containing"
 msgstr "Find queries containing"
 
-#: views/panels/queries.php:5
+#: views/panels/queries.php:14
 msgid "Minimum Execution Time"
 msgstr "Minimum Execution Time"
