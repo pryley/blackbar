@@ -2,6 +2,7 @@
 
 namespace GeminiLabs\BlackBar;
 
+use GeminiLabs\BlackBar\Controller;
 use GeminiLabs\BlackBar\Profiler;
 
 final class Application
@@ -10,26 +11,14 @@ final class Application
 	const ID = 'blackbar';
 	const LANG = '/languages/';
 
-	protected $errors = array();
-	protected $file;
-	protected $profiler;
+	public $errors = array();
+	public $file;
+	public $profiler;
 
 	public function __construct()
 	{
 		$this->file = realpath( dirname( __DIR__ ).'/'.static::ID.'.php' );
 		$this->profiler = new Profiler;
-	}
-
-	/**
-	 * @return void
-	 * @action admin_enqueue_scripts
-	 * @action wp_enqueue_scripts
-	 */
-	public function enqueueAssets()
-	{
-		wp_enqueue_script( static::ID, $this->url( 'assets/main.js' ));
-		wp_enqueue_style( static::ID, $this->url( 'assets/main.css' ), array( 'dashicons' ));
-		wp_enqueue_style( static::ID.'-syntax', $this->url( 'assets/syntax.css' ));
 	}
 
 	/**
@@ -67,73 +56,35 @@ final class Application
 	}
 
 	/**
-	 * @param string $classes
-	 * @return string
-	 */
-	public function filterBodyClasses( $classes )
-	{
-		return trim( $classes.' '.static::ID );
-	}
-
-	/**
-	 * @return array
-	 */
-	public function filterNoconflictScripts( $scripts )
-	{
-		$scripts[] = static::ID;
-		return $scripts;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function filterNoconflictStyles( $styles )
-	{
-		$styles[] = static::ID;
-		$styles[] = static::ID.'-syntax';
-		return $styles;
-	}
-
-	/**
 	 * @return void
 	 */
 	public function init()
 	{
-		add_action( 'admin_enqueue_scripts',    array( $this, 'enqueueAssets' ));
-		add_action( 'admin_footer',             array( $this, 'renderBar' ));
-		add_action( 'plugins_loaded',           array( $this, 'registerLanguages' ));
-		add_action( 'wp_enqueue_scripts',       array( $this, 'enqueueAssets' ));
-		add_action( 'wp_footer',                array( $this, 'renderBar' ));
-		add_filter( 'admin_body_class',         array( $this, 'filterBodyClasses' ));
-		add_filter( 'all',                      array( $this, 'initProfiler' ));
-		add_filter( 'gform_noconflict_scripts', array( $this, 'filterNoconflictScripts' ));
-		add_filter( 'gform_noconflict_styles',  array( $this, 'filterNoconflictStyles' ));
+		$controller = new Controller( $this );
+		add_action( 'admin_enqueue_scripts',    array( $controller, 'enqueueAssets' ));
+		add_action( 'wp_enqueue_scripts',       array( $controller, 'enqueueAssets' ));
+		add_action( 'plugins_loaded',           array( $controller, 'registerLanguages' ));
+		add_action( 'admin_footer',             array( $controller, 'renderBar' ));
+		add_action( 'wp_footer',                array( $controller, 'renderBar' ));
+		add_filter( 'admin_body_class',         array( $controller, 'filterBodyClasses' ));
+		add_filter( 'gform_noconflict_scripts', array( $controller, 'filterNoconflictScripts' ));
+		add_filter( 'gform_noconflict_styles',  array( $controller, 'filterNoconflictStyles' ));
+		add_filter( 'all',                      array( $controller, 'initProfiler' ));
 		apply_filters( 'debug', 'Profiler Started' );
 		apply_filters( 'debug', 'blackbar/profiler/noise' );
 		set_error_handler( array( $this, 'errorHandler' ), E_ALL|E_STRICT );
 	}
 
 	/**
-	 * @return void
-	 * @action all
+	 * @param string $file
+	 * @return string
 	 */
-	public function initProfiler()
+	public function path( $file = '' )
 	{
-		if( func_get_arg(0) != static::DEBUG )return;
-		$this->profiler->trace( func_get_arg(1) );
+		return plugin_dir_path( $this->file ).ltrim( trim( $file ), '/' );
 	}
 
 	/**
-	 * @return void
-	 */
-	public function registerLanguages()
-	{
-		load_plugin_textdomain( static::ID, false, plugin_basename( $this->path() ).static::LANG );
-	}
-
-	/**
-	 * Render a view and pass any provided data to the view
-	 *
 	 * @param string $view
 	 * @return void
 	 */
@@ -146,172 +97,10 @@ final class Application
 	}
 
 	/**
-	 * @return void
-	 * @action admin_footer
-	 * @action wp_footer
-	 */
-	public function renderBar()
-	{
-		apply_filters( 'debug', 'Profiler Stopped' );
-		$this->render( 'debug-bar', array(
-			'blackbar' => $this,
-			'errors' => $this->getErrors(),
-			'errorsLabel' => $this->getErrorsLabel(),
-			'profiler' => $this->profiler,
-			'profilerLabel' => $this->getProfilerLabel(),
-			'queries' => $this->getQueries(),
-			'queriesLabel' => $this->getQueriesLabel(),
-			'templates' => $this->getTemplates(),
-		));
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function convertToMiliseconds( $time, $decimals = 2 )
-	{
-		return number_format( $time * 1000, $decimals );
-	}
-
-	/**
-	 * @return array
-	 */
-	protected function getErrors()
-	{
-		$errors = array();
-		foreach( $this->errors as $error ) {
-			if( $error['errno'] == E_WARNING ) {
-				$error['name'] = '<span class="glbb-error">'.$error['name'].'</span>';
-			}
-			if( $error['count'] > 1 ) {
-				$error['name'] .= ' ('.$error['count'].')';
-			}
-			$errors[] = array(
-				'name' => $error['name'],
-				'message' => sprintf( __( '%s on line %s in file %s', 'blackbar' ),
-					$error['message'],
-					$error['line'],
-					$error['file']
-				),
-			);
-		}
-		return $errors;
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getErrorsLabel()
-	{
-		$warningCount = 0;
-		foreach( $this->errors as $error ) {
-			if( $error['errno'] == E_WARNING ) {
-				$warningCount++;
-			}
-		}
-		$errorCount = count( $this->errors );
-		$warnings = $warningCount > 0 ? sprintf( ', %d!', $warningCount ) : '';
-		return sprintf( __( 'Errors (%s)', 'blackbar' ), $errorCount.$warnings );
-	}
-
-	/**
-	 * @return array
-	 */
-	protected function getIncludedFiles()
-	{
-		$includes = array_values( array_filter( get_included_files(), function( $include ) {
-			$bool = strpos( $include, '/themes/' ) !== false
-				&& strpos( $include, '/functions.php' ) === false;
-			return (bool)apply_filters( 'blackbar/templates/include', $bool, $include );
-		}));
-		return array_map( function( $key, $value ) {
-			$value = str_replace( trailingslashit( WP_CONTENT_DIR ), '', $value );
-			return sprintf( '[%s] => %s', $key, $value );
-		}, array_keys( $includes ), $includes );
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getProfilerLabel()
-	{
-		$profilerTime = $this->convertToMiliseconds( $this->profiler->getTotalTime(), 0 );
-		return sprintf( __( 'Profiler (%s ms)', 'blackbar' ), $profilerTime );
-	}
-
-	/**
-	 * @return array
-	 */
-	protected function getQueries()
-	{
-		global $wpdb;
-		$queries = array();
-		$search = array(
-			'AND', 'FROM', 'GROUP BY', 'INNER JOIN', 'LIMIT', 'ON DUPLICATE KEY UPDATE',
-			'ORDER BY', 'SET', 'WHERE',
-		);
-		$replace = array_map( function( $value ) {
-			return PHP_EOL.$value;
-		}, $search );
-		foreach( $wpdb->queries as $query ) {
-			$miliseconds = number_format( round( $query[1] * 1000, 4 ), 4 );
-			$sql = preg_replace( '/\s\s+/', ' ', trim( $query[0] ));
-			$sql = str_replace( PHP_EOL, ' ', $sql );
-			$sql = str_replace( $search, $replace, $sql );
-			$queries[] = array(
-				'ms' => $miliseconds,
-				'sql' => $sql,
-			);
-		}
-		return $queries;
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getQueriesLabel()
-	{
-		if( !SAVEQUERIES ) {
-			return __( 'SQL', 'blackbar' );
-		}
-		global $wpdb;
-		$queryTime = 0;
-		foreach( $wpdb->queries as $query ) {
-			$queryTime += $query[1];
-		}
-		$queriesCount = '<span class="glbb-queries-count">'.count( $wpdb->queries ).'</span>';
-		$queriesTime = '<span class="glbb-queries-time">'.$this->convertToMiliseconds( $queryTime ).'</span>';
-		return sprintf( __( 'SQL (%s queries in %s ms)', 'blackbar' ), $queriesCount, $queriesTime );
-	}
-
-	/**
-	 * @return void|string
-	 */
-	protected function getTemplates()
-	{
-		if( is_admin() )return;
-		if( class_exists( '\GeminiLabs\Castor\Facades\Development' )) {
-			ob_start();
-			\GeminiLabs\Castor\Facades\Development::printTemplatePaths();
-			return ob_get_clean();
-		}
-		return '<pre>'.implode( PHP_EOL, $this->getIncludedFiles() ).'</pre>';
-	}
-
-	/**
-	 * @param string $file
-	 * @return string
-	 */
-	protected function path( $file = '' )
-	{
-		return plugin_dir_path( $this->file ).ltrim( trim( $file ), '/' );
-	}
-
-	/**
 	 * @param string $path
 	 * @return string
 	 */
-	protected function url( $path = '' )
+	public function url( $path = '' )
 	{
 		return esc_url( plugin_dir_url( $this->file ).ltrim( trim( $path ), '/' ));
 	}

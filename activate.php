@@ -63,6 +63,7 @@ class GL_Plugin_Check
 	}
 
 	/**
+	 * @param string $file
 	 * @return bool
 	 */
 	public static function shouldDeactivate( $file, array $args = array() )
@@ -81,6 +82,7 @@ class GL_Plugin_Check
 	}
 
 	/**
+	 * @param string $plugin
 	 * @return void
 	 */
 	public function deactivate( $plugin )

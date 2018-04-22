@@ -11,11 +11,6 @@ class Profiler
 	protected $noise = 0;
 
 	/**
-	 * @var array
-	 */
-	protected $timers = array();
-
-	/**
 	 * @var int
 	 */
 	protected $start = null;
@@ -24,6 +19,11 @@ class Profiler
 	 * @var int
 	 */
 	protected $stop = null;
+
+	/**
+	 * @var array
+	 */
+	protected $timers = array();
 
 	/**
 	 * @return array
@@ -77,6 +77,7 @@ class Profiler
 
 	/**
 	 * @param string $name
+	 * @return void
 	 */
 	public function trace( $name )
 	{
@@ -89,22 +90,23 @@ class Profiler
 			return;
 		}
 		$this->timers[] = array(
+			'memory' => memory_get_peak_usage(),
 			'name' => $name,
 			'time' => $microtime,
-			'memory' => memory_get_peak_usage(),
 		);
 		$this->stop = $microtime;
 	}
 
 	/**
+	 * @param array $timer
 	 * @return array
 	 */
 	protected function normalize( $timer )
 	{
-		return wp_parse_args( (array) $timer, array(
+		return wp_parse_args( (array)$timer, array(
+			'memory' => 0,
 			'name' => '',
 			'time' => 0,
-			'memory' => 0,
 		));
 	}
 }

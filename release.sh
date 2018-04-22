@@ -1,6 +1,7 @@
 #!/bin/sh
 # By Paul Ryley, based on work by Mike Jolley
 # License: GPLv3
+# Version 1.1.0
 
 # ----- START EDITING HERE -----
 

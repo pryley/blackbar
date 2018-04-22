@@ -14,7 +14,7 @@ spl_autoload_register( function( $class )
 	foreach( $namespaces as $prefix => $base_dir ) {
 		$len = strlen( $prefix );
 		if( strncmp( $prefix, $class, $len ) !== 0 )continue;
-		$file = $base_dir . str_replace( '\\', '/', substr( $class, $len )).'.php';
+		$file = $base_dir.str_replace( '\\', '/', substr( $class, $len )).'.php';
 		if( !file_exists( $file ))continue;
 		require $file;
 		break;
