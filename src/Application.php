@@ -161,6 +161,7 @@ final class Application
 			'profilerLabel' => $this->getProfilerLabel(),
 			'queries' => $this->getQueries(),
 			'queriesLabel' => $this->getQueriesLabel(),
+			'templates' => $this->getTemplates(),
 		));
 	}
 
@@ -214,6 +215,22 @@ final class Application
 	}
 
 	/**
+	 * @return array
+	 */
+	protected function getIncludedFiles()
+	{
+		$includes = array_values( array_filter( get_included_files(), function( $include ) {
+			$bool = strpos( $include, '/themes/' ) !== false
+				&& strpos( $include, '/functions.php' ) === false;
+			return (bool)apply_filters( 'blackbar/templates/include', $bool, $include );
+		}));
+		return array_map( function( $key, $value ) {
+			$value = str_replace( trailingslashit( WP_CONTENT_DIR ), '', $value );
+			return sprintf( '[%s] => %s', $key, $value );
+		}, array_keys( $includes ), $includes );
+	}
+
+	/**
 	 * @return string
 	 */
 	protected function getProfilerLabel()
@@ -230,15 +247,8 @@ final class Application
 		global $wpdb;
 		$queries = array();
 		$search = array(
-			'AND',
-			'FROM',
-			'GROUP BY',
-			'INNER JOIN',
-			'LIMIT',
-			'ON DUPLICATE KEY UPDATE',
-			'ORDER BY',
-			'SET',
-			'WHERE',
+			'AND', 'FROM', 'GROUP BY', 'INNER JOIN', 'LIMIT', 'ON DUPLICATE KEY UPDATE',
+			'ORDER BY', 'SET', 'WHERE',
 		);
 		$replace = array_map( function( $value ) {
 			return PHP_EOL.$value;
@@ -272,6 +282,20 @@ final class Application
 		$queriesCount = '<span class="glbb-queries-count">'.count( $wpdb->queries ).'</span>';
 		$queriesTime = '<span class="glbb-queries-time">'.$this->convertToMiliseconds( $queryTime ).'</span>';
 		return sprintf( __( 'SQL (%s queries in %s ms)', 'blackbar' ), $queriesCount, $queriesTime );
+	}
+
+	/**
+	 * @return void|string
+	 */
+	protected function getTemplates()
+	{
+		if( is_admin() )return;
+		if( class_exists( '\GeminiLabs\Castor\Facades\Development' )) {
+			ob_start();
+			\GeminiLabs\Castor\Facades\Development::printTemplatePaths();
+			return ob_get_clean();
+		}
+		return '<pre>'.implode( PHP_EOL, $this->getIncludedFiles() ).'</pre>';
 	}
 
 	/**

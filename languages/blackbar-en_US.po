@@ -48,39 +48,39 @@ msgstr "WordPress version"
 msgid "Update WordPress"
 msgstr "Update WordPress"
 
-#: src/Application.php:190
+#: src/Application.php:191
 msgid "%s on line %s in file %s"
 msgstr "%s on line %s in file %s"
 
-#: src/Application.php:213
+#: src/Application.php:214
 msgid "Errors (%s)"
 msgstr "Errors (%s)"
 
-#: src/Application.php:222
+#: src/Application.php:239
 msgid "Profiler (%s ms)"
 msgstr "Profiler (%s ms)"
 
-#: src/Application.php:265
+#: src/Application.php:282
 msgid "SQL"
 msgstr "SQL"
 
-#: src/Application.php:274
+#: src/Application.php:291
 msgid "SQL (%s queries in %s ms)"
 msgstr "SQL (%s queries in %s ms)"
 
-#: views/debug-bar.php:6
+#: views/debug-bar.php:4
 msgid "Toggle"
 msgstr "Toggle"
 
-#: views/debug-bar.php:7
+#: views/debug-bar.php:5
 msgid "Globals"
 msgstr "Globals"
 
-#: views/debug-bar.php:11
+#: views/debug-bar.php:9
 msgid "Templates"
 msgstr "Templates"
 
-#: views/debug-bar.php:14
+#: views/debug-bar.php:12
 msgid "Close"
 msgstr "Close"
 

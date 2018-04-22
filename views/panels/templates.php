@@ -1,3 +1,3 @@
 <?php defined( 'WPINC' ) || die;
 
-Development::printTemplatePaths();
+echo $templates;

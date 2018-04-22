@@ -5,11 +5,11 @@ Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.0.0
 Requires PHP: 5.4.0
 Tested up to: 4.9
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Black Bar is a Debug Bar for WordPress developers. It collects and displays errors, executed queries, globals, templates (if using the [Castor Framework](https://github.com/geminilabs/castor-framework)), and provides a profiler.
+Black Bar is a Debug Bar for WordPress developers. It collects and displays errors, executed queries, globals, theme templates, and provides a profiler.
 
 == Description ==
 
@@ -20,7 +20,7 @@ How it helps you with development:
 - Debug both the front-end and admin area
 - Displays any PHP errors that occur when loading a page
 - Displays executed MySQL queries and the time it took to execute each query
-- Displays the loaded theme template files (if using the [Castor Framework](https://github.com/geminilabs/castor-framework))
+- Displays the loaded template files of the active theme
 - Inspect global variables (COOKIE, GET, POST, SERVER, SESSION)
 - Use the Profiler for measuring performance of your plugins and themes
 
@@ -44,18 +44,19 @@ To use the profiler, simply put the following line of PHP before and after the c
 
 `apply_filters( 'debug', 'Enter a description here' );`
 
-= How do I view which template files of my active theme have been loaded? =
-
-To use this feature your theme must be built on the [Castor Framework](https://github.com/geminilabs/castor-framework).
-
 == Changelog ==
+
+= 1.2.0 (2018-04-23) =
+
+- Display loaded templates from the active theme
+- Fixed CSS styles
 
 = 1.1.0 (2018-04-21) =
 
+- Lowered PHP requirement to 5.4
 - Fixed CSS styles
 - Fixed plugin activation class
 - Fixed query logging
-- Lower PHP requirement to 5.4
 
 = 1.0.0 (2018-02-22) =
 

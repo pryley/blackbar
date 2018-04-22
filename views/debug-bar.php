@@ -1,13 +1,11 @@
-<?php defined( 'WPINC' ) || die;
-$isCastorTheme = class_exists( '\GeminiLabs\Castor\Application' );
-?>
+<?php defined( 'WPINC' ) || die; ?>
 
 <div id="glbb-debug-bar">
 	<a href="#" class="glbb-toggle glbb-off"><?= __( 'Toggle', 'blackbar' ); ?></a>
 	<a href="javascript:Blackbar.switchPanel('glbb-globals')" class="glbb-globals"><?= __( 'Globals', 'blackbar' ); ?></a>
 	<a href="javascript:Blackbar.switchPanel('glbb-profiler')" class="glbb-profiler"><?= $profilerLabel; ?></a>
 	<a href="javascript:Blackbar.switchPanel('glbb-queries')" class="glbb-queries"><?= $queriesLabel; ?></a>
-	<?php if( $isCastorTheme ) : ?>
+	<?php if( !is_admin() ) : ?>
 	<a href="javascript:Blackbar.switchPanel('glbb-templates')" class="glbb-templates"><?= __( 'Templates', 'blackbar' ); ?></a>
 	<?php endif; ?>
 	<a href="javascript:Blackbar.switchPanel('glbb-errors')" class="glbb-errors"><?= $errorsLabel; ?></a>
@@ -21,9 +19,9 @@ $isCastorTheme = class_exists( '\GeminiLabs\Castor\Application' );
 	<div id="glbb-queries" class="glbb-debug-panel">
 		<?php $blackbar->render( 'panels/queries', array( 'queries' => $queries )); ?>
 	</div>
-	<?php if( $isCastorTheme ) : ?>
+	<?php if( !is_admin() ) : ?>
 	<div id="glbb-templates" class="glbb-debug-panel">
-		<?php $blackbar->render( 'panels/templates' ); ?>
+		<?php $blackbar->render( 'panels/templates', array( 'templates' => $templates )); ?>
 	</div>
 	<?php endif; ?>
 	<div id="glbb-errors" class="glbb-debug-panel">
