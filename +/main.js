@@ -8,7 +8,7 @@ module.exports = hljs;
 window.Blackbar =
 {
 	activeClass: 'glbb-active',
-	element: ['glbb-globals', 'glbb-profiler', 'glbb-queries', 'glbb-templates', 'glbb-errors'],
+	element: ['glbb-globals', 'glbb-profiler', 'glbb-queries', 'glbb-templates', 'glbb-console'],
 	id: 'glbb-debug-bar',
 	open: null,
 
@@ -54,7 +54,10 @@ window.Blackbar =
 			var el = document.getElementById( Blackbar.element[i] );
 			if( el ) {
 				el.style.display = 'none';
-				document.querySelector( 'a.' + Blackbar.element[i] ).classList.remove( Blackbar.activeClass );
+				var a = document.querySelector( 'a.' + Blackbar.element[i] );
+				a.classList.remove( Blackbar.activeClass );
+				a.blur();
+				a.hideFocus = true;
 			}
 		}
 		if( open == Blackbar.open ) {
@@ -96,6 +99,8 @@ document.addEventListener( 'DOMContentLoaded', function() {
 			blackbarEl.classList.remove( 'glbb-mini' );
 			Blackbar.createCookie( 'glbb-toggle', 'off' );
 		}
+		toggle.blur();
+		toggle.hideFocus = true;
 		ev.preventDefault();
 	};
 

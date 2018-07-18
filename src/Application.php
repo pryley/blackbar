@@ -3,20 +3,24 @@
 namespace GeminiLabs\BlackBar;
 
 use GeminiLabs\BlackBar\Controller;
+use GeminiLabs\BlackBar\Console;
 use GeminiLabs\BlackBar\Profiler;
 
 final class Application
 {
+	const CONSOLE_HOOK = 'console';
 	const ID = 'blackbar';
 	const LANG = '/languages/';
 	const PROFILER_HOOK = 'profile';
 
+	public $console;
 	public $errors = array();
 	public $file;
 	public $profiler;
 
 	public function __construct()
 	{
+		$this->console = new Console;
 		$this->file = realpath( dirname( __DIR__ ).'/'.static::ID.'.php' );
 		$this->profiler = new Profiler;
 	}
@@ -67,6 +71,7 @@ final class Application
 		add_action( 'admin_footer',             array( $controller, 'renderBar' ));
 		add_action( 'wp_footer',                array( $controller, 'renderBar' ));
 		add_filter( 'admin_body_class',         array( $controller, 'filterBodyClasses' ));
+		add_filter( 'all',                      array( $controller, 'initConsole' ));
 		add_filter( 'all',                      array( $controller, 'initProfiler' ));
 		apply_filters( 'debug', 'Profiler Started' );
 		apply_filters( 'debug', 'blackbar/profiler/noise' );

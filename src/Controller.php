@@ -39,8 +39,20 @@ class Controller
 	}
 
 	/**
+	 * @return void
+	 * @filter all
 	 */
+	public function initConsole()
 	{
+		if( func_get_arg(0) != Application::CONSOLE_HOOK )return;
+		$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 4 );
+		$entry = array_pop( $backtrace );
+		$location = '';
+		if( array_key_exists( 'file', $entry )) {
+			$path = explode( '/plugin/', $entry['file'] );
+			$location = sprintf( '[%s:%s] ', array_pop( $path ), $entry['line'] );
+		}
+		$this->app->console->store( func_get_arg(1), $location );
 	}
 
 	/**
@@ -74,8 +86,8 @@ class Controller
 		apply_filters( 'debug', 'Profiler Stopped' );
 		$this->app->render( 'debug-bar', array(
 			'blackbar' => $this->app,
-			'errors' => $this->getErrors(),
-			'errorsLabel' => $this->getErrorsLabel(),
+			'consoleEntries' => $this->getConsoleEntries(),
+			'consoleLabel' => $this->getConsoleLabel(),
 			'profiler' => $this->app->profiler,
 			'profilerLabel' => $this->getProfilerLabel(),
 			'queries' => $this->getQueries(),
@@ -92,6 +104,33 @@ class Controller
 	protected function convertToMiliseconds( $time, $decimals = 2 )
 	{
 		return number_format( $time * 1000, $decimals );
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getConsoleEntries()
+	{
+		return array_merge( $this->getErrors(), $this->app->console->entries );
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function getConsoleLabel()
+	{
+		$entries = $this->getConsoleEntries();
+		$warningCount = 0;
+		foreach( $entries as $entry ) {
+			if( $entry['errno'] == E_WARNING ) {
+				$warningCount++;
+			}
+		}
+		$entryCount = count( $entries );
+		$warnings = $warningCount > 0
+			? sprintf( ', %d!', $warningCount )
+			: '';
+		return sprintf( __( 'Console (%s)', 'blackbar' ), $entryCount.$warnings );
 	}
 
 	/**
@@ -117,24 +156,6 @@ class Controller
 			);
 		}
 		return $errors;
-	}
-
-	/**
-	 * @return string
-	 */
-	protected function getErrorsLabel()
-	{
-		$warningCount = 0;
-		foreach( $this->app->errors as $error ) {
-			if( $error['errno'] == E_WARNING ) {
-				$warningCount++;
-			}
-		}
-		$errorCount = count( $this->app->errors );
-		$warnings = $warningCount > 0
-			? sprintf( ', %d!', $warningCount )
-			: '';
-		return sprintf( __( 'Errors (%s)', 'blackbar' ), $errorCount.$warnings );
 	}
 
 	/**
