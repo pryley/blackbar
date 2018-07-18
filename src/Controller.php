@@ -49,7 +49,7 @@ class Controller
 	 */
 	public function initProfiler()
 	{
-		if( func_get_arg(0) != Application::DEBUG )return;
+		if( func_get_arg(0) != Application::PROFILER_HOOK )return;
 		$this->app->profiler->trace( func_get_arg(1) );
 	}
 
@@ -204,7 +204,7 @@ class Controller
 		}
 		$queriesCount = '<span class="glbb-queries-count">'.count( $wpdb->queries ).'</span>';
 		$queriesTime = '<span class="glbb-queries-time">'.$this->convertToMiliseconds( $queryTime ).'</span>';
-		return sprintf( __( 'SQL (%s queries in %s ms)', 'blackbar' ), $queriesCount, $queriesTime );
+		return sprintf( __( 'SQL (%s queries | %s ms)', 'blackbar' ), $queriesCount, $queriesTime );
 	}
 
 	/**

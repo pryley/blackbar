@@ -7,9 +7,9 @@ use GeminiLabs\BlackBar\Profiler;
 
 final class Application
 {
-	const DEBUG = 'debug';
 	const ID = 'blackbar';
 	const LANG = '/languages/';
+	const PROFILER_HOOK = 'profile';
 
 	public $errors = array();
 	public $file;
@@ -31,10 +31,10 @@ final class Application
 	public function errorHandler( $errno, $errstr, $errfile, $errline )
 	{
 		$errorCodes = array(
-			2 => 'Warning',
-			8 => 'Notice',
-			2048 => 'Strict',
-			8192 => 'Deprecated',
+			2 => 'Warning', //E_WARNING
+			8 => 'Notice', //E_NOTICE
+			2048 => 'Strict', //E_STRICT
+			8192 => 'Deprecated', //E_DEPRECATED
 		);
 		$errname = array_key_exists( $errno, $errorCodes )
 			? $errorCodes[$errno]

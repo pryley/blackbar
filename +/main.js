@@ -104,9 +104,8 @@ document.addEventListener( 'DOMContentLoaded', function() {
 		var query = debugFilter.value;
 		var qnum = 0;
 		var qtime = 0;
-
 		blackbarEl.querySelectorAll( '#glbb-queries tr' ).forEach( function( tr ) {
-			var minTimeFilter = parseFloat( tr.querySelector( '.glbb-number' ).textContent.replace( ' [ms]', '' ));
+			var minTimeFilter = parseFloat( tr.querySelector( '.glbb-small' ).textContent.replace( ' [ms]', '' ));
 			var queryFilter = tr.querySelector( '.sql' ).textContent.indexOf( query );
 			var timeResult = time > 0 && minTimeFilter < time;
 			var queryResult = query.length > 0 && queryFilter == -1;

@@ -1,31 +1,29 @@
 $active_color: #0073aa;
 
-.glbb-globals::before {
-	content: "\f107";
-}
-.glbb-profiler::before {
-	content: "\f311";
+.glbb-console::before {
+	content: "\f534";
 }
 .glbb-filters::before {
 	content: "\f536";
+}
+.glbb-globals::before {
+	content: "\f107";
+}
+.glbb-off::before,
+.glbb-toggle::before {
+	content: "\f340";
+}
+.glbb-on::before {
+	content: "\f344";
+}
+.glbb-profiler::before {
+	content: "\f311";
 }
 .glbb-queries::before {
 	content: "\f536";
 }
 .glbb-templates::before {
 	content: "\f116";
-}
-.glbb-errors::before {
-	content: "\f534";
-}
-.glbb-toggle::before {
-	content: "\f340";
-}
-.glbb-off::before {
-	content: "\f340";
-}
-.glbb-on::before {
-	content: "\f344";
 }
 
 body.blackbar #adminmenu {
@@ -72,8 +70,8 @@ body.blackbar #adminmenu {
 	right: 0;
 	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 	font-size: 14px;
-	max-height: 400px;
-	background: #32373c;
+	max-height: calc(100% - 32px);
+	background-color: #32373c;
 	padding: 15px;
 	overflow:auto;
 }
@@ -90,6 +88,9 @@ body.blackbar #adminmenu {
 	color: #ccc;
 	border: none;
 	margin: 0;
+}
+#glbb-debug-bar table.glbb-queries-table {
+	margin-top: 90px;
 }
 #glbb-debug-bar tr {
 	border: none;
@@ -120,7 +121,7 @@ body.blackbar #adminmenu {
 #glbb-debug-bar td.glbb-medium {
 	width: 150px;
 }
-#glbb-debug-bar .glbb-queries-table tr:last-child td {
+#glbb-debug-bar table.glbb-queries-table tr:last-child td {
 	padding-bottom: 0;
 }
 #glbb-debug-bar > a {
@@ -147,6 +148,7 @@ body.blackbar #adminmenu {
 	box-shadow: none;
 }
 #glbb-debug-bar > a.glbb-active,
+#glbb-debug-bar > a.glbb-active span,
 #glbb-debug-bar > a.glbb-active:hover,
 #glbb-debug-bar > a.glbb-active:hover span {
 	background-color: $active_color;
@@ -156,9 +158,16 @@ body.blackbar #adminmenu {
 #glbb-debug-bar > a.glbb-active:hover::before {
 	color: #fff;
 }
-#glbb-debug-bar > a:hover {
-	background-color: #191e23;
+#glbb-debug-bar > a:focus {
+	outline: none;
 }
+#glbb-debug-bar > a:not(.glbb-active):focus,
+#glbb-debug-bar > a:hover {
+	background-color: #32373c;
+}
+#glbb-debug-bar > a:not(.glbb-active):focus,
+#glbb-debug-bar > a:not(.glbb-active):focus::before,
+#glbb-debug-bar > a:not(.glbb-active):focus span,
 #glbb-debug-bar > a:hover,
 #glbb-debug-bar > a:hover::before,
 #glbb-debug-bar > a:hover span {
@@ -207,31 +216,45 @@ body.blackbar #adminmenu {
 	padding:0;
 	margin: 0;
 }
-#glbb-debug-bar .glbb-queries-filter::after {
-	display: block;
-	content: '';
-	clear: both;
-}
 #glbb-debug-bar form {
 	line-height: normal;
 	padding: 0;
 	margin: 0;
 }
+#glbb-debug-bar form.glbb-queries-filter {
+	position: fixed;
+	width: 100%;
+	left: 0;
+	background-color: #32373c;
+	padding: 15px 15px 0;
+	margin-top: -15px;
+}
+#glbb-debug-bar form.glbb-queries-filter::after {
+	display: block;
+	content: '';
+	clear: both;
+}
 #glbb-debug-bar input[type=text] {
 	width: 100%;
+	height: 30px;
 	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 	background-color: #32373c;
 	font-size: 14px;
+	line-height: 1;
 	color: #ccc;
 	border: 1px solid gray;
 	border-radius: 0;
+	box-sizing: border-box;
 	color: silver;
 	padding: 4px 10px;
-	margin: 0 0 15px;
+	margin: 0;
 }
 #glbb-debug-bar input[type=text]::placeholder {
 	font-family: "Operator Mono", Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
 	color: rgba(255,255,255,0.25);
+}
+#glbb-debug-bar input[name=glbb_query_filter] {
+	margin-bottom: 15px;
 }
 
 @media screen and (min-width: 480px) {
@@ -245,6 +268,12 @@ body.blackbar #adminmenu {
 	}
 	#glbb-debug-bar input[type=text]:last-of-type {
 		margin-left: 5px;
+	}
+	#glbb-debug-bar input[name=glbb_query_filter] {
+		margin-bottom: 0;
+	}
+	#glbb-debug-bar table.glbb-queries-table {
+		margin-top: 45px;
 	}
 }
 
