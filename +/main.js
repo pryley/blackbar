@@ -132,6 +132,11 @@ document.addEventListener( 'DOMContentLoaded', function() {
 		Blackbar.createCookie( 'glbb_query_min_time', blackbarEl.querySelector( '#glbb_query_min_time' ).value );
 	};
 
+	document.body.addEventListener( 'keydown', function( ev ) {
+		if( 27 !== ev.which || Blackbar.open == null )return;
+		Blackbar.switchPanel( Blackbar.open );
+	});
+
 	debugToggle.addEventListener( 'click', onClick );
 	debugFilter.addEventListener( 'keyup', onKeyup );
 	debugMinTime.addEventListener( 'keyup', onKeyup );

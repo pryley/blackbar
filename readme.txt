@@ -58,6 +58,7 @@ To use the profiler, simply put the following line of PHP _before_ and _after_ t
 - Added a console tab (replaces the Errors tab, see the FAQ on how to use)
 - Fixed SQL execution time filter
 - Fixed miscellaneous styling issues
+- Press ESC to close the blackbar panel
 - Updated activation requirements check
 
 = 1.2.0 (2018-04-23) =
