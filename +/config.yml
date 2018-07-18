@@ -1,6 +1,6 @@
 bump:
-  stable tag: readme.txt
-  version: blackbar.php
+  - readme.txt
+  - blackbar.php
 dest:
   css: assets/
   js: assets/
@@ -10,7 +10,6 @@ language:
   team: Gemini Labs <support@geminilabs.io>
   translator: Paul Ryley <paul@geminilabs.io>
 scripts:
-  highlight.js: +/highlight.js
   main.js: +/main.js
 styles:
   syntax.css: node_modules/highlight.js/styles/atom-one-dark.css
