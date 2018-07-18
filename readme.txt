@@ -5,7 +5,7 @@ Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.0.0
 Requires PHP: 5.4.0
 Tested up to: 4.9
-Stable tag: 1.2.0
+Stable tag: 2.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -22,6 +22,7 @@ How it helps you with development:
 - Displays executed MySQL queries and the time it took to execute each query
 - Displays the loaded template files of the active theme
 - Inspect global variables (COOKIE, GET, POST, SERVER, SESSION)
+- Use the Console for debugging your plugins and themes
 - Use the Profiler for measuring performance of your plugins and themes
 
 == Installation ==
@@ -38,13 +39,26 @@ Download the Black Bar plugin and uploading it to your server via your favorite 
 
 == Frequently Asked Questions ==
 
+= How do I add entries to the Console? =
+
+To add entries to the console, simply put the following line of PHP anywhere in your code:
+
+`apply_filters( 'console', 'Enter something to debug here' );`
+
 = How do I use the Profiler? =
 
-To use the profiler, simply put the following line of PHP before and after the code you wish to profile:
+To use the profiler, simply put the following line of PHP _before_ and _after_ the code you wish to profile:
 
-`apply_filters( 'debug', 'Enter a description here' );`
+`apply_filters( 'profile', 'Enter a description of what you are profiling here' );`
 
 == Changelog ==
+
+= 2.0.0 (2018-07-18) =
+
+- Added a console tab (replaces the Errors tab, see the FAQ on how to use)
+- Fixed SQL execution time filter
+- Fixed miscellaneous styling issues
+- Updated activation requirements check
 
 = 1.2.0 (2018-04-23) =
 
