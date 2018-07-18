@@ -10,10 +10,8 @@ var gulpif          = require('gulp-if');
 var jshint          = require('gulp-jshint');
 var mergeStream     = require('merge-stream');
 var potomo          = require('gulp-potomo');
-var pseudo          = require('gulp-pseudo-i18n');
+var pottopo         = require('gulp-pottopo');
 var pump            = require('pump');
-var rename          = require('gulp-rename');
-var runSequence     = require('run-sequence');
 var sass            = require('gulp-sass');
 var sort            = require('gulp-sort');
 var uglify          = require('gulp-uglify');
@@ -22,22 +20,37 @@ var yaml            = require('yamljs');
 
 var config = yaml.load('+/config.yml');
 
-/* JSHint Task
- -------------------------------------------------- */
-gulp.task('jshint', function() {
+gulp.task('bump', function(cb) {
+  var type = 'patch';
+  ['prerelease','patch','minor','major'].some(function(arg) {
+    if( !args[arg] )return;
+    type = arg;
+    return true;
+  });
   pump([
-    gulp.src(config.watch.js),
-    jshint(),
-    jshint.reporter('jshint-stylish'),
-    jshint.reporter('fail'),
-  ]);
+    gulp.src(config.bump),
+    bump({type:type,keys:['stable tag','version']}),
+    gulp.dest('.'),
+  ], cb);
 });
 
-/* JS Task
- -------------------------------------------------- */
-gulp.task('js', function() {
+gulp.task('css', function(cb) {
+  var streams = mergeStream();
+  for(var key in config.styles) {
+    if(!config.styles.hasOwnProperty(key))continue;
+    streams.add(gulp.src(config.styles[key]).pipe(concat(key)));
+  }
+  pump([
+    streams,
+    gulpif(args.production, cssnano()),
+    gulp.dest(config.dest.css),
+  ], cb);
+});
+
+gulp.task('js', function(cb) {
   var streams = mergeStream();
   for(var key in config.scripts) {
+    if(!config.scripts.hasOwnProperty(key))continue;
     streams.add(gulp.src(config.scripts[key]).pipe(concat(key)));
   }
   pump([
@@ -49,52 +62,31 @@ gulp.task('js', function() {
       ],
     }),
     gulpif(args.production, uglify({
-      output: { comments: 'some' },
+      output: {comments: 'some'},
     })),
     gulp.dest(config.dest.js),
-  ]);
+  ], cb);
 });
 
-/* CSS Task
- -------------------------------------------------- */
-gulp.task('css', function() {
-  var streams = mergeStream();
-  for(var key in config.styles) {
-    streams.add(gulp.src(config.styles[key]).pipe(concat(key)));
-  }
+gulp.task('jshint', function(cb) {
   pump([
-    streams,
-    gulpif(args.production, cssnano()),
-    gulp.dest(config.dest.css),
-  ]);
+    gulp.src(config.watch.js),
+    jshint(),
+    jshint.reporter('jshint-stylish'),
+    jshint.reporter('fail'),
+  ], cb);
 });
 
-/* SCSS Task
- -------------------------------------------------- */
-gulp.task('scss', function() {
+gulp.task('po-to-mo', function(cb) {
   pump([
-    gulp.src(config.watch.scss),
-    sass({
-      outputStyle: 'expanded',
-    }).on('error', sass.logError),
-    autoprefixer('last 2 versions'),
-    gulpif(args.production, cssnano({
-      minifyFontValues: false,
-      discardComments: { removeAll: true },
-      zindex: false,
-    })),
-    gulp.dest(config.dest.css),
-  ]);
+    gulp.src(config.dest.lang + '*.po'),
+    potomo(),
+    gulp.dest(config.dest.lang),
+  ], cb);
 });
 
-/* Language Tasks
- -------------------------------------------------- */
-gulp.task('languages', function() {
-  return runSequence('po', 'mo')
-});
-
-gulp.task('po', function() {
-  return pump([
+gulp.task('pot', function(cb) {
+  pump([
     gulp.src(config.watch.php),
     checktextdomain({
       text_domain: config.language.domain,
@@ -121,54 +113,40 @@ gulp.task('po', function() {
       lastTranslator: config.language.translator,
       team: config.language.team,
     }),
-    pseudo({
-      charMap: {},
-    }),
-    rename(config.language.domain + '-en_US.po'),
+    gulp.dest(config.dest.lang + config.language.domain + '.pot'),
+  ], cb);
+});
+
+gulp.task('pot-to-po', function(cb) {
+  pump([
+    gulp.src(config.dest.lang + '*.pot'),
+    pottopo(),
     gulp.dest(config.dest.lang),
-  ]);
+  ], cb);
 });
 
-gulp.task('mo', function() {
-  return pump([
-    gulp.src(config.dest.lang + '*.po'),
-    potomo(),
-    gulp.dest(config.dest.lang),
-  ]);
+gulp.task('scss', function(cb) {
+  pump([
+    gulp.src(config.watch.scss),
+    sass({
+      outputStyle: 'expanded',
+    }).on('error', sass.logError),
+    autoprefixer('last 2 versions'),
+    gulpif(args.production, cssnano({
+      minifyFontValues: false,
+      discardComments: {removeAll: true},
+      zindex: false,
+    })),
+    gulp.dest(config.dest.css),
+  ], cb);
 });
 
-/* Version Task
- -------------------------------------------------- */
-gulp.task('bump', function() {
-  ['patch', 'minor', 'major'].some(function(arg) {
-    if(!args[arg])return;
-    for(var key in config.bump) {
-      if(!config.bump.hasOwnProperty(key))continue;
-      pump([
-        gulp.src(config.bump[key]),
-        bump({type:arg,key:key}),
-        gulp.dest('.'),
-      ]);
-    }
-  });
-});
-
-/* Watch Task
- -------------------------------------------------- */
 gulp.task('watch', function() {
-  gulp.watch(config.watch.css, ['css']);
-  gulp.watch(config.watch.js, ['jshint', 'js']);
-  gulp.watch(config.watch.scss, ['scss']);
+  gulp.watch(config.watch.css, gulp.series('css'));
+  gulp.watch(config.watch.js, gulp.parallel('jshint', 'js'));
+  gulp.watch(config.watch.scss, gulp.series('scss'));
 });
 
-/* Default Task
- -------------------------------------------------- */
-gulp.task('default', function() {
-  gulp.start('css', 'scss', 'jshint', 'js')
-});
-
-/* Build Task
- -------------------------------------------------- */
-gulp.task('build', function() {
-  gulp.start('css', 'scss', 'jshint', 'js', 'languages')
-});
+gulp.task('languages', gulp.series('pot', 'pot-to-po', 'po-to-mo'));
+gulp.task('default', gulp.parallel('css', 'js', 'jshint', 'scss'));
+gulp.task('build', gulp.parallel('default', 'languages'));
