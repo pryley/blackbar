@@ -43,23 +43,23 @@ msgstr ""
 msgid "You can use the %s plugin to restore %s to the previous version."
 msgstr ""
 
-#: src/Controller.php:133
+#: src/Controller.php:138
 msgid "Console (%s)"
 msgstr ""
 
-#: src/Controller.php:151
+#: src/Controller.php:162
 msgid "%s on line %s in file %s"
 msgstr ""
 
-#: src/Controller.php:183
+#: src/Controller.php:194
 msgid "Profiler (%s ms)"
 msgstr ""
 
-#: src/Controller.php:219
+#: src/Controller.php:230
 msgid "SQL"
 msgstr ""
 
-#: src/Controller.php:228
+#: src/Controller.php:239
 msgid "SQL (%s queries | %s ms)"
 msgstr ""
 

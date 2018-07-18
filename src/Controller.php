@@ -49,7 +49,7 @@ class Controller
 		$entry = array_pop( $backtrace );
 		$location = '';
 		if( array_key_exists( 'file', $entry )) {
-			$path = explode( '/plugin/', $entry['file'] );
+			$path = explode( ABSPATH, $entry['file'] );
 			$location = sprintf( '[%s:%s] ', array_pop( $path ), $entry['line'] );
 		}
 		$this->app->console->store( func_get_arg(1), $location );
@@ -119,18 +119,24 @@ class Controller
 	 */
 	protected function getConsoleLabel()
 	{
+		$class = '';
 		$entries = $this->getConsoleEntries();
-		$warningCount = 0;
+		$errorCount = 0;
 		foreach( $entries as $entry ) {
-			if( $entry['errno'] == E_WARNING ) {
-				$warningCount++;
+			if( in_array( $entry['errno'], [E_NOTICE, E_STRICT, E_DEPRECATED] )) {
+				$class = 'glbb-warning';
+			}
+			if( in_array( $entry['errno'], [E_WARNING] )) {
+				$errorCount++;
 			}
 		}
 		$entryCount = count( $entries );
-		$warnings = $warningCount > 0
-			? sprintf( ', %d!', $warningCount )
-			: '';
-		return sprintf( __( 'Console (%s)', 'blackbar' ), $entryCount.$warnings );
+		if( $errorCount > 0 ) {
+			$class = 'glbb-error';
+			$entryCount .= sprintf( ', %d!', $errorCount );
+		}
+		$label = sprintf( __( 'Console (%s)', 'blackbar' ), $entryCount );
+		return '<span class="'.$class.'">'.$label.'</span>';
 	}
 
 	/**
@@ -140,14 +146,19 @@ class Controller
 	{
 		$errors = array();
 		foreach( $this->app->errors as $error ) {
+			$class = 'glbb-info';
+			if( in_array( $error['errno'], [E_NOTICE, E_STRICT, E_DEPRECATED] )) {
+				$class = 'glbb-warning';
+			}
 			if( $error['errno'] == E_WARNING ) {
-				$error['name'] = '<span class="glbb-error">'.$error['name'].'</span>';
+				$class = 'glbb-error';
 			}
 			if( $error['count'] > 1 ) {
 				$error['name'] .= ' ('.$error['count'].')';
 			}
 			$errors[] = array(
-				'name' => $error['name'],
+				'errno' => $error['errno'],
+				'name' => '<span class="'.$class.'">'.$error['name'].'</span>',
 				'message' => sprintf( __( '%s on line %s in file %s', 'blackbar' ),
 					$error['message'],
 					$error['line'],

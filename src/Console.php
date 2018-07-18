@@ -16,9 +16,9 @@ class Console
 	public function store( $message, $location = '' )
 	{
 		$this->entries[] = array(
-			'errno' => E_NOTICE,
+			'errno' => 0,
 			'message' => $location.$this->normalizeValue( $message ),
-			'name' => 'Debug',
+			'name' => '<span class="glbb-info">Debug</span>',
 		);
 		return $this;
 	}
@@ -42,7 +42,7 @@ class Console
 			$value = $value->format( 'Y-m-d H:i:s' );
 		}
 		else if( $this->isObjectOrArray( $value )) {
-			$value = print_r( $value, true );
+			$value = print_r( json_decode( json_encode( $value )), true );
 		}
 		else if( is_resource( $value )) {
 			$value = (string)$value;

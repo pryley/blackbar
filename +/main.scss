@@ -59,8 +59,14 @@ body.blackbar #adminmenu {
 #glbb-debug-bar .hljs {
 	background-color: #32373c;
 }
+#glbb-debug-bar .glbb-info {
+	color: #fff;
+}
 #glbb-debug-bar .glbb-error {
-	color: #e00;
+	color: #f44336;
+}
+#glbb-debug-bar .glbb-warning {
+	color: #ffc107;
 }
 #glbb-debug-bar .glbb-debug-panel {
 	display:none;

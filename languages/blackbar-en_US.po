@@ -52,23 +52,23 @@ msgstr "Update WordPress"
 msgid "You can use the %s plugin to restore %s to the previous version."
 msgstr "You can use the %s plugin to restore %s to the previous version."
 
-#: src/Controller.php:133
+#: src/Controller.php:138
 msgid "Console (%s)"
 msgstr "Console (%s)"
 
-#: src/Controller.php:151
+#: src/Controller.php:162
 msgid "%s on line %s in file %s"
 msgstr "%s on line %s in file %s"
 
-#: src/Controller.php:183
+#: src/Controller.php:194
 msgid "Profiler (%s ms)"
 msgstr "Profiler (%s ms)"
 
-#: src/Controller.php:219
+#: src/Controller.php:230
 msgid "SQL"
 msgstr "SQL"
 
-#: src/Controller.php:228
+#: src/Controller.php:239
 msgid "SQL (%s queries | %s ms)"
 msgstr "SQL (%s queries | %s ms)"
 
