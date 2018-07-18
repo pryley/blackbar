@@ -39,26 +39,8 @@ class Controller
 	}
 
 	/**
-	 * @param array $scripts
-	 * @return array
-	 * @action gform_noconflict_scripts
 	 */
-	public function filterNoconflictScripts( $scripts )
 	{
-		$scripts[] = Application::ID;
-		return $scripts;
-	}
-
-	/**
-	 * @param array $styles
-	 * @return array
-	 * @action gform_noconflict_styles
-	 */
-	public function filterNoconflictStyles( $styles )
-	{
-		$styles[] = Application::ID;
-		$styles[] = Application::ID.'-syntax';
-		return $styles;
 	}
 
 	/**

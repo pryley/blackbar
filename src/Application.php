@@ -67,8 +67,6 @@ final class Application
 		add_action( 'admin_footer',             array( $controller, 'renderBar' ));
 		add_action( 'wp_footer',                array( $controller, 'renderBar' ));
 		add_filter( 'admin_body_class',         array( $controller, 'filterBodyClasses' ));
-		add_filter( 'gform_noconflict_scripts', array( $controller, 'filterNoconflictScripts' ));
-		add_filter( 'gform_noconflict_styles',  array( $controller, 'filterNoconflictStyles' ));
 		add_filter( 'all',                      array( $controller, 'initProfiler' ));
 		apply_filters( 'debug', 'Profiler Started' );
 		apply_filters( 'debug', 'blackbar/profiler/noise' );
