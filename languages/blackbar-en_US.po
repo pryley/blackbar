@@ -76,15 +76,15 @@ msgstr "SQL (%s queries | %s ms)"
 msgid "Toggle"
 msgstr "Toggle"
 
-#: views/debug-bar.php:5
-msgid "Globals"
-msgstr "Globals"
-
-#: views/debug-bar.php:10
+#: views/debug-bar.php:22
 msgid "Templates"
 msgstr "Templates"
 
-#: views/debug-bar.php:12
+#: views/debug-bar.php:28
+msgid "Globals"
+msgstr "Globals"
+
+#: views/debug-bar.php:33
 msgid "Close"
 msgstr "Close"
 

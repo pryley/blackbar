@@ -21,7 +21,7 @@ defined( 'WPINC' ) || die;
 if( !class_exists( 'GL_Plugin_Check_v3' )) {
 	require_once __DIR__.'/activate.php';
 }
-if( !(new GL_Plugin_Check_v3( __FILE__, array( 'php' => '5.4', 'wordpress' => '4.0.0' )))->canProceed() )return;
+if( !(new GL_Plugin_Check_v3( __FILE__, array( 'php' => '5.6', 'wordpress' => '4.7.0' )))->canProceed() )return;
 require_once __DIR__.'/autoload.php';
 require_once __DIR__.'/compatibility.php';
 

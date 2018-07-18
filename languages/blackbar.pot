@@ -67,15 +67,15 @@ msgstr ""
 msgid "Toggle"
 msgstr ""
 
-#: views/debug-bar.php:5
-msgid "Globals"
-msgstr ""
-
-#: views/debug-bar.php:10
+#: views/debug-bar.php:22
 msgid "Templates"
 msgstr ""
 
-#: views/debug-bar.php:12
+#: views/debug-bar.php:28
+msgid "Globals"
+msgstr ""
+
+#: views/debug-bar.php:33
 msgid "Close"
 msgstr ""
 

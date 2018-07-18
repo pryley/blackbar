@@ -45,6 +45,7 @@ body.blackbar #adminmenu {
 	font-weight: 400;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	direction: ltr;
+	box-sizing: border-box;
 }
 #glbb-debug-bar.glbb-mini {
 	width: 36px;
@@ -80,6 +81,7 @@ body.blackbar #adminmenu {
 	background-color: #32373c;
 	padding: 15px;
 	overflow:auto;
+	box-sizing: border-box;
 }
 #glbb-debug-bar .glbb-debug-panel a {
 	color: $active_color;

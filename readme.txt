@@ -2,8 +2,8 @@
 Contributors: geminilabs, pryley
 Donate link: https://www.paypal.me/pryley
 Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
-Requires at least: 4.0.0
-Requires PHP: 5.4.0
+Requires at least: 4.7.0
+Requires PHP: 5.6.0
 Tested up to: 4.9
 Stable tag: 2.0.0
 License: GPLv3
@@ -17,13 +17,12 @@ Black Bar is an unobtrusive Debug Bar for WordPress developers that attaches its
 
 How it helps you with development:
 
-- Debug both the front-end and admin area
 - Displays any PHP errors that occur when loading a page
 - Displays executed MySQL queries and the time it took to execute each query
 - Displays the loaded template files of the active theme
 - Inspect global variables (COOKIE, GET, POST, SERVER, SESSION)
 - Use the Console for debugging your plugins and themes
-- Use the Profiler for measuring performance of your plugins and themes
+- Use the Profiler for measuring the performance of your plugins and themes
 
 == Installation ==
 
@@ -60,6 +59,7 @@ To use the profiler, simply put the following line of PHP _before_ and _after_ t
 - Fixed miscellaneous styling issues
 - Press ESC to close the blackbar panel
 - Updated activation requirements check
+- Updated minimum requirements to PHP 5.6/WP 4.7
 
 = 1.2.0 (2018-04-23) =
 
