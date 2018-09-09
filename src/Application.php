@@ -65,14 +65,17 @@ final class Application
 	public function init()
 	{
 		$controller = new Controller( $this );
-		add_action( 'admin_enqueue_scripts',    array( $controller, 'enqueueAssets' ));
-		add_action( 'wp_enqueue_scripts',       array( $controller, 'enqueueAssets' ));
-		add_action( 'plugins_loaded',           array( $controller, 'registerLanguages' ));
-		add_action( 'admin_footer',             array( $controller, 'renderBar' ));
-		add_action( 'wp_footer',                array( $controller, 'renderBar' ));
-		add_filter( 'admin_body_class',         array( $controller, 'filterBodyClasses' ));
-		add_filter( 'all',                      array( $controller, 'initConsole' ));
-		add_filter( 'all',                      array( $controller, 'initProfiler' ));
+		add_filter( 'all',            array( $controller, 'initConsole' ));
+		add_filter( 'all',            array( $controller, 'initProfiler' ));
+		add_action( 'plugins_loaded', array( $controller, 'registerLanguages' ));
+		add_action( 'init', function() use( $controller ) {
+			if( !apply_filters( 'blackbar/enabled', true ))return;
+			add_action( 'admin_enqueue_scripts', array( $controller, 'enqueueAssets' ));
+			add_action( 'wp_enqueue_scripts',    array( $controller, 'enqueueAssets' ));
+			add_action( 'admin_footer',          array( $controller, 'renderBar' ));
+			add_action( 'wp_footer',             array( $controller, 'renderBar' ));
+			add_filter( 'admin_body_class',      array( $controller, 'filterBodyClasses' ));
+		});
 		apply_filters( 'debug', 'Profiler Started' );
 		apply_filters( 'debug', 'blackbar/profiler/noise' );
 		set_error_handler( array( $this, 'errorHandler' ), E_ALL|E_STRICT );
