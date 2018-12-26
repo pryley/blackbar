@@ -94,8 +94,10 @@ body.blackbar #adminmenu {
 	width: 100%;
 	text-align: left;
 	color: #ccc;
-	border: none;
-	margin: 0;
+	border: none !important;
+	margin: 0 !important;
+	text-shadow: none !important;
+	background: none !important;
 }
 #glbb-debug-bar table.glbb-queries-table {
 	margin-top: 90px;

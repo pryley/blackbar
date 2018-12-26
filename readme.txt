@@ -4,8 +4,8 @@ Donate link: https://www.paypal.me/pryley
 Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.7.0
 Requires PHP: 5.6.0
-Tested up to: 4.9
-Stable tag: 2.1.0
+Tested up to: 5.0
+Stable tag: 2.1.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -64,6 +64,10 @@ add_filter( 'blackbar/enabled', function( $bool ) {
 });`
 
 == Changelog ==
+
+= 2.1.1 (2018-12-26) =
+
+- Fixed code highlighting
 
 = 2.1.0 (2018-09-08) =
 

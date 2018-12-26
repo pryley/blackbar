@@ -2,11 +2,9 @@ var hljs = require('highlight');
 hljs.registerLanguage('bash', require('bash'));
 hljs.registerLanguage('php', require('php'));
 hljs.registerLanguage('sql', require('sql'));
-hljs.initHighlightingOnLoad();
 module.exports = hljs;
 
-window.Blackbar =
-{
+window.Blackbar = {
 	activeClass: 'glbb-active',
 	element: ['glbb-globals', 'glbb-profiler', 'glbb-queries', 'glbb-templates', 'glbb-console'],
 	id: 'glbb-debug-bar',
@@ -69,6 +67,13 @@ window.Blackbar =
 		document.querySelector( 'a.' + open ).classList.add( Blackbar.activeClass );
 	},
 };
+
+document.addEventListener( 'DOMContentLoaded', function() {
+	var blocks = document.querySelectorAll( '#glbb-debug-bar pre code' );
+	blocks.forEach( function( block ) {
+		hljs.highlightBlock( block );
+	});
+});
 
 document.addEventListener( 'DOMContentLoaded', function() {
 	var blackbarEl = document.getElementById( Blackbar.id );
