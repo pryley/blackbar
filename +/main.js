@@ -108,7 +108,6 @@ document.addEventListener( 'DOMContentLoaded', function() {
 		toggle.hideFocus = true;
 		ev.preventDefault();
 	};
-
 	var onKeyup = function( ev ) {
 		var time = parseFloat( debugMinTime.value );
 		var query = debugFilter.value;
@@ -142,15 +141,16 @@ document.addEventListener( 'DOMContentLoaded', function() {
 		Blackbar.switchPanel( Blackbar.open );
 	});
 
-	debugToggle.addEventListener( 'click', onClick );
-	debugFilter.addEventListener( 'keyup', onKeyup );
-	debugMinTime.addEventListener( 'keyup', onKeyup );
-
-	// init
+	if( debugFilter && debugMinTime ) {
+		debugFilter.addEventListener( 'keyup', onKeyup );
+		debugFilter.value = Blackbar.readCookie( 'glbb_query_filter' );
+		debugMinTime.addEventListener( 'keyup', onKeyup );
+		debugMinTime.value = Blackbar.readCookie( 'glbb_query_min_time' );
+	}
+	if( debugToggle ) {
+		debugToggle.addEventListener( 'click', onClick );
+	}
 	if( Blackbar.readCookie( 'glbb-toggle' ) === 'on' ) {
 		debugToggle.click();
 	}
-
-	debugFilter.value = Blackbar.readCookie( 'glbb_query_filter' );
-	debugMinTime.value = Blackbar.readCookie( 'glbb_query_min_time' );
 });

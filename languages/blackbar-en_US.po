@@ -1,4 +1,4 @@
-# Copyright (C) 2018 blackbar
+# Copyright (C) 2019 blackbar
 # This file is distributed under the same license as the blackbar package.
 msgid ""
 msgstr ""

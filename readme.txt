@@ -5,7 +5,7 @@ Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.7.0
 Requires PHP: 5.6.0
 Tested up to: 5.0
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -64,6 +64,10 @@ add_filter( 'blackbar/enabled', function( $bool ) {
 });`
 
 == Changelog ==
+
+= 2.1.2 (2019-01-18) =
+
+- Fixed javascript error when [SAVEQUERIES](https://codex.wordpress.org/Debugging_in_WordPress#SAVEQUERIES) is not enabled
 
 = 2.1.1 (2018-12-26) =
 
