@@ -1,6 +1,6 @@
 # Black Bar
 
-[![GitHub version](https://badge.fury.io/gh/geminilabs%2Fblackbar.svg)](https://badge.fury.io/gh/geminilabs%2Fblackbar) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/geminilabs/blackbar/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/geminilabs/blackbar/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/geminilabs/blackbar/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/geminilabs/blackbar/?branch=master) [![Build Status](https://travis-ci.org/geminilabs/blackbar.svg?branch=master)](https://travis-ci.org/geminilabs/blackbar) [![License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg)](https://github.com/geminilabs/blackbar/blob/master/LICENSE)
+[![GitHub version](https://badge.fury.io/gh/pryley%2Fblackbar.svg)](https://badge.fury.io/gh/pryley%2Fblackbar) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pryley/blackbar/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/pryley/blackbar/?branch=master) [![Code Coverage](https://scrutinizer-ci.com/g/pryley/blackbar/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/pryley/blackbar/?branch=master) [![Build Status](https://travis-ci.org/pryley/blackbar.svg?branch=master)](https://travis-ci.org/pryley/blackbar) [![License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg)](https://github.com/pryley/blackbar/blob/master/LICENSE)
 
 ![Black Bar banner](+/banner-1544x500.png)
 

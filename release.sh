@@ -5,7 +5,8 @@
 
 # ----- START EDITING HERE -----
 
-DEFAULT_GIT_BRANCH="master"
+ASSETS_DIR="+/assets"
+GIT_BRANCH="master"
 MIN_PHP_VERSION="5.6"
 MIN_WORDPRESS_VERSION="4.7"
 PLUGIN_SLUG="blackbar"
@@ -67,25 +68,20 @@ fi
 # LIST BRANCHES
 clear
 git fetch origin
-echo "WHICH BRANCH DO YOU WISH TO DEPLOY?"
-git branch -r || { echo "Unable to list branches."; exit 1; }
-echo ""
-read -p "origin/" BRANCH
 
-echo ${BRANCH:-$DEFAULT_GIT_BRANCH}
 # Switch Branch
-echo "Switching to branch"
+echo "Switching to master branch"
 mkdir -p $ROOT_PATH$TEMP_GITHUB_REPO
-git archive ${BRANCH:-$DEFAULT_GIT_BRANCH} | tar -x -f - -C $ROOT_PATH$TEMP_GITHUB_REPO || { echo "Unable to archive/copy branch."; exit 1; }
+git archive $GIT_BRANCH | tar -x -f - -C $ROOT_PATH$TEMP_GITHUB_REPO || { echo "Unable to archive/copy branch."; exit 1; }
 
 echo ""
-read -p "PRESS [ENTER] TO DEPLOY BRANCH "${BRANCH:-$DEFAULT_GIT_BRANCH}
+read -p "PRESS [ENTER] TO DEPLOY BRANCH "$GIT_BRANCH
 
 # MOVE INTO SVN DIR
 cd $ROOT_PATH$SVN_REPO_DIR
 
 # COPY ASSETS to SVN DIR
-cp $ROOT_PATH/+/*.png $ROOT_PATH$SVN_REPO_DIR/assets/
+cp $ROOT_PATH/$ASSETS_DIR/* $ROOT_PATH$SVN_REPO_DIR/assets/
 
 # UPDATE SVN
 echo "Updating SVN"

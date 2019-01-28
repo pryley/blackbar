@@ -1,11 +1,11 @@
 === Black Bar ===
-Contributors: geminilabs, pryley
+Contributors: pryley, geminilabs
 Donate link: https://www.paypal.me/pryley
 Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.7.0
 Requires PHP: 5.6.0
 Tested up to: 5.0
-Stable tag: 2.1.2
+Stable tag: 2.1.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -64,6 +64,9 @@ add_filter( 'blackbar/enabled', function( $bool ) {
 });`
 
 == Changelog ==
+
+= 2.1.3 (2019-01-28) =
+- Updated plugin URL
 
 = 2.1.2 (2019-01-18) =
 

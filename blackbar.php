@@ -7,7 +7,7 @@
  * Plugin Name: Black Bar
  * Plugin URI:  https://wordpress.org/plugins/blackbar
  * Description: Black Bar is a Debug Bar for WordPress developers.
- * Version:     2.1.2
+ * Version:     2.1.3
  * Author:      Paul Ryley
  * Author URI:  https://profiles.wordpress.org/pryley#content-plugins
  * License:     GPL3
