@@ -100,7 +100,7 @@ body.blackbar #adminmenu {
 	background: none !important;
 }
 #glbb-debug-bar table.glbb-queries-table {
-	margin-top: 90px;
+	margin-top: 90px !important;
 }
 #glbb-debug-bar tr {
 	border: none;
@@ -283,7 +283,7 @@ body.blackbar #adminmenu {
 		margin-bottom: 0;
 	}
 	#glbb-debug-bar table.glbb-queries-table {
-		margin-top: 45px;
+		margin-top: 45px  !important;
 	}
 }
 

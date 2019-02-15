@@ -5,7 +5,7 @@ Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.7.0
 Requires PHP: 5.6.0
 Tested up to: 5.0
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -55,17 +55,23 @@ To use the profiler, simply put the following line of PHP _before_ and _after_ t
 To restrict the plugin to logged-in administrators, use the following filter in your theme's functions.php file:
 
 `/**
- * @return bool
+ * @return boolean
  */
 add_filter( 'blackbar/enabled', function( $bool ) {
-    return is_user_logged_in()
+    $bool = is_user_logged_in()
         ? current_user_can( 'administrator' )
         : false;
+    return $bool;
 });`
 
 == Changelog ==
 
+= 2.1.4 (2019-02-15) =
+
+- Fixed CSS styles
+
 = 2.1.3 (2019-01-28) =
+
 - Updated plugin URL
 
 = 2.1.2 (2019-01-18) =
