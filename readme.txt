@@ -44,6 +44,12 @@ To add entries to the console, simply put the following line of PHP anywhere in 
 
 `apply_filters( 'console', 'Enter something to debug here' );`
 
+You can also add a specific log level like this:
+
+`apply_filters( 'console', 'Enter something to debug here', 'error' );`
+
+The available log levels are: `debug`, `info`, `notice`, `warning`, `error`, `critical`, `alert`, and `emergency`.
+
 = How do I use the Profiler? =
 
 To use the profiler, simply put the following line of PHP _before_ and _after_ the code you wish to profile:
@@ -65,6 +71,11 @@ add_filter( 'blackbar/enabled', function( $bool ) {
 });`
 
 == Changelog ==
+
+= 2.2.0 (2019-03-11) =
+
+- Added ability to add a log level to the console (i.e. 'debug', 'warning', 'error', etc.)
+- Fixed CSS styles
 
 = 2.1.4 (2019-02-15) =
 

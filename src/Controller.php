@@ -45,14 +45,15 @@ class Controller
 	public function initConsole()
 	{
 		if( func_get_arg(0) != Application::CONSOLE_HOOK )return;
+		$args = array_pad( func_get_args(), 4, '' );
 		$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 4 );
 		$entry = array_pop( $backtrace );
-		$location = '';
-		if( array_key_exists( 'file', $entry )) {
+		$location = $args[3].' ';
+		if( empty( trim( $location )) && array_key_exists( 'file', $entry )) {
 			$path = explode( ABSPATH, $entry['file'] );
 			$location = sprintf( '[%s:%s] ', array_pop( $path ), $entry['line'] );
 		}
-		$this->app->console->store( func_get_arg(1), $location );
+		$this->app->console->store( $args[1], $args[2], $location );
 	}
 
 	/**

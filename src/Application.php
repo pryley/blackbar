@@ -34,14 +34,8 @@ final class Application
 	 */
 	public function errorHandler( $errno, $errstr, $errfile, $errline )
 	{
-		$errorCodes = array(
-			2 => 'Warning', //E_WARNING
-			8 => 'Notice', //E_NOTICE
-			2048 => 'Strict', //E_STRICT
-			8192 => 'Deprecated', //E_DEPRECATED
-		);
-		$errname = array_key_exists( $errno, $errorCodes )
-			? $errorCodes[$errno]
+		$errname = array_key_exists( $errno, Console::ERROR_CODES )
+			? Console::ERROR_CODES[$errno]
 			: 'Unknown';
 		$hash = md5( $errno.$errstr.$errfile.$errline );
 		if( array_key_exists( $hash, $this->errors )) {

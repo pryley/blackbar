@@ -63,11 +63,14 @@ body.blackbar #adminmenu {
 #glbb-debug-bar .glbb-info {
 	color: #fff;
 }
-#glbb-debug-bar .glbb-error {
-	color: #f44336;
+#glbb-debug-bar .glbb-error,
+#glbb-debug-bar .glbb-critical,
+#glbb-debug-bar .glbb-alert,
+#glbb-debug-bar .glbb-emergency {
+	color: #f44336; // red
 }
 #glbb-debug-bar .glbb-warning {
-	color: #ffc107;
+	color: #ffc107; // amber
 }
 #glbb-debug-bar .glbb-debug-panel {
 	display:none;
@@ -122,10 +125,13 @@ body.blackbar #adminmenu {
 #glbb-debug-bar tr:last-child td {
 	padding-bottom: 0;
 }
+#glbb-debug-bar td.glbb-small {
+	white-space: nowrap;
+}
 #glbb-debug-bar td.glbb-small,
 #glbb-debug-bar td.glbb-medium {
 	display: table-cell;
-	width: 80px;
+	width: 1%;
 	text-align: right;
 }
 #glbb-debug-bar td.glbb-medium {
