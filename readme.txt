@@ -5,7 +5,7 @@ Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Requires at least: 4.7.0
 Requires PHP: 5.6.0
 Tested up to: 5.1
-Stable tag: 2.2.0
+Stable tag: 2.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -72,7 +72,11 @@ add_filter( 'blackbar/enabled', function( $bool ) {
 
 == Changelog ==
 
-= 2.2.0 (2019-03-11) =
+= 2.2.1 (2019-03-11) =
+
+- Fixed CSS styles
+
+= 2.2.0 (2019-03-10) =
 
 - Added ability to add a log level to the console (i.e. 'debug', 'warning', 'error', etc.)
 - Fixed CSS styles
