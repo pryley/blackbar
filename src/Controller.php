@@ -48,12 +48,12 @@ class Controller
 		$args = array_pad( func_get_args(), 4, '' );
 		$backtrace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 4 );
 		$entry = array_pop( $backtrace );
-		$location = $args[3].' ';
+		$location = $args[3];
 		if( empty( trim( $location )) && array_key_exists( 'file', $entry )) {
 			$path = explode( ABSPATH, $entry['file'] );
-			$location = sprintf( '[%s:%s] ', array_pop( $path ), $entry['line'] );
+			$location = sprintf( '%s:%s', array_pop( $path ), $entry['line'] );
 		}
-		$this->app->console->store( $args[1], $args[2], $location );
+		$this->app->console->store( $args[1], $args[2], '['.$location.'] ' );
 	}
 
 	/**
