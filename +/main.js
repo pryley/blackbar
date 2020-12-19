@@ -6,7 +6,14 @@ module.exports = hljs;
 
 window.Blackbar = {
 	activeClass: 'glbb-active',
-	element: ['glbb-globals', 'glbb-profiler', 'glbb-queries', 'glbb-templates', 'glbb-console'],
+	element: [
+		'glbb-actions',
+		'glbb-console',
+		'glbb-globals',
+		'glbb-profiler',
+		'glbb-queries',
+		'glbb-templates',
+	],
 	id: 'glbb-debug-bar',
 	open: null,
 

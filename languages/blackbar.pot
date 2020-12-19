@@ -1,4 +1,4 @@
-# Copyright (C) 2019 blackbar
+# Copyright (C) 2020 blackbar
 # This file is distributed under the same license as the blackbar package.
 msgid ""
 msgstr ""
@@ -15,76 +15,80 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: activate.php:96
+#: activate.php:98
 msgid "The %s plugin was deactivated."
 msgstr ""
 
-#: activate.php:97
+#: activate.php:99
 msgid "This plugin requires %s or greater in order to work properly."
 msgstr ""
 
-#: activate.php:98
+#: activate.php:100
 msgid "Please contact your hosting provider or server administrator to upgrade the version of PHP on your server (your server is running PHP version %s), or try to find an alternative plugin."
 msgstr ""
 
-#: activate.php:99
+#: activate.php:101
 msgid "PHP version"
 msgstr ""
 
-#: activate.php:100
+#: activate.php:102
 msgid "WordPress version"
 msgstr ""
 
-#: activate.php:101
+#: activate.php:103
 msgid "Update WordPress"
 msgstr ""
 
-#: activate.php:102
+#: activate.php:104
 msgid "You can use the %s plugin to restore %s to the previous version."
 msgstr ""
 
-#: src/Controller.php:139
-msgid "Console (%s)"
+#: src/Controller.php:140
+msgid "Console"
 msgstr ""
 
-#: src/Controller.php:163
+#: src/Controller.php:179
 msgid "%s on line %s in file %s"
 msgstr ""
 
-#: src/Controller.php:195
-msgid "Profiler (%s ms)"
+#: src/Controller.php:210
+msgid "Profiler"
 msgstr ""
 
-#: src/Controller.php:231
+#: src/Controller.php:213, src/Controller.php:261, src/Controller.php:272
+msgid "ms"
+msgstr ""
+
+#: src/Controller.php:250
 msgid "SQL"
 msgstr ""
 
-#: src/Controller.php:240
-msgid "SQL (%s queries | %s ms)"
+#: src/Controller.php:261
+msgid "queries"
+msgstr ""
+
+#: src/Controller.php:269
+msgid "Hooks"
 msgstr ""
 
 #: views/debug-bar.php:4
 msgid "Toggle"
 msgstr ""
 
-#: views/debug-bar.php:22
+#: views/debug-bar.php:27
 msgid "Templates"
 msgstr ""
 
-#: views/debug-bar.php:28
+#: views/debug-bar.php:33
 msgid "Globals"
 msgstr ""
 
-#: views/debug-bar.php:33
+#: views/debug-bar.php:38
 msgid "Close"
 msgstr ""
 
-#: views/panels/console.php:7, views/panels/profiler.php:7
+#: views/panels/actions.php:7, views/panels/console.php:7, views/panels/profiler.php:7
 msgid "No entries found."
-msgstr ""
-
-#: views/panels/queries.php:7
-msgid "must be enabled to view SQL queries"
 msgstr ""
 
 #: views/panels/queries.php:13
@@ -93,4 +97,8 @@ msgstr ""
 
 #: views/panels/queries.php:14
 msgid "Minimum Execution Time"
+msgstr ""
+
+#: views/panels/queries.php:7
+msgid "must be enabled to view SQL queries"
 msgstr ""

@@ -1,3 +1,5 @@
-<?php defined( 'WPINC' ) || die;
+<?php
+
+defined('WPINC') || die;
 
 echo $templates;

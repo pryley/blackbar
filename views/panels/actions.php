@@ -2,17 +2,19 @@
 
 <table>
 	<tbody>
-		<?php if (empty($entries)) : ?>
+		<?php if (empty($actions->getMeasure())) : ?>
 		<tr>
 			<td><?= __('No entries found.', 'blackbar'); ?></td>
 		</tr>
 		<?php else : ?>
-		<?php foreach ($entries as $entry) : ?>
+		<?php foreach ($actions->getMeasure() as $hook => $flow) : ?>
 		<tr>
-			<td class="glbb-small"><?= $entry['name']; ?></td>
-			<td><pre><?= $entry['message']; ?></pre></td>
+			<td class="glbb-smalls"><?php 
+			// glsr_log($flow); 
+			?></td>
 		</tr>
 		<?php endforeach; ?>
 		<?php endif; ?>
 	</tbody>
 </table>
+

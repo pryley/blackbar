@@ -1,5 +1,8 @@
 $active_color: #0073aa;
 
+.glbb-actions::before {
+	content: "\f469";
+}
 .glbb-console::before {
 	content: "\f534";
 }
@@ -7,7 +10,7 @@ $active_color: #0073aa;
 	content: "\f536";
 }
 .glbb-globals::before {
-	content: "\f107";
+	content: "\f319";
 }
 .glbb-off::before,
 .glbb-toggle::before {
