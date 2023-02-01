@@ -1,4 +1,4 @@
-# Copyright (C) 2020 blackbar
+# Copyright (C) 2023 blackbar
 # This file is distributed under the same license as the blackbar package.
 msgid ""
 msgstr ""
@@ -8,6 +8,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Language-Team: Gemini Labs <support@geminilabs.io>\n"
 "Last-Translator: Paul Ryley <paul@geminilabs.io>\n"
+"Project-Id-Version: undefined\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -15,59 +16,66 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: activate.php:98
+#: activate.php:102
+msgctxt "admin-text"
 msgid "The %s plugin was deactivated."
 msgstr ""
 
-#: activate.php:99
-msgid "This plugin requires %s or greater in order to work properly."
-msgstr ""
-
-#: activate.php:100
-msgid "Please contact your hosting provider or server administrator to upgrade the version of PHP on your server (your server is running PHP version %s), or try to find an alternative plugin."
-msgstr ""
-
-#: activate.php:101
+#: activate.php:103
+msgctxt "admin-text"
 msgid "PHP version"
 msgstr ""
 
-#: activate.php:102
-msgid "WordPress version"
-msgstr ""
-
-#: activate.php:103
-msgid "Update WordPress"
-msgstr ""
-
 #: activate.php:104
+msgctxt "admin-text"
 msgid "You can use the %s plugin to restore %s to the previous version."
 msgstr ""
 
-#: src/Controller.php:140
+#: activate.php:105
+msgctxt "admin-text"
+msgid "Please contact your hosting provider or server administrator to upgrade the version of PHP on your server (your server is running PHP version %s), or try to find an alternative plugin."
+msgstr ""
+
+#: activate.php:106
+msgctxt "admin-text"
+msgid "Update WordPress"
+msgstr ""
+
+#: activate.php:107
+msgctxt "admin-text"
+msgid "WordPress version"
+msgstr ""
+
+#: activate.php:108
+msgctxt "admin-text"
+msgid "This plugin requires %s or greater in order to work properly."
+msgstr ""
+
+#: plugin/Controller.php:140
 msgid "Console"
 msgstr ""
 
-#: src/Controller.php:179
+#: plugin/Controller.php:179
 msgid "%s on line %s in file %s"
 msgstr ""
 
-#: src/Controller.php:210
+#: plugin/Controller.php:210
 msgid "Profiler"
 msgstr ""
 
-#: src/Controller.php:213, src/Controller.php:261, src/Controller.php:272
+#: plugin/Controller.php:213, plugin/Controller.php:261, plugin/Controller.php:272
 msgid "ms"
 msgstr ""
 
-#: src/Controller.php:250
+#: plugin/Controller.php:250
 msgid "SQL"
 msgstr ""
 
-#: src/Controller.php:261
+#: plugin/Controller.php:261
 msgid "queries"
 msgstr ""
 
-#: src/Controller.php:269
+#: plugin/Controller.php:269
 msgid "Hooks"
 msgstr ""
 

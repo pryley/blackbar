@@ -1,23 +1,12 @@
 bump:
   - readme.txt
   - blackbar.php
-dest:
-  css: assets/
-  js: assets/
-  lang: languages/
 language:
+  destination: languages/
   domain: blackbar
   team: Gemini Labs <support@geminilabs.io>
   translator: Paul Ryley <paul@geminilabs.io>
-scripts:
-  main.js: +/main.js
-styles:
-  syntax.css: node_modules/highlight.js/styles/atom-one-dark.css
-watch:
-  css: +/*.css
-  scss: +/*.scss
-  js: +/*.js
-  php:
-    - src/**/*.php
+  watch:
+    - plugin/**/*.php
     - views/**/*.php
     - '*.php'

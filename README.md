@@ -17,5 +17,5 @@ Black Bar is an unobtrusive Debug Bar for WordPress developers that attaches its
 
 ### Minimum plugin requirements
 
-* PHP 5.4
-* WordPress 4.0.0
+* PHP 7.2
+* WordPress 5.8

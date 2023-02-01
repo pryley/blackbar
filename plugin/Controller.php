@@ -223,8 +223,8 @@ class Controller
         global $wpdb;
         $queries = array();
         $search = array(
-            'AND', 'FROM', 'GROUP BY', 'INNER JOIN', 'LIMIT', 'ON DUPLICATE KEY UPDATE',
-            'ORDER BY', 'SET', 'WHERE',
+            'AND', 'FROM', 'GROUP BY', 'INNER JOIN', 'LEFT JOIN', 'LIMIT',
+            'ON DUPLICATE KEY UPDATE', 'ORDER BY', 'OFFSET', ' SET', 'WHERE',
         );
         $replace = array_map(function ($value) {
             return PHP_EOL.$value;

@@ -2,20 +2,17 @@
 
 defined('WPINC') || die;
 
-/*
- * PSR-4 autoloader
- */
-spl_autoload_register(function ($class) {
+spl_autoload_register(function ($className) {
     $namespaces = [
-        'GeminiLabs\\BlackBar\\' => __DIR__.'/src/',
+        'GeminiLabs\\BlackBar\\' => __DIR__.'/plugin/',
         'GeminiLabs\\BlackBar\\Tests\\' => __DIR__.'/tests/',
     ];
-    foreach ($namespaces as $prefix => $base_dir) {
+    foreach ($namespaces as $prefix => $baseDir) {
         $len = strlen($prefix);
-        if (0 !== strncmp($prefix, $class, $len)) {
+        if (0 !== strncmp($prefix, $className, $len)) {
             continue;
         }
-        $file = $base_dir.str_replace('\\', '/', substr($class, $len)).'.php';
+        $file = $baseDir.str_replace('\\', '/', substr($className, $len)).'.php';
         if (!file_exists($file)) {
             continue;
         }

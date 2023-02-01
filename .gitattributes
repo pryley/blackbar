@@ -5,6 +5,7 @@
 /*.lock export-ignore
 /*.log  export-ignore
 /*.md   export-ignore
+/*.mjs  export-ignore
 /*.sh   export-ignore
 /*.xml  export-ignore
 /+      export-ignore

@@ -1,8 +1,8 @@
-# Copyright (C) 2020 blackbar
+# Copyright (C) 2023 blackbar
 # This file is distributed under the same license as the blackbar package.
 msgid ""
 msgstr ""
-"Project-Id-Version: blackbar\n"
+"Project-Id-Version: undefined\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -18,65 +18,31 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: en_US\n"
 
-#: activate.php:98
-msgid "The %s plugin was deactivated."
-msgstr "The %s plugin was deactivated."
-
-#: activate.php:99
-msgid "This plugin requires %s or greater in order to work properly."
-msgstr "This plugin requires %s or greater in order to work properly."
-
-#: activate.php:100
-msgid ""
-"Please contact your hosting provider or server administrator to upgrade the "
-"version of PHP on your server (your server is running PHP version %s), or "
-"try to find an alternative plugin."
-msgstr ""
-"Please contact your hosting provider or server administrator to upgrade the "
-"version of PHP on your server (your server is running PHP version %s), or "
-"try to find an alternative plugin."
-
-#: activate.php:101
-msgid "PHP version"
-msgstr "PHP version"
-
-#: activate.php:102
-msgid "WordPress version"
-msgstr "WordPress version"
-
-#: activate.php:103
-msgid "Update WordPress"
-msgstr "Update WordPress"
-
-#: activate.php:104
-msgid "You can use the %s plugin to restore %s to the previous version."
-msgstr "You can use the %s plugin to restore %s to the previous version."
-
-#: src/Controller.php:140
+#: plugin/Controller.php:140
 msgid "Console"
 msgstr "Console"
 
-#: src/Controller.php:179
+#: plugin/Controller.php:179
 msgid "%s on line %s in file %s"
 msgstr "%s on line %s in file %s"
 
-#: src/Controller.php:210
+#: plugin/Controller.php:210
 msgid "Profiler"
 msgstr "Profiler"
 
-#: src/Controller.php:213, src/Controller.php:261, src/Controller.php:272
+#: plugin/Controller.php:213, plugin/Controller.php:261, plugin/Controller.php:272
 msgid "ms"
 msgstr "ms"
 
-#: src/Controller.php:250
+#: plugin/Controller.php:250
 msgid "SQL"
 msgstr "SQL"
 
-#: src/Controller.php:261
+#: plugin/Controller.php:261
 msgid "queries"
 msgstr "queries"
 
-#: src/Controller.php:269
+#: plugin/Controller.php:269
 msgid "Hooks"
 msgstr "Hooks"
 
@@ -111,3 +77,44 @@ msgstr "Minimum Execution Time"
 #: views/panels/queries.php:7
 msgid "must be enabled to view SQL queries"
 msgstr "must be enabled to view SQL queries"
+
+#: activate.php:102
+msgctxt "admin-text"
+msgid "The %s plugin was deactivated."
+msgstr "The %s plugin was deactivated."
+
+#: activate.php:103
+msgctxt "admin-text"
+msgid "PHP version"
+msgstr "PHP version"
+
+#: activate.php:104
+msgctxt "admin-text"
+msgid "You can use the %s plugin to restore %s to the previous version."
+msgstr "You can use the %s plugin to restore %s to the previous version."
+
+#: activate.php:105
+msgctxt "admin-text"
+msgid ""
+"Please contact your hosting provider or server administrator to upgrade the "
+"version of PHP on your server (your server is running PHP version %s), or "
+"try to find an alternative plugin."
+msgstr ""
+"Please contact your hosting provider or server administrator to upgrade the "
+"version of PHP on your server (your server is running PHP version %s), or "
+"try to find an alternative plugin."
+
+#: activate.php:106
+msgctxt "admin-text"
+msgid "Update WordPress"
+msgstr "Update WordPress"
+
+#: activate.php:107
+msgctxt "admin-text"
+msgid "WordPress version"
+msgstr "WordPress version"
+
+#: activate.php:108
+msgctxt "admin-text"
+msgid "This plugin requires %s or greater in order to work properly."
+msgstr "This plugin requires %s or greater in order to work properly."
