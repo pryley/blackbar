@@ -6,89 +6,87 @@ final class Application
 {
     const CONSOLE_HOOK = 'console';
     const ID = 'blackbar';
-    const LANG = '/languages/';
     const PROFILER_HOOK = 'profile';
 
     public $actions;
     public $console;
-    public $errors = array();
+    public $errors = [];
     public $file;
     public $profiler;
 
+    protected static $instance;
+
     public function __construct()
     {
+        $file = wp_normalize_path((new \ReflectionClass($this))->getFileName());
         $this->actions = new SlowActions();
         $this->console = new Console();
-        $this->file = realpath(dirname(__DIR__).'/'.static::ID.'.php');
+        $this->file = str_replace('plugin/Application', static::ID, $file);
         $this->profiler = new Profiler();
     }
 
-    /**
-     * @param int $errno
-     * @param string $errstr
-     * @param string $errfile
-     * @param int $errline
-     * @return void
-     */
-    public function errorHandler($errno, $errstr, $errfile, $errline)
+    public function errorHandler(int $errno, string $message, string $file, int $line): void
     {
         $errname = array_key_exists($errno, Console::ERROR_CODES)
             ? Console::ERROR_CODES[$errno]
             : 'Unknown';
-        $hash = md5($errno.$errstr.$errfile.$errline);
+        $hash = md5($errno.$message.$file.$line);
         if (array_key_exists($hash, $this->errors)) {
             ++$this->errors[$hash]['count'];
         } else {
-            $this->errors[$hash] = array(
-                'errno' => $errno,
-                'message' => $errstr,
-                'file' => $errfile,
-                'name' => $errname,
-                'line' => $errline,
+            $this->errors[$hash] = [
                 'count' => 0,
-            );
+                'errno' => $errno,
+                'file' => $file,
+                'line' => $line,
+                'message' => $message,
+                'name' => $errname,
+            ];
         }
     }
 
-    /**
-     * @return void
-     */
-    public function init()
+    public function init(): void
     {
-        $controller = new Controller($this);
-        add_filter('all', array($controller, 'initConsole'));
-        add_filter('all', array($controller, 'initProfiler'));
-        add_filter('all', array($controller, 'measureSlowActions'));
-        add_action('plugins_loaded', array($controller, 'registerLanguages'));
+        $controller = new Controller();
+        add_filter('all', [$controller, 'initConsole']);
+        add_filter('all', [$controller, 'initProfiler']);
+        add_filter('all', [$controller, 'measureSlowActions']);
+        add_action('plugins_loaded', [$controller, 'registerLanguages']);
         add_action('init', function () use ($controller) {
-            if (!apply_filters('blackbar/enabled', true)) {
+            if (!apply_filters('blackbar/enabled', current_user_can('administrator'))) {
                 return;
             }
-            add_action('admin_enqueue_scripts', array($controller, 'enqueueAssets'));
-            add_action('wp_enqueue_scripts', array($controller, 'enqueueAssets'));
-            add_action('admin_footer', array($controller, 'renderBar'));
-            add_action('wp_footer', array($controller, 'renderBar'));
-            add_filter('admin_body_class', array($controller, 'filterBodyClasses'));
+            add_action('admin_enqueue_scripts', [$controller, 'enqueueAssets']);
+            add_action('wp_enqueue_scripts', [$controller, 'enqueueAssets']);
+            add_action('admin_footer', [$controller, 'renderBar']);
+            add_action('wp_footer', [$controller, 'renderBar']);
+            add_filter('admin_body_class', [$controller, 'filterBodyClasses']);
         });
         apply_filters('debug', 'Profiler Started');
         apply_filters('debug', 'blackbar/profiler/noise');
-        set_error_handler(array($this, 'errorHandler'), E_ALL | E_STRICT);
+        set_error_handler([$this, 'errorHandler'], E_ALL | E_STRICT);
     }
 
     /**
-     * @param string $file
-     * @return string
+     * @return static
      */
-    public function path($file = '')
+    public static function load()
     {
-        return plugin_dir_path($this->file).ltrim(trim($file), '/');
+        if (empty(static::$instance)) {
+            static::$instance = new static();
+        }
+        return static::$instance;
     }
 
-    /**
-     * @param string $view
-     * @return void
-     */
-    public function render($view, array $data = array())
+    public function path(string $file = '', bool $realpath = true): string
+    {
+        $path = $realpath
+            ? plugin_dir_path($this->file)
+            : trailingslashit(WP_PLUGIN_DIR).basename(dirname($this->file));
+        return trailingslashit($path).ltrim(trim($file), '/');
+    }
+
+    public function render(string $view, array $data = []): void
     {
         $file = $this->path(sprintf('views/%s.php', str_replace('.php', '', $view)));
         if (!file_exists($file)) {
@@ -98,11 +96,7 @@ final class Application
         include $file;
     }
 
-    /**
-     * @param string $path
-     * @return string
-     */
-    public function url($path = '')
+    public function url(string $path = ''): string
     {
         return esc_url(plugin_dir_url($this->file).ltrim(trim($path), '/'));
     }

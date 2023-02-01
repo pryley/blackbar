@@ -28,5 +28,5 @@ if ((new GL_Plugin_Check_v6(__FILE__))->canProceed()) {
     if (!defined('SAVEQUERIES')) {
         define('SAVEQUERIES', 1);
     }
-    (new GeminiLabs\BlackBar\Application())->init();
+    GeminiLabs\BlackBar\Application::load()->init();
 }

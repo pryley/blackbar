@@ -6,58 +6,46 @@ class Profiler
 {
     /**
      * This is the time that WordPress takes to execute the profiler hook.
-     * @var int
+     * @var float
      */
-    protected $noise = 0;
-
+    protected $noise;
     /**
-     * @var int
+     * @var float
      */
-    protected $start = null;
-
+    protected $start;
     /**
-     * @var int
+     * @var float
      */
-    protected $stop = null;
-
+    protected $stop;
     /**
      * @var array
      */
-    protected $timers = array();
+    protected $timers;
 
-    /**
-     * @return array
-     */
-    public function getMeasure()
+    public function __construct()
+    {
+        $this->noise = (float) 0;
+        $this->start = (float) 0;
+        $this->stop = (float) 0;
+        $this->timers = [];
+    }
+
+    public function getMeasure(): array
     {
         return $this->timers;
     }
 
-    /**
-     * @param array $timer
-     * @return string
-     */
-    public function getMemoryString($timer)
+    public function getMemoryString(array $timer): string
     {
-        $timer = $this->normalize($timer);
-        return sprintf('%s kB', round($timer['memory'] / 1000));
+        return sprintf('%s kB', round($this->normalize($timer)['memory'] / 1000));
     }
 
-    /**
-     * @param array $timer
-     * @return string
-     */
-    public function getNameString($timer)
+    public function getNameString(array $timer): string
     {
-        $timer = $this->normalize($timer);
-        return $timer['name'];
+        return $this->normalize($timer)['name'];
     }
 
-    /**
-     * @param array $timer
-     * @return string
-     */
-    public function getTimeString($timer)
+    public function getTimeString(array $timer): string
     {
         $timer = $this->normalize($timer);
         $index = array_search($timer['name'], array_column($this->timers, 'name'));
@@ -66,22 +54,15 @@ class Profiler
         return sprintf('%s ms', $time);
     }
 
-    /**
-     * @return int Microseconds
-     */
-    public function getTotalTime()
+    public function getTotalTime(): float
     {
         $totalNoise = (count($this->timers) - 1) * $this->noise;
         return $this->stop - $this->start - $totalNoise;
     }
 
-    /**
-     * @param string $name
-     * @return void
-     */
-    public function trace($name)
+    public function trace(string $name): void
     {
-        $microtime = microtime(true);
+        $microtime = microtime(true); // float
         if (!$this->start) {
             $this->start = $microtime;
         }
@@ -89,24 +70,20 @@ class Profiler
             $this->noise = $microtime - $this->start;
             return;
         }
-        $this->timers[] = array(
+        $this->timers[] = [
             'memory' => memory_get_peak_usage(),
             'name' => $name,
             'time' => $microtime,
-        );
+        ];
         $this->stop = $microtime;
     }
 
-    /**
-     * @param array $timer
-     * @return array
-     */
-    protected function normalize($timer)
+    protected function normalize(array $timer): array
     {
-        return wp_parse_args((array) $timer, array(
+        return wp_parse_args($timer, [
             'memory' => 0,
             'name' => '',
-            'time' => 0,
-        ));
+            'time' => (float) 0,
+        ]);
     }
 }

@@ -8,55 +8,48 @@ class SlowActions
      * @var array
      */
     protected $flow;
-
     /**
      * This is the time that WordPress takes to execute the all hook.
-     * @var int
+     * @var float
      */
-    protected $noise = 0;
-
+    protected $noise;
+    /**
+     * @var float
+     */
+    protected $start;
+    /**
+     * @var float
+     */
+    protected $stop;
     /**
      * @var int
      */
-    protected $start = null;
-
+    protected $totalActions;
     /**
-     * @var int
+     * @var float
      */
-    protected $stop = null;
-
-    /**
-     * @var int
-     */
-    protected $totalActions = 0;
-
-    /**
-     * @var int
-     */
-    protected $totalTime = 0;
+    protected $totalTime;
 
     public function __construct()
     {
         $this->flow = [];
+        $this->noise = (float) 0;
         $this->start = microtime(true);
+        $this->stop = (float) 0;
+        $this->totalActions = 0;
+        $this->totalTime = (float) 0;
     }
 
-    /**
-     * @return array
-     */
-    public function getTotalTimeForHook(array $data)
+    public function getTotalTimeForHook(array $data): float
     {
         $total = 0;
         foreach ($data['time'] as $time) {
             $total += ($time['stop'] - $time['start']) * 1000;
         }
-        return $total;
+        return (float) $total;
     }
 
-    /**
-     * @return array
-     */
-    public function addCallbacksForAction($action)
+    public function addCallbacksForAction(string $action): void
     {
         global $wp_filter;
         if (!array_key_exists($action, $this->flow)) {
@@ -84,10 +77,7 @@ class SlowActions
         }
     }
 
-    /**
-     * @return array
-     */
-    public function getMeasure()
+    public function getMeasure(): array
     {
         foreach ($this->flow as $action => $data) {
             $total = $this->getTotalTimeForHook($data);
@@ -100,29 +90,19 @@ class SlowActions
         return $this->flow;
     }
 
-    /**
-     * @return int
-     */
-    public function getTotalActions()
+    public function getTotalActions(): int
     {
         return $this->totalActions;
     }
 
-    /**
-     * @return int Microseconds
-     */
-    public function getTotalTime()
+    public function getTotalTime(): float
     {
         return $this->totalTime;
         // $totalNoise = (count($this->timers) - 1) * $this->noise;
         // return $this->stop - $this->start - $totalNoise;
     }
 
-    /**
-     * @param string $name
-     * @return void
-     */
-    public function startTimer()
+    public function startTimer(): void
     {
         if (!isset($this->flow[current_filter()])) {
             $this->flow[current_filter()] = [
@@ -149,12 +129,7 @@ class SlowActions
         return $possibleFilter;
     }
 
-    /**
-     * @param array $a
-     * @param array $b
-     * @return int
-     */
-    protected function sortByTime($a, $b)
+    protected function sortByTime(array $a, array $b): int
     {
         if ($a['total'] == $b['total']) {
             return 0;
