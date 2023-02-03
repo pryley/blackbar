@@ -1,14 +1,14 @@
 #!/bin/sh
 # By Paul Ryley, based on work by Mike Jolley
 # License: GPLv3
-# Version 1.1.0
+# Version: 2.0.0
 
 # ----- START EDITING HERE -----
 
 ASSETS_DIR="+/assets"
 GIT_BRANCH="master"
-MIN_PHP_VERSION="5.6"
-MIN_WORDPRESS_VERSION="4.7"
+MIN_PHP_VERSION="7.2"
+MIN_WORDPRESS_VERSION="5.8"
 PLUGIN_SLUG="blackbar"
 
 # ----- STOP EDITING HERE -----
@@ -42,12 +42,14 @@ else
 fi
 
 echo ""
-read -p " - Updated the changelog for "${PLUGIN_VERSION}" and appended it to readme.txt?"
-read -p " - Verified compatibility with PHP v${MIN_PHP_VERSION} -> latest?"
-read -p " - Verified compatibility with Wordpress v${MIN_WORDPRESS_VERSION} -> latest?"
+read -p " - Updated the readme.txt changelog for "${PLUGIN_VERSION}" and prepended it to changelog.txt?"
 read -p " - Updated the POT file?"
 read -p " - Updated the screenshots?"
-read -p " - Committed all changes to the master branch on GITHUB?"
+read -p " - Verified compatibility with PHP v${MIN_PHP_VERSION} -> latest?"
+read -p " - Verified compatibility with Wordpress v${MIN_WORDPRESS_VERSION} -> latest?"
+read -p " - Verified the changelog release date?"
+read -p " - Committed all changes to the main branch on GITHUB?"
+read -p " - PHPStan has passed?"
 read -p " - Scrutinizer has passed all inspections?"
 echo ""
 read -p "PRESS [ENTER] TO BEGIN RELEASING "${PLUGIN_VERSION}
@@ -70,7 +72,7 @@ clear
 git fetch origin
 
 # Switch Branch
-echo "Switching to master branch"
+echo "Switching to main branch"
 mkdir -p $ROOT_PATH$TEMP_GITHUB_REPO
 git archive $GIT_BRANCH | tar -x -f - -C $ROOT_PATH$TEMP_GITHUB_REPO || { echo "Unable to archive/copy branch."; exit 1; }
 

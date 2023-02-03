@@ -2,11 +2,6 @@
 !.gitattributes
 !.gitignore
 !.scrutinizer.yml
-!.travis.yml
-*.log
-*.map
-clover.xml
 
-/_
 /node_modules
 /vendor

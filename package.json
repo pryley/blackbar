@@ -1,7 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "highlight.js": "^11.7.0"
+    "@highlightjs/cdn-assets": "^11.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",

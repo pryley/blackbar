@@ -11,7 +11,9 @@ export default [
       {
         file: 'assets/main.js',
         format: 'iife',
-        plugins: [terser()],
+        plugins: [
+          terser(),
+        ],
       },
     ],
     plugins: [
@@ -45,7 +47,7 @@ export default [
     ]
   },
   {
-    input: 'node_modules/highlight.js/styles/atom-one-dark.css',
+    input: 'node_modules/@highlightjs/cdn-assets/styles/atom-one-dark.min.css',
     onwarn (warning, warn) {
       if (warning.code === 'FILE_NAME_CONFLICT') return
       warn(warning)

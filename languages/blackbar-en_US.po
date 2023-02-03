@@ -18,65 +18,57 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: en_US\n"
 
-#: plugin/Controller.php:140
-msgid "Console"
-msgstr "Console"
-
-#: plugin/Controller.php:179
-msgid "%s on line %s in file %s"
-msgstr "%s on line %s in file %s"
-
-#: plugin/Controller.php:210
-msgid "Profiler"
-msgstr "Profiler"
-
-#: plugin/Controller.php:213, plugin/Controller.php:261, plugin/Controller.php:272
-msgid "ms"
-msgstr "ms"
-
-#: plugin/Controller.php:250
-msgid "SQL"
-msgstr "SQL"
-
-#: plugin/Controller.php:261
-msgid "queries"
-msgstr "queries"
-
-#: plugin/Controller.php:269
-msgid "Hooks"
-msgstr "Hooks"
-
-#: views/debug-bar.php:4
+#: views/debug-bar.php:5
 msgid "Toggle"
 msgstr "Toggle"
 
-#: views/debug-bar.php:27
-msgid "Templates"
-msgstr "Templates"
-
-#: views/debug-bar.php:33
-msgid "Globals"
-msgstr "Globals"
-
-#: views/debug-bar.php:38
+#: views/debug-bar.php:17
 msgid "Close"
 msgstr "Close"
 
-#: views/panels/actions.php:7, views/panels/console.php:7, views/panels/profiler.php:7
+#: plugin/Modules/Actions.php:88
+msgid "Hooks"
+msgstr "Hooks"
+
+#: plugin/Modules/Actions.php:92, plugin/Modules/Profiler.php:103, plugin/Modules/Queries.php:73
+msgid "ms"
+msgstr "ms"
+
+#: plugin/Modules/Console.php:78
+msgid "Console"
+msgstr "Console"
+
+#: plugin/Modules/Globals.php:79
+msgid "Globals"
+msgstr "Globals"
+
+#: plugin/Modules/Profiler.php:100
+msgid "Profiler"
+msgstr "Profiler"
+
+#: plugin/Modules/Queries.php:61
+msgid "SQL"
+msgstr "SQL"
+
+#: plugin/Modules/Queries.php:73
+msgid "queries"
+msgstr "queries"
+
+#: plugin/Modules/Templates.php:62
+msgid "Templates"
+msgstr "Templates"
+
+#: views/panels/console.php:7, views/panels/profiler.php:7
 msgid "No entries found."
 msgstr "No entries found."
 
 #: views/panels/queries.php:13
-msgid "Find queries containing"
-msgstr "Find queries containing"
+msgid "Find Queries Containing"
+msgstr "Find Queries Containing"
 
 #: views/panels/queries.php:14
 msgid "Minimum Execution Time"
 msgstr "Minimum Execution Time"
-
-#: views/panels/queries.php:7
-msgid "must be enabled to view SQL queries"
-msgstr "must be enabled to view SQL queries"
 
 #: activate.php:102
 msgctxt "admin-text"
@@ -118,3 +110,8 @@ msgstr "WordPress version"
 msgctxt "admin-text"
 msgid "This plugin requires %s or greater in order to work properly."
 msgstr "This plugin requires %s or greater in order to work properly."
+
+#: views/panels/queries.php:7
+msgctxt "SAVEQUERIES"
+msgid "must be enabled to view SQL queries"
+msgstr "must be enabled to view SQL queries"

@@ -1,9 +1,15 @@
 <?php
 
-namespace GeminiLabs\BlackBar;
+namespace GeminiLabs\BlackBar\Modules;
 
-class Profiler
+use GeminiLabs\BlackBar\Application;
+
+class Profiler implements Module
 {
+    /**
+     * @var Application
+     */
+    protected $app;
     /**
      * This is the time that WordPress takes to execute the profiler hook.
      * @var float
@@ -22,12 +28,26 @@ class Profiler
      */
     protected $timers;
 
-    public function __construct()
+    public function __construct(Application $app)
     {
+        $this->app = $app;
         $this->noise = (float) 0;
         $this->start = (float) 0;
         $this->stop = (float) 0;
         $this->timers = [];
+    }
+
+    public function entries(): array
+    {
+        $entries = [];
+        foreach ($this->timers as $timer) {
+            $entries[] = [
+                'memory' => $this->getMemoryString($timer),
+                'name' => $this->getNameString($timer),
+                'time' => $this->getTimeString($timer),
+            ];
+        }
+        return $entries;
     }
 
     public function getMeasure(): array
@@ -58,6 +78,36 @@ class Profiler
     {
         $totalNoise = (count($this->timers) - 1) * $this->noise;
         return $this->stop - $this->start - $totalNoise;
+    }
+
+    public function hasEntries(): bool
+    {
+        return !empty($this->timers);
+    }
+
+    public function id(): string
+    {
+        return 'glbb-profiler';
+    }
+
+    public function isVisible(): bool
+    {
+        return true;
+    }
+
+    public function label(): string
+    {
+        $label = __('Profiler', 'blackbar');
+        $time = number_format($this->getTotalTime() * 1000, 0);
+        if ($time > 0) {
+            $label .= sprintf(' (%s %s)', $time, __('ms', 'blackbar'));
+        }
+        return $label;
+    }
+
+    public function render(): void
+    {
+        $this->app->render('panels/profiler', ['profiler' => $this]);
     }
 
     public function trace(string $name): void

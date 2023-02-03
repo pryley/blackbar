@@ -6,7 +6,8 @@
 /*.log  export-ignore
 /*.md   export-ignore
 /*.mjs  export-ignore
+/*.neon export-ignore
 /*.sh   export-ignore
 /*.xml  export-ignore
+/*.yml  export-ignore
 /+      export-ignore
-/tests  export-ignore

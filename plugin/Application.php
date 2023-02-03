@@ -2,6 +2,13 @@
 
 namespace GeminiLabs\BlackBar;
 
+use GeminiLabs\BlackBar\Modules\Actions;
+use GeminiLabs\BlackBar\Modules\Globals;
+use GeminiLabs\BlackBar\Modules\Profiler;
+use GeminiLabs\BlackBar\Modules\Queries;
+use GeminiLabs\BlackBar\Modules\Templates;
+use GeminiLabs\BlackBar\Modules\Console;
+
 final class Application
 {
     const CONSOLE_HOOK = 'console';
@@ -10,47 +17,40 @@ final class Application
 
     public $actions;
     public $console;
-    public $errors = [];
     public $file;
+    public $globals;
     public $profiler;
+    public $queries;
+    public $templates;
 
     protected static $instance;
 
     public function __construct()
     {
         $file = wp_normalize_path((new \ReflectionClass($this))->getFileName());
-        $this->actions = new SlowActions();
-        $this->console = new Console();
+        $this->actions = new Actions($this);
+        $this->console = new Console($this);
         $this->file = str_replace('plugin/Application', static::ID, $file);
-        $this->profiler = new Profiler();
+        $this->globals = new Globals($this);
+        $this->profiler = new Profiler($this);
+        $this->queries = new Queries($this);
+        $this->templates = new Templates($this);
     }
 
-    public function errorHandler(int $errno, string $message, string $file, int $line): void
+    public function errorHandler(int $errno, string $message, string $file, int $line): bool
     {
-        $errname = array_key_exists($errno, Console::ERROR_CODES)
-            ? Console::ERROR_CODES[$errno]
-            : 'Unknown';
-        $hash = md5($errno.$message.$file.$line);
-        if (array_key_exists($hash, $this->errors)) {
-            ++$this->errors[$hash]['count'];
-        } else {
-            $this->errors[$hash] = [
-                'count' => 0,
-                'errno' => $errno,
-                'file' => $file,
-                'line' => $line,
-                'message' => $message,
-                'name' => $errname,
-            ];
-        }
+        $path = explode(ABSPATH, $file);
+        $location = sprintf('%s:%s', array_pop($path), $line);
+        $this->console->store($message, (string) $errno, $location);
+        return true;
     }
 
     public function init(): void
     {
-        $controller = new Controller();
-        add_filter('all', [$controller, 'initConsole']);
-        add_filter('all', [$controller, 'initProfiler']);
-        add_filter('all', [$controller, 'measureSlowActions']);
+        $controller = new Controller($this);
+        add_action('all', [$controller, 'initActions']);
+        add_action('all', [$controller, 'initConsole']);
+        add_action('all', [$controller, 'initProfiler']);
         add_action('plugins_loaded', [$controller, 'registerLanguages']);
         add_action('init', function () use ($controller) {
             if (!apply_filters('blackbar/enabled', current_user_can('administrator'))) {
@@ -58,8 +58,8 @@ final class Application
             }
             add_action('admin_enqueue_scripts', [$controller, 'enqueueAssets']);
             add_action('wp_enqueue_scripts', [$controller, 'enqueueAssets']);
-            add_action('admin_footer', [$controller, 'renderBar']);
-            add_action('wp_footer', [$controller, 'renderBar']);
+            add_action('admin_footer', [$controller, 'renderBar'], 99999);
+            add_action('wp_footer', [$controller, 'renderBar'], 99999);
             add_filter('admin_body_class', [$controller, 'filterBodyClasses']);
         });
         apply_filters('debug', 'Profiler Started');

@@ -40,11 +40,11 @@ Download the Black Bar plugin and uploading it to your server via your favorite 
 
 To add entries to the console, simply put the following line of PHP anywhere in your code:
 
-`apply_filters( 'console', 'Enter something to debug here' );`
+`apply_filters('console', 'Enter something to debug here');`
 
 You can also add a specific log level like this:
 
-`apply_filters( 'console', 'Enter something to debug here', 'error' );`
+`apply_filters('console', 'Enter something to debug here', 'error');`
 
 The available log levels are: `debug`, `info`, `notice`, `warning`, `error`, `critical`, `alert`, and `emergency`.
 
@@ -52,23 +52,22 @@ The available log levels are: `debug`, `info`, `notice`, `warning`, `error`, `cr
 
 To use the profiler, simply put the following line of PHP _before_ and _after_ the code you wish to profile:
 
-`apply_filters( 'profile', 'Enter a description of what you are profiling here' );`
+`apply_filters('profile', 'Enter a description of what you are profiling here');`
 
-= How do I restrict the plugin to logged-in administrators? =
-
-To restrict the plugin to logged-in administrators, use the following filter in your theme's functions.php file:
+= How do I enable the plugin for non-administrators? =
 
 `/**
  * @return boolean
  */
-add_filter( 'blackbar/enabled', function( $bool ) {
-    $bool = is_user_logged_in()
-        ? current_user_can( 'administrator' )
-        : false;
-    return $bool;
-});`
+add_filter('blackbar/enabled', 'is_user_logged_in');`
 
 == Changelog ==
+
+= 3.0.0 (2023-02-01) =
+
+- Disabled for non-administrators by default
+- PHP >= 7.2 required
+- WordPress >= 5.8 required
 
 = 2.2.2 (2020-12-18) =
 
