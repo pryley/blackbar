@@ -11,6 +11,7 @@ Black Bar is an unobtrusive Debug Bar for WordPress developers that attaches its
 - Debug both the front-end and admin area
 - Displays any PHP errors that occur when loading a page
 - Displays executed MySQL queries and the time it took to execute each query
+- Displays the 50 slowest action and filter hooks
 - Displays the loaded template files of the active theme
 - Inspect global variables (COOKIE, GET, POST, SERVER, SESSION)
 - Use the Profiler for measuring performance of your plugins and themes

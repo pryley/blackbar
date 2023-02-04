@@ -26,24 +26,6 @@ class Globals implements Module
         if (!empty($this->entries)) {
             return $this->entries;
         }
-        $this->entries = [
-            [
-                'name' => '$_GET',
-                'value' => var_export($_GET, true),
-            ],
-            [
-                'name' => '$_COOKIE',
-                'value' => var_export($_COOKIE, true),
-            ],
-            [
-                'name' => '$_SESSION',
-                'value' => var_export(isset($_SESSION) ? $_SESSION : [], true),
-            ],
-            [
-                'name' => '$_SERVER',
-                'value' => var_export($_SERVER, true),
-            ],
-        ];
         if (is_admin() && $screen = get_current_screen()) {
             $reflection = new \ReflectionClass($screen);
             $properties = $reflection->getProperties(\ReflectionProperty::IS_PUBLIC);
@@ -56,6 +38,22 @@ class Globals implements Module
                 'value' => var_export($values, true),
             ];
         }
+        $this->entries[] = [
+            'name' => '$_GET',
+            'value' => var_export($_GET, true),
+        ];
+        $this->entries[] = [
+            'name' => '$_SERVER',
+            'value' => var_export($_SERVER, true),
+        ];
+        $this->entries[] = [
+            'name' => '$_COOKIE',
+            'value' => var_export($_COOKIE, true),
+        ];
+        $this->entries[] = [
+            'name' => '$_SESSION',
+            'value' => var_export(isset($_SESSION) ? $_SESSION : [], true),
+        ];
         return $this->entries;
     }
 

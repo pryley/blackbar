@@ -59,11 +59,11 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: plugin/Modules/Actions.php:88
+#: plugin/Modules/Actions.php:108
 msgid "Hooks"
 msgstr ""
 
-#: plugin/Modules/Actions.php:92, plugin/Modules/Profiler.php:103, plugin/Modules/Queries.php:73
+#: plugin/Modules/Actions.php:114, plugin/Modules/Profiler.php:101, plugin/Modules/Queries.php:73
 msgid "ms"
 msgstr ""
 
@@ -71,11 +71,11 @@ msgstr ""
 msgid "Console"
 msgstr ""
 
-#: plugin/Modules/Globals.php:79
+#: plugin/Modules/Globals.php:77
 msgid "Globals"
 msgstr ""
 
-#: plugin/Modules/Profiler.php:100
+#: plugin/Modules/Profiler.php:98
 msgid "Profiler"
 msgstr ""
 
@@ -89,6 +89,18 @@ msgstr ""
 
 #: plugin/Modules/Templates.php:62
 msgid "Templates"
+msgstr ""
+
+#: views/panels/actions.php:13
+msgid "Find Callbacks Containing"
+msgstr ""
+
+#: views/panels/actions.php:14
+msgid "Minimum Total Time"
+msgstr ""
+
+#: views/panels/actions.php:7
+msgid "Please deactivate the Debug Bar Slow Actions plugin."
 msgstr ""
 
 #: views/panels/console.php:7, views/panels/profiler.php:7

@@ -151,6 +151,13 @@ document.addEventListener('DOMContentLoaded', () => {
         Blackbar.switchPanel( Blackbar.open );
     });
 
+    blackbarEl.querySelectorAll('.glbb-row-toggle').forEach(el => {
+        el.addEventListener('click', ev => {
+            const row = ev.currentTarget.closest('tr');
+            row.classList.toggle('glbb-row-collapsed')
+        })
+    })
+
     if( debugFilter && debugMinTime ) {
         debugFilter.addEventListener( 'keyup', onKeyup );
         debugFilter.value = Blackbar.readCookie( 'glbb_query_filter' );
@@ -162,5 +169,67 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if( Blackbar.readCookie( 'glbb-toggle' ) === 'on' ) {
         debugToggle.click();
+    }
+
+
+    const actionsCallback = blackbarEl.querySelector('#glbb_actions_callback');
+    const actionsMinTime = blackbarEl.querySelector('#glbb_actions_min_time');
+    const onActionsKeyup = (ev) => {
+        let time = parseFloat(actionsMinTime.value);
+        let qtime = 0;
+        blackbarEl.querySelectorAll('#glbb-actions [data-total]').forEach(el => {
+            let minTimeFilter = parseFloat(el.dataset.total);
+            let timeResult = time > 0 && minTimeFilter < time;
+            let parentEl = el.closest('tr');
+            if (timeResult) {
+                parentEl.classList.add('glbb-row-hidden');
+            } else {
+                parentEl.classList.remove('glbb-row-hidden');
+                qtime += minTimeFilter;
+            }
+        });
+        Blackbar.createCookie('glbb_actions_min_time', blackbarEl.querySelector( '#glbb_actions_min_time').value);
+        let query = actionsCallback.value;
+        let qnum = 0;
+        blackbarEl.querySelectorAll('#glbb-actions td li').forEach(li => {
+            let queryFilter = li.textContent.indexOf(query);
+            let queryResult = query.length > 0 && queryFilter === -1;
+            let parentRow = li.closest('tr').previousElementSibling;
+            if (queryResult) {
+                li.style.display = 'none';
+            } else {
+                li.style.display = '';
+                qnum++;
+            }
+        });
+        blackbarEl.querySelectorAll('#glbb-actions td ol').forEach(ol => {
+            let children = [].slice.call(ol.children).filter(el => 'none' !== getComputedStyle(el).display);
+            let parentEl = ol.closest('tr').previousElementSibling;
+            if (0 === children.length) {
+                parentEl.classList.add('glbb-row-hidden');
+            } else {
+                parentEl.classList.remove('glbb-row-hidden');
+            }
+        })
+        if (query.length > 0) {
+            blackbarEl.querySelectorAll('#glbb-actions tbody th div:not(.glbb-row-toggle)').forEach(el => {
+                el.style.opacity = .5;
+            })
+        } else {
+            blackbarEl.querySelectorAll('#glbb-actions tbody th div:not(.glbb-row-toggle)').forEach(el => {
+                el.style.opacity = 1;
+            })
+        }
+        Blackbar.createCookie('glbb_actions_callback', query);
+
+        // blackbarEl.querySelector( '.glbb-queries-count' ).textContent = qnum;
+        // blackbarEl.querySelector( '.glbb-queries-time' ).textContent = qtime.toFixed(2);
+    };
+
+    if (actionsCallback && actionsMinTime) {
+        actionsMinTime.addEventListener('keyup', onActionsKeyup);
+        actionsMinTime.value = Blackbar.readCookie('glbb_actions_min_time');
+        actionsCallback.addEventListener('keyup', onActionsKeyup);
+        actionsCallback.value = Blackbar.readCookie( 'glbb_actions_callback');
     }
 });

@@ -10,8 +10,8 @@
     </table>
 <?php else : ?>
     <form method="get" class="glbb-queries-filter">
-        <input type="text" name="glbb_query_filter" id="glbb_query_filter" placeholder="<?= __('Find Queries Containing', 'blackbar'); ?>">
-        <input type="text" name="glbb_query_min_time" id="glbb_query_min_time" placeholder="<?= __('Minimum Execution Time', 'blackbar'); ?>">
+        <input class="glbb-input" type="text" name="glbb_query_filter" id="glbb_query_filter" placeholder="<?= __('Find Queries Containing', 'blackbar'); ?>">
+        <input class="glbb-input glbb-input-small" type="text" name="glbb_query_min_time" id="glbb_query_min_time" placeholder="<?= __('Minimum Execution Time', 'blackbar'); ?>">
     </form>
     <table class="glbb-queries-table">
         <tbody>

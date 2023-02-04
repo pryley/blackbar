@@ -39,7 +39,9 @@ class Controller
      */
     public function initActions(): void
     {
-        $this->app->actions->startTimer();
+        if (!class_exists('Debug_Bar_Slow_Actions')) {
+            $this->app->actions->startTimer();
+        }
     }
 
     /**

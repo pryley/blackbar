@@ -14,7 +14,7 @@
                             <?= esc_html($entry['name']); ?>
                         </span>
                     </td>
-                    <td><pre><code class="nohighlight"><?= esc_html($entry['message']); ?></code></pre></td>
+                    <td><?= esc_html($entry['message']); ?></td>
                 </tr>
             <?php endforeach; ?>
         <?php endif; ?>

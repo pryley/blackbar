@@ -48,7 +48,7 @@ class Console implements Module
         foreach ($this->entries as $entry) {
             $entry['name'] = ucfirst($entry['errname']);
             if ($entry['count'] > 1) {
-                $entry['name'] = sprintf('%s (%s)', $entry['name'], $entry['count']);
+                $entry['message'] = sprintf('(%s) %s', $entry['count'], $entry['message']);
             }
             $entries[] = $entry;
         }
@@ -139,8 +139,9 @@ class Console implements Module
         }
         $location = trim($location);
         if (!empty($location)) {
+            $location = str_replace([WP_CONTENT_DIR, ABSPATH], '', $location);
             $location = sprintf('[%s] ', $location);
         }
-        return $location.$message;
+        return sprintf('%s%s', $location, (string) $message);
     }
 }

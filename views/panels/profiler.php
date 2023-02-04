@@ -1,19 +1,28 @@
 <?php defined('WPINC') || die; ?>
 
 <table>
-    <tbody>
-        <?php if (!$profiler->hasEntries()) : ?>
+    <?php if (!$profiler->hasEntries()) : ?>
+        <tbody>
             <tr>
                 <td><?= __('No entries found.', 'blackbar'); ?></td>
             </tr>
-        <?php else : ?>
+        </tbody>
+    <?php else : ?>
+        <thead>
+            <tr>
+                <th>Message</th>
+                <th style="text-align: right;">Time</th>
+                <th style="text-align: right;">Memory</th>
+            </tr>
+        </thead>
+        <tbody>
             <?php foreach ($profiler->entries() as $entry) : ?>
                 <tr>
                     <td><?= esc_html($entry['name']); ?></td>
-                    <td class="glbb-medium"><?= esc_html($entry['time']); ?></td>
-                    <td class="glbb-medium"><?= esc_html($entry['memory']); ?></td>
+                    <td style="text-align: right;"><?= esc_html(sprintf('%.2f', $entry['time'])); ?> ms</td>
+                    <td style="text-align: right;"><?= esc_html($entry['memory']); ?> KB</td>
                 </tr>
             <?php endforeach; ?>
-        <?php endif; ?>
-    </tbody>
+        </tbody>
+    <?php endif; ?>
 </table>

@@ -19,18 +19,6 @@ class Actions implements Module
      */
     protected $hooks;
     /**
-     * @var float
-     */
-    protected $noise;
-    /**
-     * @var float
-     */
-    protected $start;
-    /**
-     * @var float
-     */
-    protected $stop;
-    /**
      * @var int
      */
     protected $totalActions;
@@ -44,24 +32,56 @@ class Actions implements Module
         $this->app = $app;
         $this->entries = [];
         $this->hooks = [];
-        $this->noise = (float) 0; // This is the time that WordPress takes to execute the all hook.
-        $this->start = microtime(true);
-        $this->stop = (float) 0;
         $this->totalActions = 0;
         $this->totalTime = (float) 0;
     }
 
+    public function callbacksForHook(string $action): void
+    {
+        global $wp_filter;
+        if (!array_key_exists($action, $this->hooks)) {
+            return;
+        }
+        $this->hooks[$action]['callbacks_count'] = 0;
+        foreach ($wp_filter[$action] as $priority => $callbacks) {
+            if (!array_key_exists($priority, $this->hooks[$action]['callbacks'])) {
+                $this->hooks[$action]['callbacks'][$priority] = [];
+            }
+            foreach ($callbacks as $callback) {
+                if (is_array($callback['function']) && 2 === count($callback['function'])) {
+                    list($object, $method) = $callback['function'];
+                    if (is_object($object)) {
+                        $object = get_class($object);
+                        // $reflection = new \ReflectionClass($object);
+                        // if (str_starts_with($reflection->getNamespaceName(), 'GeminiLabs\BlackBar')) {
+                        //     continue; // skip blackbar callbacks
+                        // }
+                    }
+                    $this->hooks[$action]['callbacks'][$priority][] = sprintf('%s::%s', $object, $method);
+                } elseif (is_object($callback['function'])) {
+                    $this->hooks[$action]['callbacks'][$priority][] = get_class($callback['function']);
+                } else {
+                    $this->hooks[$action]['callbacks'][$priority][] = $callback['function'];
+                }
+                ++$this->hooks[$action]['callbacks_count'];
+            }
+        }
+    }
+
     public function entries(): array
     {
-        if (!empty($this->entries)) {
+        if (class_exists('Debug_Bar_Slow_Actions')) {
+            return [];
+        }
+        if (!empty($this->entries) || empty($this->hooks)) {
             return $this->entries;
         }
         foreach ($this->hooks as $action => $data) {
-            $total = $this->getTotalTimeForHook($data);
+            $total = $this->totalTimeForHook($data);
             $this->hooks[$action]['total'] = $total;
             $this->totalTime += $total;
             $this->totalActions += $data['count'];
-            $this->addCallbacksForAction($action);
+            $this->callbacksForHook($action);
         }
         uasort($this->hooks, [$this, 'sortByTime']);
         $this->entries = array_slice($this->hooks, 0, 50); // return the 50 slowest actions
@@ -86,8 +106,10 @@ class Actions implements Module
     public function label(): string
     {
         $label = __('Hooks', 'blackbar');
+        if (class_exists('Debug_Bar_Slow_Actions')) {
+            return $label;
+        }
         $this->entries(); // calculates the totalTime
-        // $totalTime = number_format($this->totalTime * 1000, 0);
         if ($this->totalTime > 0) {
             $label = sprintf('%s (%.2f %s)', $label, $this->totalTime, __('ms', 'blackbar'));
         }
@@ -99,46 +121,6 @@ class Actions implements Module
         $this->app->render('panels/actions', ['actions' => $this]);
     }
 
-
-
-
-    public function addCallbacksForAction(string $action): void
-    {
-        global $wp_filter;
-        if (!array_key_exists($action, $this->hooks)) {
-            return;
-        }
-        $this->hooks[$action]['callbacks_count'] = 0;
-        foreach ($wp_filter[$action] as $priority => $callbacks) {
-            if (!array_key_exists($priority, $this->hooks[$action]['callbacks'])) {
-                $this->hooks[$action]['callbacks'][$priority] = [];
-            }
-            foreach ($callbacks as $callback) {
-                if (is_array($callback['function']) && 2 === count($callback['function'])) {
-                    list($object, $method) = $callback['function'];
-                    if (is_object($object)) {
-                        $object = get_class($object);
-                    }
-                    $this->hooks[$action]['callbacks'][$priority][] = sprintf('%s::%s', $object, $method);
-                } elseif (is_object($callback['function'])) {
-                    $this->hooks[$action]['callbacks'][$priority][] = get_class($callback['function']);
-                } else {
-                    $this->hooks[$action]['callbacks'][$priority][] = $callback['function'];
-                }
-                ++$this->hooks[$action]['callbacks_count'];
-            }
-        }
-    }
-
-    public function getTotalTimeForHook(array $data): float
-    {
-        $total = 0;
-        foreach ($data['time'] as $time) {
-            $total += ($time['stop'] - $time['start']) * 1000;
-        }
-        return (float) $total;
-    }
-
     public function startTimer(): void
     {
         if (!isset($this->hooks[current_filter()])) {
@@ -148,7 +130,7 @@ class Actions implements Module
                 'stack' => [],
                 'time' => [],
             ];
-            add_action(current_filter(), [$this, 'stopTimer'], 9999);
+            add_action(current_filter(), [$this, 'stopTimer'], 9999); // @phpstan-ignore-line
         }
         ++$this->hooks[current_filter()]['count'];
         array_push($this->hooks[current_filter()]['stack'], ['start' => microtime(true)]);
@@ -164,6 +146,15 @@ class Actions implements Module
         $time['stop'] = microtime(true);
         array_push($this->hooks[current_filter()]['time'], $time);
         return $filteredValue; // In case this was a filter.
+    }
+
+    public function totalTimeForHook(array $data): float
+    {
+        $total = 0;
+        foreach ($data['time'] as $time) {
+            $total += ($time['stop'] - $time['start']) * 1000;
+        }
+        return (float) $total;
     }
 
     protected function sortByTime(array $a, array $b): int

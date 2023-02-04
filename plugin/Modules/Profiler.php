@@ -11,7 +11,6 @@ class Profiler implements Module
      */
     protected $app;
     /**
-     * This is the time that WordPress takes to execute the profiler hook.
      * @var float
      */
     protected $noise;
@@ -31,7 +30,7 @@ class Profiler implements Module
     public function __construct(Application $app)
     {
         $this->app = $app;
-        $this->noise = (float) 0;
+        $this->noise = (float) 0; // This is the time that WordPress takes to execute the all hook.
         $this->start = (float) 0;
         $this->stop = (float) 0;
         $this->timers = [];
@@ -57,7 +56,7 @@ class Profiler implements Module
 
     public function getMemoryString(array $timer): string
     {
-        return sprintf('%s kB', round($this->normalize($timer)['memory'] / 1000));
+        return (string) round($this->normalize($timer)['memory'] / 1000);
     }
 
     public function getNameString(array $timer): string
@@ -70,8 +69,7 @@ class Profiler implements Module
         $timer = $this->normalize($timer);
         $index = array_search($timer['name'], array_column($this->timers, 'name'));
         $start = $this->start + ($index * $this->noise);
-        $time = number_format(round(($timer['time'] - $start) * 1000, 4), 4);
-        return sprintf('%s ms', $time);
+        return number_format(round(($timer['time'] - $start) * 1000, 4), 4);
     }
 
     public function getTotalTime(): float

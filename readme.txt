@@ -17,6 +17,7 @@ How it helps you with development:
 
 - Displays any PHP errors that occur when loading a page
 - Displays executed MySQL queries and the time it took to execute each query
+- Displays the 50 slowest action and filter hooks
 - Displays the loaded template files of the active theme
 - Inspect global variables (COOKIE, GET, POST, SERVER, SESSION)
 - Use the Console for debugging your plugins and themes
@@ -63,9 +64,10 @@ add_filter('blackbar/enabled', 'is_user_logged_in');`
 
 == Changelog ==
 
-= 3.0.0 (2023-02-01) =
+= 3.0.0 (2023-02-04) =
 
-- Disabled for non-administrators by default
+- Added the Hooks panel which measures slow action and filter hooks
+- BlackBar is now disabled for non-administrators. To enable it for all users, use the following filter hook: `add_filter('blackbar/enabled', 'is_user_logged_in');`
 - PHP >= 7.2 required
 - WordPress >= 5.8 required
 
