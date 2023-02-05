@@ -3,7 +3,7 @@ Contributors: pryley, geminilabs
 Donate link: https://ko-fi.com/pryley
 Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Tested up to: 6.1
-Stable tag: 3.0.0
+Stable tag: 3.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -57,12 +57,19 @@ To use the profiler, simply put the following line of PHP _before_ and _after_ t
 
 = How do I enable the plugin for non-administrators? =
 
-`/**
+```
+/**
  * @return boolean
  */
-add_filter('blackbar/enabled', 'is_user_logged_in');`
+add_filter('blackbar/enabled', 'is_user_logged_in');
+```
 
 == Changelog ==
+
+= 3.1.0 (2023-02-05) =
+
+- Added sorting to SQL queries
+- Fixed filter by time on Hooks panel
 
 = 3.0.0 (2023-02-04) =
 

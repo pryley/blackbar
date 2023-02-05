@@ -83,16 +83,17 @@ window.Blackbar = {
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    var blackbarEl = document.getElementById( Blackbar.id );
-    if( !blackbarEl )return;
+    const blackbarEl = document.getElementById(Blackbar.id);
+    if (!blackbarEl) return;
 
     setTimeout(() => hljs.highlightAll(), 250)
 
-    var debugToggle = blackbarEl.querySelector( '.glbb-toggle' );
-    var debugFilter = blackbarEl.querySelector( '#glbb_query_filter' );
-    var debugMinTime = blackbarEl.querySelector( '#glbb_query_min_time' );
+    const debugToggle = blackbarEl.querySelector('.glbb-toggle');
+    const debugFilter = blackbarEl.querySelector('#glbb_query_filter');
+    const debugMinTime = blackbarEl.querySelector('#glbb_query_min_time');
+    const debugSortSelect = blackbarEl.querySelector('#glbb_query_sort');
 
-    var onClick = function( ev ) {
+    const onClick = (ev) => {
         var toggle = ev.target.closest( 'a' );
         if( toggle.classList.contains( 'glbb-off' )) {
             toggle.classList.remove( 'glbb-off' );
@@ -118,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
         toggle.hideFocus = true;
         ev.preventDefault();
     };
-    var onKeyup = function( ev ) {
+    const onKeyup = (ev) => {
         var time = parseFloat( debugMinTime.value );
         var query = debugFilter.value;
         var qnum = 0;
@@ -145,10 +146,21 @@ document.addEventListener('DOMContentLoaded', () => {
         Blackbar.createCookie( 'glbb_query_filter', query );
         Blackbar.createCookie( 'glbb_query_min_time', blackbarEl.querySelector( '#glbb_query_min_time' ).value );
     };
+    const onQuerySort = (ev) => {
+        ev.preventDefault();
+        const sortby = ev.target.value;
+        const table = blackbarEl.querySelector('.glbb-queries-table tbody');
+        table.append(...[...table.children].sort((a,b) => {
+            if ('time' === sortby) {
+                return b.dataset.time.localeCompare(a.dataset.time, undefined, {'numeric': true})
+            }
+            return a.dataset.index.localeCompare(b.dataset.index, undefined, {'numeric': true})
+        }))
+    }
 
-    document.body.addEventListener( 'keydown', function( ev ) {
-        if( 27 !== ev.which || Blackbar.open == null )return;
-        Blackbar.switchPanel( Blackbar.open );
+    document.body.addEventListener('keydown', (ev) => {
+        if (27 !== ev.which || Blackbar.open == null) return;
+        Blackbar.switchPanel(Blackbar.open);
     });
 
     blackbarEl.querySelectorAll('.glbb-row-toggle').forEach(el => {
@@ -158,23 +170,25 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
-    if( debugFilter && debugMinTime ) {
-        debugFilter.addEventListener( 'keyup', onKeyup );
-        debugFilter.value = Blackbar.readCookie( 'glbb_query_filter' );
-        debugMinTime.addEventListener( 'keyup', onKeyup );
-        debugMinTime.value = Blackbar.readCookie( 'glbb_query_min_time' );
+    if (debugFilter && debugMinTime && debugSortSelect) {
+        debugFilter.addEventListener('keyup', onKeyup);
+        debugMinTime.addEventListener('keyup', onKeyup);
+        debugSortSelect.addEventListener('change', onQuerySort);
+        debugFilter.value = Blackbar.readCookie('glbb_query_filter');
+        debugMinTime.value = Blackbar.readCookie('glbb_query_min_time');
+        debugSortSelect.value = '';
     }
-    if( debugToggle ) {
+    if (debugToggle) {
         debugToggle.addEventListener( 'click', onClick );
     }
-    if( Blackbar.readCookie( 'glbb-toggle' ) === 'on' ) {
+    if (Blackbar.readCookie( 'glbb-toggle' ) === 'on') {
         debugToggle.click();
     }
-
 
     const actionsCallback = blackbarEl.querySelector('#glbb_actions_callback');
     const actionsMinTime = blackbarEl.querySelector('#glbb_actions_min_time');
     const onActionsKeyup = (ev) => {
+        ev.preventDefault();
         let time = parseFloat(actionsMinTime.value);
         let qtime = 0;
         blackbarEl.querySelectorAll('#glbb-actions [data-total]').forEach(el => {
@@ -188,6 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 qtime += minTimeFilter;
             }
         });
+        blackbarEl.querySelector('.glbb-actions-time').textContent = qtime.toFixed(2);
         Blackbar.createCookie('glbb_actions_min_time', blackbarEl.querySelector( '#glbb_actions_min_time').value);
         let query = actionsCallback.value;
         let qnum = 0;
@@ -207,8 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let parentEl = ol.closest('tr').previousElementSibling;
             if (0 === children.length) {
                 parentEl.classList.add('glbb-row-hidden');
-            } else {
-                parentEl.classList.remove('glbb-row-hidden');
             }
         })
         if (query.length > 0) {

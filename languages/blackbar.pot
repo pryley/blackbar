@@ -115,6 +115,14 @@ msgstr ""
 msgid "Minimum Execution Time"
 msgstr ""
 
+#: views/panels/queries.php:16
+msgid "Sort by execution order"
+msgstr ""
+
+#: views/panels/queries.php:17
+msgid "Sort by execution time"
+msgstr ""
+
 #: views/panels/queries.php:7
 msgctxt "SAVEQUERIES"
 msgid "must be enabled to view SQL queries"

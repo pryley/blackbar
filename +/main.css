@@ -193,7 +193,8 @@ body.blackbar #adminmenu {
   width: 100%;
   z-index: 1;
 }
-#glbb-debug-bar input.glbb-input {
+#glbb-debug-bar input.glbb-input,
+#glbb-debug-bar select.glbb-input {
   background-color: var(--glbb-color-dark);
   border-radius: 0;
   border-width: 0;
@@ -205,6 +206,7 @@ body.blackbar #adminmenu {
   height: 30px;
   line-height: 1;
   margin: 0;
+  max-width: 100%;
   padding: 4px 10px;
   width: 100%;
 }
@@ -333,7 +335,8 @@ body.blackbar #adminmenu {
 
 
 @media screen and (min-width: 480px) {
-  #glbb-debug-bar input.glbb-input {
+  #glbb-debug-bar input.glbb-input,
+  #glbb-debug-bar select.glbb-input {
     flex: 1;
     max-width: 320px;
   }

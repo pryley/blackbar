@@ -82,6 +82,14 @@ msgstr "Find Queries Containing"
 msgid "Minimum Execution Time"
 msgstr "Minimum Execution Time"
 
+#: views/panels/queries.php:16
+msgid "Sort by execution order"
+msgstr "Sort by execution order"
+
+#: views/panels/queries.php:17
+msgid "Sort by execution time"
+msgstr "Sort by execution time"
+
 #: activate.php:102
 msgctxt "admin-text"
 msgid "The %s plugin was deactivated."

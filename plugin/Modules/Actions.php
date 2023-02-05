@@ -111,7 +111,7 @@ class Actions implements Module
         }
         $this->entries(); // calculates the totalTime
         if ($this->totalTime > 0) {
-            $label = sprintf('%s (%.2f %s)', $label, $this->totalTime, __('ms', 'blackbar'));
+            $label = sprintf('%s (<span class="glbb-actions-time">%.2f</span> %s)', $label, $this->totalTime, __('ms', 'blackbar'));
         }
         return $label;
     }
