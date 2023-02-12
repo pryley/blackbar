@@ -2,136 +2,89 @@
 
 namespace GeminiLabs\BlackBar\Modules;
 
-use GeminiLabs\BlackBar\Application;
-
-class Profiler implements Module
+class Profiler extends Module
 {
     /**
-     * @var Application
+     * @var int
      */
-    protected $app;
+    protected $memory_start = 0;
     /**
-     * @var float
+     * @var int
      */
-    protected $noise;
+    protected $memory_stop = 0;
     /**
-     * @var float
+     * The profiler noise to remove from the timer (in nanoseconds).
+     * @var int
      */
-    protected $start;
+    protected $noise = 0;
     /**
-     * @var float
+     * The hrtime the profiler started measuring (in nanoseconds).
+     * @var int
      */
-    protected $stop;
+    protected $start = 0;
+    /**
+     * The hrtime the profiler stopped measuring (in nanoseconds).
+     * @var int
+     */
+    protected $stop = 0;
     /**
      * @var array
      */
-    protected $timers;
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-        $this->noise = (float) 0; // This is the time that WordPress takes to execute the all hook.
-        $this->start = (float) 0;
-        $this->stop = (float) 0;
-        $this->timers = [];
-    }
+    protected $timer = [];
 
     public function entries(): array
     {
         $entries = [];
-        foreach ($this->timers as $timer) {
-            $entries[] = [
-                'memory' => $this->getMemoryString($timer),
-                'name' => $this->getNameString($timer),
-                'time' => $this->getTimeString($timer),
-            ];
+        foreach ($this->entries as $entry) {
+            $entry['time'] = $this->formatTime($entry['time']);
+            $entries[] = $entry;
         }
         return $entries;
     }
 
-    public function getMeasure(): array
-    {
-        return $this->timers;
-    }
-
-    public function getMemoryString(array $timer): string
-    {
-        return (string) round($this->normalize($timer)['memory'] / 1000);
-    }
-
-    public function getNameString(array $timer): string
-    {
-        return $this->normalize($timer)['name'];
-    }
-
-    public function getTimeString(array $timer): string
-    {
-        $timer = $this->normalize($timer);
-        $index = array_search($timer['name'], array_column($this->timers, 'name'));
-        $start = $this->start + ($index * $this->noise);
-        return number_format(round(($timer['time'] - $start) * 1000, 4), 4);
-    }
-
-    public function getTotalTime(): float
-    {
-        $totalNoise = (count($this->timers) - 1) * $this->noise;
-        return $this->stop - $this->start - $totalNoise;
-    }
-
-    public function hasEntries(): bool
-    {
-        return !empty($this->timers);
-    }
-
-    public function id(): string
-    {
-        return 'glbb-profiler';
-    }
-
     public function isVisible(): bool
     {
-        return true;
+        return $this->hasEntries();
     }
 
     public function label(): string
     {
-        $label = __('Profiler', 'blackbar');
-        $time = number_format($this->getTotalTime() * 1000, 0);
-        if ($time > 0) {
-            $label .= sprintf(' (%s %s)', $time, __('ms', 'blackbar'));
-        }
-        return $label;
+        return __('Profiler', 'blackbar');
     }
 
-    public function render(): void
+    public function set(string $property): void
     {
-        $this->app->render('panels/profiler', ['profiler' => $this]);
+        if ('noise' === $property) {
+            $this->noise = (int) hrtime(true) - $this->start;
+        } elseif ('start' === $property) {
+            $this->start = (int) hrtime(true);
+            $this->memory_start = memory_get_peak_usage();
+        } elseif ('stop' === $property) {
+            $this->stop = (int) hrtime(true);
+            $this->memory_stop = memory_get_peak_usage();
+        }
     }
 
-    public function trace(string $name): void
+    public function start(string $name): void
     {
-        $microtime = microtime(true); // float
-        if (!$this->start) {
-            $this->start = $microtime;
-        }
-        if ('blackbar/profiler/noise' === $name) {
-            $this->noise = $microtime - $this->start;
-            return;
-        }
-        $this->timers[] = [
+        $this->timer = [
             'memory' => memory_get_peak_usage(),
             'name' => $name,
-            'time' => $microtime,
+            'start' => (int) hrtime(true),
+            'stop' => 0,
+            'time' => 0,
         ];
-        $this->stop = $microtime;
     }
 
-    protected function normalize(array $timer): array
+    public function stop(): void
     {
-        return wp_parse_args($timer, [
-            'memory' => 0,
-            'name' => '',
-            'time' => (float) 0,
-        ]);
+        if (!empty($this->timer)) {
+            $nanoseconds = (int) hrtime(true);
+            $this->timer['memory'] = max(0, memory_get_peak_usage() - $this->timer['memory']);
+            $this->timer['stop'] = $nanoseconds;
+            $this->timer['time'] = max(0, $nanoseconds - $this->timer['start'] - $this->noise);
+            $this->entries[] = $this->timer;
+            $this->timer = []; // reset timer
+        }
     }
 }

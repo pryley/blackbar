@@ -2,36 +2,37 @@
 
 namespace GeminiLabs\BlackBar;
 
-use GeminiLabs\BlackBar\Modules\Actions;
+use GeminiLabs\BlackBar\Modules\Console;
 use GeminiLabs\BlackBar\Modules\Globals;
+use GeminiLabs\BlackBar\Modules\Hooks;
 use GeminiLabs\BlackBar\Modules\Profiler;
 use GeminiLabs\BlackBar\Modules\Queries;
 use GeminiLabs\BlackBar\Modules\Templates;
-use GeminiLabs\BlackBar\Modules\Console;
 
 final class Application
 {
-    const CONSOLE_HOOK = 'console';
-    const ID = 'blackbar';
-    const PROFILER_HOOK = 'profile';
+    public const CONSOLE_HOOK = 'console';
+    public const ID = 'blackbar';
+    public const PROFILER_START_HOOK = 'timer:start';
+    public const PROFILER_STOP_HOOK = 'timer:stop';
 
-    public $actions;
     public $console;
     public $file;
     public $globals;
+    public $hooks;
     public $profiler;
     public $queries;
     public $templates;
 
-    protected static $instance;
+    private static $instance;
 
     public function __construct()
     {
         $file = wp_normalize_path((new \ReflectionClass($this))->getFileName());
-        $this->actions = new Actions($this);
         $this->console = new Console($this);
         $this->file = str_replace('plugin/Application', static::ID, $file);
         $this->globals = new Globals($this);
+        $this->hooks = new Hooks($this);
         $this->profiler = new Profiler($this);
         $this->queries = new Queries($this);
         $this->templates = new Templates($this);
@@ -48,9 +49,11 @@ final class Application
     public function init(): void
     {
         $controller = new Controller($this);
-        add_action('all', [$controller, 'initActions']);
         add_action('all', [$controller, 'initConsole']);
+        add_action('all', [$controller, 'initHooks']);
         add_action('all', [$controller, 'initProfiler']);
+        do_action('blackbar/profiler/start'); // start profiler
+        do_action('blackbar/profiler/noise'); // measure profiler noise
         add_action('plugins_loaded', [$controller, 'registerLanguages']);
         add_action('init', function () use ($controller) {
             if (!apply_filters('blackbar/enabled', current_user_can('administrator'))) {
@@ -62,8 +65,6 @@ final class Application
             add_action('wp_footer', [$controller, 'renderBar'], 99999);
             add_filter('admin_body_class', [$controller, 'filterBodyClasses']);
         });
-        apply_filters('debug', 'Profiler Started');
-        apply_filters('debug', 'blackbar/profiler/noise');
         set_error_handler([$this, 'errorHandler'], E_ALL | E_STRICT);
     }
 
@@ -72,10 +73,10 @@ final class Application
      */
     public static function load()
     {
-        if (empty(static::$instance)) {
-            static::$instance = new static();
+        if (empty(self::$instance)) {
+            self::$instance = new static();
         }
-        return static::$instance;
+        return self::$instance;
     }
 
     public function path(string $file = '', bool $realpath = true): string

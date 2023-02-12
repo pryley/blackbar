@@ -1,19 +1,36 @@
-<?php defined('WPINC') || die; ?>
+<?php defined('WPINC') || exit; ?>
 
-<div id="glbb-debug-bar">
-    <a href="#" class="glbb-toggle glbb-off">
-        <?= __('Toggle', 'blackbar'); ?>
-    </a>
-    <?php foreach ($modules as $module) : ?>
-        <?php if (!$module->isVisible()) continue; ?>
-        <a href="javascript:Blackbar.switchPanel('<?= $module->id(); ?>')" class="<?= $module->id(); ?>">
-            <?= $module->label(); ?>
-        </a>
-        <div id="<?= $module->id(); ?>" class="glbb-debug-panel">
+<div id="glbb">
+    <?php foreach ($modules as $module) : /* Ensure that the console entries are loaded last */ ?>
+        <?php if (!$module->isVisible() || 'glbb-console' === $module->id()) continue; ?>
+        <div id="<?= $module->id(); ?>" class="glbb-panel glbb-hidden">
             <?php $module->render(); ?>
         </div>
     <?php endforeach; ?>
-    <a href="javascript:Blackbar.close()" class="glbb-close">
-        <?= __('Close', 'blackbar'); ?>
-    </a>
+    <?php foreach ($modules as $module) : /* Ensure that the console entries are loaded last */ ?>
+        <?php if (!$module->isVisible() || 'glbb-console' !== $module->id()) continue; ?>
+        <div id="<?= $module->id(); ?>" class="glbb-panel glbb-hidden">
+            <?php $module->render(); ?>
+        </div>
+    <?php endforeach; ?>
+    <div class="glbb-panel-links">
+        <a href="#" class="dashicons-before glbb-toggle">
+            <span class="screen-reader-text">
+                <?= esc_html__('Toggle', 'blackbar'); ?>
+            </span>
+        </a>
+        <?php foreach ($modules as $module) : ?>
+            <?php if (!$module->isVisible()) continue; ?>
+            <a href="#" data-panel="<?= esc_attr($module->id()); ?>" data-info="<?= esc_attr($module->info()); ?>" class="dashicons-before <?= $module->classes(); ?>">
+                <span><?= $module->label(); ?></span>
+            </a>
+        <?php endforeach; ?>
+        <div>
+            <a href="#" class="dashicons-before glbb-close">
+                <span class="screen-reader-text">
+                    <?= esc_html__('Close', 'blackbar'); ?>
+                </span>
+            </a>
+        </div>
+    </div>
 </div>

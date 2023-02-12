@@ -2,25 +2,8 @@
 
 namespace GeminiLabs\BlackBar\Modules;
 
-use GeminiLabs\BlackBar\Application;
-
-class Templates implements Module
+class Templates extends Module
 {
-    /**
-     * @var Application
-     */
-    protected $app;
-    /**
-     * @var array
-     */
-    protected $entries;
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-        $this->entries = [];
-    }
-
     public function entries(): array
     {
         if (!empty($this->entries)) {
@@ -47,23 +30,13 @@ class Templates implements Module
         return !empty($this->entries());
     }
 
-    public function id(): string
-    {
-        return 'glbb-templates';
-    }
-
     public function isVisible(): bool
     {
-        return !is_admin();
+        return !is_admin() && $this->hasEntries();
     }
 
     public function label(): string
     {
         return __('Templates', 'blackbar');
-    }
-
-    public function render(): void
-    {
-        $this->app->render('panels/templates', ['templates' => $this]);
     }
 }

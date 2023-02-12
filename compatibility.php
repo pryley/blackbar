@@ -1,6 +1,6 @@
 <?php
 
-defined('WPINC') || die;
+defined('WPINC') || exit;
 
 /*
  * @return array

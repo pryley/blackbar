@@ -2,41 +2,46 @@
 
 namespace GeminiLabs\BlackBar\Modules;
 
-use GeminiLabs\BlackBar\Application;
-
-class Queries implements Module
+class Queries extends Module
 {
-    /**
-     * @var Application
-     */
-    protected $app;
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-    }
-
     public function entries(): array
     {
         global $wpdb;
         $entries = [];
+        $index = 0;
         $search = [
-            'AND', 'FROM', 'GROUP BY', 'INNER JOIN', 'LEFT JOIN', 'LIMIT',
+            'FROM', 'GROUP BY', 'INNER JOIN', 'LEFT JOIN', 'LIMIT',
             'ON DUPLICATE KEY UPDATE', 'ORDER BY', 'OFFSET', ' SET', 'WHERE',
         ];
         $replace = array_map(function ($value) {
             return PHP_EOL.$value;
         }, $search);
         foreach ($wpdb->queries as $query) {
-            $miliseconds = number_format(round($query[1] * 1000, 4), 4);
             $sql = preg_replace('/\s\s+/', ' ', trim($query[0]));
             $sql = str_replace(PHP_EOL, ' ', $sql);
+            $sql = str_replace(['( ', ' )', ' ,'], ['(', ')', ','], $sql);
             $sql = str_replace($search, $replace, $sql);
+            $parts = explode(PHP_EOL, $sql);
+            $sql = array_reduce($parts, function ($carry, $part) {
+                if (str_starts_with($part, 'SELECT') && strlen($part) > 100) {
+                    $part = preg_replace('/\s*(,)\s*/', ','.PHP_EOL.'  ', $part);
+                }
+                if (str_starts_with($part, 'WHERE')) {
+                    $part = str_replace('AND', PHP_EOL.'  AND', $part);
+                }
+                return $carry.$part.PHP_EOL;
+            });
+            $trace = explode(', ', $query[2]);
+            $nanoseconds = (int) round($query[1] * 1e9);
             $entries[] = [
+                'index' => $index++,
                 'sql' => $sql,
-                'time' => $miliseconds,
+                'time' => $nanoseconds,
+                'time_formatted' => $this->formatTime($nanoseconds),
+                'trace' => array_reverse($trace, true),
             ];
         }
+        uasort($entries, [$this, 'sortByTime']);
         return $entries;
     }
 
@@ -46,35 +51,27 @@ class Queries implements Module
         return !empty($wpdb->queries);
     }
 
-    public function id(): string
+    public function info(): string
     {
-        return 'glbb-queries';
-    }
-
-    public function isVisible(): bool
-    {
-        return true;
+        if (!defined('SAVEQUERIES') || !SAVEQUERIES) {
+            return '';
+        }
+        global $wpdb;
+        $seconds = (float) array_sum(wp_list_pluck($wpdb->queries, 1));
+        $nanoseconds = (int) round($seconds * 1e9);
+        return $this->formatTime($nanoseconds);
     }
 
     public function label(): string
     {
-        $label = __('SQL', 'blackbar');
-        if (!defined('SAVEQUERIES') || !SAVEQUERIES) {
-            return $label;
-        }
-        global $wpdb;
-        $queryTime = 0;
-        foreach ($wpdb->queries as $query) {
-            $queryTime += $query[1];
-        }
-        $queryTime = number_format($queryTime * 1000, 2);
-        $queriesCount = sprintf('<span class="glbb-queries-count">%s</span>', count($wpdb->queries));
-        $queriesTime = sprintf('<span class="glbb-queries-time">%s</span>', $queryTime);
-        return $label.sprintf(' (%s %s | %s %s)', $queriesCount, __('queries', 'blackbar'), $queriesTime, __('ms', 'blackbar'));
+        return __('SQL', 'blackbar');
     }
 
-    public function render(): void
+    protected function sortByTime(array $a, array $b): int
     {
-        $this->app->render('panels/queries', ['queries' => $this]);
+        if ($a['time'] !== $b['time']) {
+            return ($a['time'] > $b['time']) ? -1 : 1;
+        }
+        return 0;
     }
 }

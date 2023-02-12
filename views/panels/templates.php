@@ -1,17 +1,15 @@
-<?php defined('WPINC') || die; ?>
+<?php defined('WPINC') || exit; ?>
 
-<?php if ($templates->hasEntries()) : ?>
-    <table class="glbb-templates-table">
-        <tbody>
+<table class="glbb-grid">
+    <tbody>
+        <?php foreach ($module->entries() as $index => $template) : ?>
             <tr>
                 <td>
                     <ol>
-                        <?php foreach ($templates->entries() as $index => $template) : ?>
-                            <li><?= esc_html($template); ?></li>
-                        <?php endforeach; ?>
+                        <li value="<?= esc_attr($index + 1); ?>"><?= esc_html($template); ?></li>
                     </ol>
                 </td>
             </tr>
-        </tbody>
-    </table>
-<?php endif; ?>
+        <?php endforeach; ?>
+    </tbody>
+</table>

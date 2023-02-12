@@ -51,75 +51,131 @@ msgctxt "admin-text"
 msgid "This plugin requires %s or greater in order to work properly."
 msgstr ""
 
-#: views/debug-bar.php:5
+#: views/debug-bar.php:19
 msgid "Toggle"
 msgstr ""
 
-#: views/debug-bar.php:17
+#: views/debug-bar.php:31
 msgid "Close"
 msgstr ""
 
-#: plugin/Modules/Actions.php:108
-msgid "Hooks"
-msgstr ""
-
-#: plugin/Modules/Actions.php:114, plugin/Modules/Profiler.php:101, plugin/Modules/Queries.php:73
-msgid "ms"
-msgstr ""
-
-#: plugin/Modules/Console.php:78
+#: plugin/Modules/Console.php:70
 msgid "Console"
 msgstr ""
 
-#: plugin/Modules/Globals.php:77
+#: plugin/Modules/Globals.php:37
 msgid "Globals"
 msgstr ""
 
-#: plugin/Modules/Profiler.php:98
+#: plugin/Modules/Hooks.php:57
+msgid "Hooks"
+msgstr ""
+
+#: plugin/Modules/Profiler.php:52
 msgid "Profiler"
 msgstr ""
 
-#: plugin/Modules/Queries.php:61
+#: plugin/Modules/Queries.php:67
 msgid "SQL"
 msgstr ""
 
-#: plugin/Modules/Queries.php:73
-msgid "queries"
-msgstr ""
-
-#: plugin/Modules/Templates.php:62
+#: plugin/Modules/Templates.php:40
 msgid "Templates"
 msgstr ""
 
-#: views/panels/actions.php:13
-msgid "Find Callbacks Containing"
+#: views/panels/console.php:31
+msgid "Debug"
 msgstr ""
 
-#: views/panels/actions.php:14
-msgid "Minimum Total Time"
+#: views/panels/console.php:32
+msgid "Info"
 msgstr ""
 
-#: views/panels/actions.php:7
-msgid "Please deactivate the Debug Bar Slow Actions plugin."
+#: views/panels/console.php:33
+msgid "Deprecated"
 msgstr ""
 
-#: views/panels/console.php:7, views/panels/profiler.php:7
+#: views/panels/console.php:34
+msgid "Notice"
+msgstr ""
+
+#: views/panels/console.php:35
+msgid "Strict"
+msgstr ""
+
+#: views/panels/console.php:36
+msgid "Warning"
+msgstr ""
+
+#: views/panels/console.php:37
+msgid "Error"
+msgstr ""
+
+#: views/panels/console.php:8
 msgid "No entries found."
 msgstr ""
 
-#: views/panels/queries.php:13
-msgid "Find Queries Containing"
+#: views/panels/hooks.php:13
+msgid "Find callbacks containing"
 msgstr ""
 
-#: views/panels/queries.php:14
-msgid "Minimum Execution Time"
+#: views/panels/hooks.php:14
+msgid "Minimum total time"
 msgstr ""
 
-#: views/panels/queries.php:16
+#: views/panels/hooks.php:16
+msgid "Sort by total time"
+msgstr ""
+
+#: views/panels/hooks.php:17, views/panels/queries.php:17
 msgid "Sort by execution order"
 msgstr ""
 
-#: views/panels/queries.php:17
+#: views/panels/hooks.php:23
+msgid "Action or Filter (Slowest 50)"
+msgstr ""
+
+#: views/panels/hooks.php:24
+msgid "Callbacks"
+msgstr ""
+
+#: views/panels/hooks.php:25
+msgid "Calls"
+msgstr ""
+
+#: views/panels/hooks.php:26
+msgid "Per Call"
+msgstr ""
+
+#: views/panels/hooks.php:27
+msgid "Total"
+msgstr ""
+
+#: views/panels/hooks.php:7
+msgid "Please deactivate the Debug Bar Slow Actions plugin."
+msgstr ""
+
+#: views/panels/profiler.php:6
+msgid "Timer Name"
+msgstr ""
+
+#: views/panels/profiler.php:7
+msgid "Memory Used"
+msgstr ""
+
+#: views/panels/profiler.php:8
+msgid "Total Time"
+msgstr ""
+
+#: views/panels/queries.php:13
+msgid "Find SQL containing"
+msgstr ""
+
+#: views/panels/queries.php:14
+msgid "Minimum execution time"
+msgstr ""
+
+#: views/panels/queries.php:16
 msgid "Sort by execution time"
 msgstr ""
 

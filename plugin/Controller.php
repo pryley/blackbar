@@ -37,16 +37,6 @@ class Controller
     /**
      * @action all
      */
-    public function initActions(): void
-    {
-        if (!class_exists('Debug_Bar_Slow_Actions')) {
-            $this->app->actions->startTimer();
-        }
-    }
-
-    /**
-     * @action all
-     */
     public function initConsole(): void
     {
         if (Application::CONSOLE_HOOK !== func_get_arg(0)) {
@@ -54,7 +44,7 @@ class Controller
         }
         $args = array_pad(func_get_args(), 4, '');
         $args = array_combine(['hook', 'message', 'errno', 'location'], $args);
-        $args = array_map('sanitize_text_field', $args);
+        $args = array_map('sanitize_textarea_field', $args);
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 4);
         $entry = array_pop($backtrace); // get the fourth backtrace entry
         if (empty(trim($args['location'])) && array_key_exists('file', $entry)) {
@@ -67,10 +57,25 @@ class Controller
     /**
      * @action all
      */
+    public function initHooks(): void
+    {
+        $this->app->hooks->startTimer();
+    }
+
+    /**
+     * @action all
+     */
     public function initProfiler(): void
     {
-        if (Application::PROFILER_HOOK === func_get_arg(0)) {
-            $this->app->profiler->trace(func_get_arg(1));
+        $hook = func_get_arg(0);
+        if (str_starts_with($hook, 'blackbar/profiler/')) {
+            $property = str_replace('blackbar/profiler/', '', $hook);
+            $this->app->profiler->set($property);
+        } elseif ('timer:start' === $hook) {
+            $name = func_num_args() > 1 ? func_get_arg(1) : 'Timer';
+            $this->app->profiler->start($name);
+        } elseif ('timer:stop' === $hook) {
+            $this->app->profiler->stop();
         }
     }
 
@@ -90,13 +95,13 @@ class Controller
      */
     public function renderBar(): void
     {
-        apply_filters('debug', 'Profiler Stopped');
+        do_action('blackbar/profiler/stop'); // stop profiler
         $this->app->render('debug-bar', [
             'modules' => [ // order is intentional
                 $this->app->console,
                 $this->app->profiler,
                 $this->app->queries,
-                $this->app->actions,
+                $this->app->hooks,
                 $this->app->templates,
                 $this->app->globals,
             ],
