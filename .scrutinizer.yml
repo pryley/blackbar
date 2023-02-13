@@ -4,9 +4,7 @@ filter:
     - assets/
     - languages/
     - node_modules/
-    - tests/
     - vendor/
-    - wordpress/
 
 build:
   nodes:
@@ -19,15 +17,8 @@ build:
         before:
           - composer require --dev johnpbloch/wordpress
       environment:
-        elasticsearch: false
-        memcached: false
-        mongodb: false
-        neo4j: false
-        node: '9.3.0'
-        php: '7.2.0'
-        postgresql: false
-        rabbitmq: false
-        redis: false
+        node: false
+        php: '7.3'
       tests:
         override:
           - php-scrutinizer-run --enable-security-analysis
@@ -48,46 +39,3 @@ checks:
       verify_parent_constraints: true
     return_doc_comments: true
     return_doc_comment_if_not_inferrable: true
-
-coding_style:
-  php:
-    indentation:
-      general:
-        use_tabs: true
-    spaces:
-      before_parentheses:
-        if: false
-        for: false
-        while: false
-        switch: false
-        catch: false
-      around_operators:
-        concatenation: true
-      within:
-        brackets: true
-        array_initializer: true
-        grouping: true
-        function_call: true
-        function_declaration: true
-        if: true
-        for: true
-        while: true
-        switch: true
-        catch: true
-    braces:
-      classes_functions:
-        class: new-line
-        function: new-line
-        closure: new-line
-      if:
-        else_on_new_line: true
-      do_while:
-        while_on_new_line: true
-      try:
-        catch_on_new_line: true
-        finally_on_new_line: true
-    upper_lower_casing:
-      keywords:
-        general: lower
-      constants:
-        true_false_null: lower
