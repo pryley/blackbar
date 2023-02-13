@@ -2,7 +2,7 @@
 
 [![GitHub version](https://badge.fury.io/gh/pryley%2Fblackbar.svg)](https://badge.fury.io/gh/pryley%2Fblackbar) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/pryley/blackbar/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/pryley/blackbar/?branch=main) [![Code Coverage](https://scrutinizer-ci.com/g/pryley/blackbar/badges/coverage.png?b=main)](https://scrutinizer-ci.com/g/pryley/blackbar/?branch=main) [![License](https://img.shields.io/badge/license-GPLv3-brightgreen.svg)](https://github.com/pryley/blackbar/blob/main/LICENSE)
 
-![Black Bar banner](+/assets/banner-1544x500.png)
+![Black Bar banner](+/assets/banner-1880x609.png)
 
 Black Bar is an unobtrusive Debug Bar for WordPress developers that attaches itself to the bottom of the browser window. It is a rewrite of [blackbox-debug-bar](https://wordpress.org/plugins/blackbox-debug-bar/) by [Grzegorz Winiarski](https://profiles.wordpress.org/gwin) which appears to be abandoned as it has not been updated since 2013.
 
@@ -18,5 +18,5 @@ Black Bar is an unobtrusive Debug Bar for WordPress developers that attaches its
 
 ### Minimum plugin requirements
 
-* PHP 7.2
+* PHP 7.3
 * WordPress 5.8

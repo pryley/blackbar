@@ -257,7 +257,8 @@ body.blackbar #adminmenu {
   background-position: center;
   background-size: 20px;
 }
-#glbb input[type="checkbox"]:checked::before {
+#glbb input[type="checkbox"]:checked::before,
+#glbb input[type="checkbox"]:checked::after {
   display: none;
 }
 #glbb input[type=text],
