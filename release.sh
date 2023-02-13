@@ -6,8 +6,8 @@
 # ----- START EDITING HERE -----
 
 ASSETS_DIR="+/assets"
-GIT_BRANCH="master"
-MIN_PHP_VERSION="7.2"
+GIT_BRANCH="main"
+MIN_PHP_VERSION="7.3"
 MIN_WORDPRESS_VERSION="5.8"
 PLUGIN_SLUG="blackbar"
 
