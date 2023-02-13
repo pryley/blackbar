@@ -7,33 +7,25 @@ Stable tag: 4.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-Black Bar is a Debug Bar for WordPress developers. It collects and displays errors, executed queries, globals, theme templates, and provides a profiler.
+Black Bar is an unobtrusive Debug Bar for WordPress developers that attaches itself to the bottom of the browser window.
 
 == Description ==
 
-Black Bar is an unobtrusive Debug Bar for WordPress developers that attaches itself to the bottom of the browser window. It is a rewrite of [blackbox-debug-bar](https://wordpress.org/plugins/blackbox-debug-bar/) by [Grzegorz Winiarski](https://profiles.wordpress.org/gwin) which appears to be abandoned as it has not been updated since 2013.
+Black Bar is an unobtrusive Debug Bar for WordPress developers. It collects and displays errors, executed SQL queries, slow actions and hooks, theme templates, global variables, and provides a profiler.
 
 How it helps you with development:
 
-- Displays any PHP errors that occur when loading a page
-- Displays executed MySQL queries and the time it took to execute each query
-- Displays the 50 slowest action and filter hooks
-- Displays the loaded template files of the active theme
-- Inspect global variables (COOKIE, GET, POST, SERVER, SESSION)
-- Use the Console for debugging your plugins and themes
-- Use the Profiler for measuring the performance of your plugins and themes
+- Debug your code with the Console
+- Inspect global variables (COOKIE, GET, POST, SERVER, SESSION, WP_Screen)
+- Measure performance of your code with the Profiler
+- View any PHP errors that occur when loading a page in the Console
+- View executed MySQL queries along with execution time and backtrace
+- View template files of the active theme in loaded order
+- View the 50 slowest action and filter hooks along with callbacks ordered by priority
 
 == Installation ==
 
-= Automatic installation =
-
-Log in to your WordPress dashboard, navigate to the Plugins menu and click "Add New".
-
-In the search field type "Black Bar" and click Search Plugins. Once you have found the plugin you can view details about it such as the point release, rating and description. You can install it by simply clicking "Install Now".
-
-= Manual installation =
-
-Download the Black Bar plugin and uploading it to your server via your favorite FTP application. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
+If you have never installed a WordPress plugin before, you can [read instructions on how to do this here](https://wordpress.org/documentation/article/manage-plugins/).
 
 == Frequently Asked Questions ==
 
@@ -43,7 +35,7 @@ To add entries to the console, insert the following line of PHP anywhere in your
 
 `apply_filters('console', 'Enter something to debug here');`
 
-You can also add a specific log level like this:
+You can also add an optional log level like this:
 
 `apply_filters('console', 'Enter something to debug here', 'error');`
 
@@ -63,19 +55,22 @@ To use the profiler, insert the following lines of PHP _before_ and _after_ the 
 
 = How do I enable the plugin for non-administrators? =
 
+By default, Black Bar is only visible to administrator users. To enable it for all logged-in users, add the following code to your child theme's functions.php file:
+
 `add_filter('blackbar/enabled', 'is_user_logged_in');`
 
 == Changelog ==
 
-= 4.0.0 (2023-02-15) =
+= 4.0.0 (2023-02-13) =
 
 - Added console level filters
-- Added trace information to SQL queries
 - Added sorting to Action/Filter Hooks
 - Added syntax highlighting to console entries
-- Fixed SQL formating
+- Added trace information to SQL queries
+- Beautified SQL formating
+- Changed Profiler usage (use the "trace:start" and "trace:stop" hooks)
+- Improved Profiler, it is now also more accurate
 - Refreshed UI
 - Requires PHP >= 7.3
-- Updated Profiler (now uses "trace:start" and "trace:stop" hooks)
 
 [See changelog for all versions](https://raw.githubusercontent.com/pryley/blackbar/main/changelog.txt).

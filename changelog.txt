@@ -1,12 +1,14 @@
-= 4.0.0 (2023-02-15) =
+= 4.0.0 (2023-02-13) =
 
 - Added console level filters
-- Added trace information to SQL queries
 - Added sorting to Action/Filter Hooks
 - Added syntax highlighting to console entries
-- Fixed SQL formating
+- Added trace information to SQL queries
+- Beautified SQL formating
+- Changed Profiler usage (use the "trace:start" and "trace:stop" hooks)
+- Improved Profiler, it is now also more accurate
 - Refreshed UI
-- Updated Profiler (now uses "trace:start" and "trace:stop" hooks)
+- Requires PHP >= 7.3
 
 = 3.1.0 (2023-02-05) =
 

@@ -46,21 +46,4 @@ export default [
       }),
     ]
   },
-  {
-    input: 'node_modules/@highlightjs/cdn-assets/styles/atom-one-dark.min.css',
-    onwarn (warning, warn) {
-      if (warning.code === 'FILE_NAME_CONFLICT') return
-      warn(warning)
-    },
-    output: {
-      file: 'assets/syntax.css',
-    },
-    plugins: [
-      filesize(),
-      postcss({
-        extract: true,
-        minimize: true,
-      }),
-    ]
-  },
 ]

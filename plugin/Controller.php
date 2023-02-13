@@ -20,9 +20,8 @@ class Controller
      */
     public function enqueueAssets(): void
     {
-        wp_enqueue_script(Application::ID, $this->app->url('assets/main.js'));
-        wp_enqueue_style(Application::ID, $this->app->url('assets/main.css'), ['dashicons']);
-        wp_enqueue_style(Application::ID.'-syntax', $this->app->url('assets/syntax.css'));
+        wp_enqueue_script(Application::ID, $this->app->url('assets/main.js'), [], '4.0.0');
+        wp_enqueue_style(Application::ID, $this->app->url('assets/main.css'), ['dashicons'], '4.0.0');
     }
 
     /**

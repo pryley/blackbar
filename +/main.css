@@ -1,3 +1,5 @@
+@import "../node_modules/@highlightjs/cdn-assets/styles/atom-one-dark.min.css";
+
 .glbb-close::before {
   content: "\f335";
   font-size: 26px;
@@ -316,10 +318,12 @@ body.blackbar #adminmenu {
 }
 #glbb table td {
   background: transparent;
+  border-width: 0;
   line-height: 1.5;
   padding: 10px 15px;
   vertical-align: top;
 }
+
 
 #glbb table.glbb-grid thead {
   position: sticky;
@@ -357,6 +361,9 @@ body.blackbar #adminmenu {
   margin: 0;
   padding: 0;
   white-space: nowrap;
+}
+#glbb table.glbb-grid tr th:first-child {
+  text-align: left;
 }
 #glbb table.glbb-grid tr td.glbb-row-details {
   background-color: var(--glbb-color-darker-border);
