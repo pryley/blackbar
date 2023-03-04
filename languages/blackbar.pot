@@ -51,12 +51,12 @@ msgctxt "admin-text"
 msgid "This plugin requires %s or greater in order to work properly."
 msgstr ""
 
-#: views/debug-bar.php:19
-msgid "Toggle"
+#: views/debug-bar.php:20
+msgid "Close"
 msgstr ""
 
-#: views/debug-bar.php:31
-msgid "Close"
+#: views/debug-bar.php:25
+msgid "Toggle"
 msgstr ""
 
 #: plugin/Modules/Console.php:70

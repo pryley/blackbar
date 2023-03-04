@@ -33,7 +33,7 @@ class Dump
     {
         $result = [];
         $result[] = str_repeat(' ', $this->level * 4).'[';
-        if (is_string($key) && "\0" === $key[0]) {
+        if ("\0" === $key[0]) {
             $keyParts = explode("\0", $key);
             $result[] = $keyParts[2].(('*' === $keyParts[1]) ? ':protected' : ':private');
         } else {
@@ -107,7 +107,7 @@ class Dump
             $subject = (array) $subject;
         }
         foreach ($subject as $key => $val) {
-            if (false === $this->isIgnoredKey($key)) {
+            if (!$this->isIgnoredKey($key)) {
                 $this->result[] = $this->formatKey($key);
                 $this->inspect($val);
             }
@@ -131,11 +131,11 @@ class Dump
     }
 
     /**
-     * @param string $key
+     * @param mixed $key
      */
     protected function isIgnoredKey($key): bool
     {
-        return in_array($key, $this->ignore);
+        return !is_string($key) || in_array($key, $this->ignore);
     }
 
     protected function reset(): void

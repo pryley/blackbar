@@ -18,13 +18,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Language: en_US\n"
 
-#: views/debug-bar.php:19
-msgid "Toggle"
-msgstr "Toggle"
-
-#: views/debug-bar.php:31
+#: views/debug-bar.php:20
 msgid "Close"
 msgstr "Close"
+
+#: views/debug-bar.php:25
+msgid "Toggle"
+msgstr "Toggle"
 
 #: plugin/Modules/Console.php:70
 msgid "Console"

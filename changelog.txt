@@ -1,3 +1,9 @@
+= 4.0.1 (2023-03-04) =
+
+- Added cache busting to enqueued assets
+- Added console level filter counts
+- Added HTTP_COOKIE value to INPUT_SERVER globals
+
 = 4.0.0 (2023-02-13) =
 
 - Added console level filters
