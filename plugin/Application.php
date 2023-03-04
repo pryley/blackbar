@@ -23,6 +23,7 @@ final class Application
     public $profiler;
     public $queries;
     public $templates;
+    public $version;
 
     private static $instance;
 
@@ -36,6 +37,7 @@ final class Application
         $this->profiler = new Profiler($this);
         $this->queries = new Queries($this);
         $this->templates = new Templates($this);
+        $this->version = get_file_data($this->file, ['Version' => 'Version'])['Version'];
     }
 
     public function errorHandler(int $errno, string $message, string $file, int $line): bool

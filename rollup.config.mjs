@@ -9,7 +9,7 @@ export default [
     input: '+/main.js',
     output: [
       {
-        file: 'assets/main.js',
+        file: 'assets/blackbar.js',
         format: 'iife',
         plugins: [
           terser(),
@@ -36,7 +36,7 @@ export default [
       warn(warning)
     },
     output: {
-      file: 'assets/main.css',
+      file: 'assets/blackbar.css',
     },
     plugins: [
       filesize(),
