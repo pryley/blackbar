@@ -14,23 +14,23 @@
         </div>
     <?php endforeach; ?>
     <div class="glbb-panel-links">
-        <a href="#" class="dashicons-before glbb-toggle">
-            <span class="screen-reader-text">
-                <?= esc_html__('Toggle', 'blackbar'); ?>
-            </span>
-        </a>
-        <?php foreach ($modules as $module) : ?>
-            <?php if (!$module->isVisible()) continue; ?>
-            <a href="#" data-panel="<?= esc_attr($module->id()); ?>" data-info="<?= esc_attr($module->info()); ?>" class="dashicons-before <?= $module->classes(); ?>">
-                <span><?= $module->label(); ?></span>
-            </a>
-        <?php endforeach; ?>
         <div>
-            <a href="#" class="dashicons-before glbb-close">
+            <a class="dashicons-before glbb-close">
                 <span class="screen-reader-text">
                     <?= esc_html__('Close', 'blackbar'); ?>
                 </span>
             </a>
+            <a class="dashicons-before glbb-toggle" tabindex="0">
+                <span class="screen-reader-text">
+                    <?= esc_html__('Toggle', 'blackbar'); ?>
+                </span>
+            </a>
         </div>
+        <?php foreach ($modules as $module) : ?>
+            <?php if (!$module->isVisible()) continue; ?>
+            <a data-panel="<?= esc_attr($module->id()); ?>" data-info="<?= esc_attr($module->info()); ?>" class="dashicons-before <?= $module->classes(); ?>" tabindex="0">
+                <span><?= $module->label(); ?></span>
+            </a>
+        <?php endforeach; ?>
     </div>
 </div>
