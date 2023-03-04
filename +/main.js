@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Console filters
     const consoleFilters = blackbar.el.querySelectorAll('#glbb-console [type=checkbox]');
+    let consoleEntries = {};
     let consoleLevels = blackbar.get('glbb_console_levels', []);
     if ('object' !== typeof consoleLevels || 0 === consoleLevels.length) {
         consoleLevels = [];
@@ -165,17 +166,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyConsoleFilter = (value, checked) => {
         const set = new Set(consoleLevels);
         set[checked ? 'add' : 'delete'](value)
+        consoleEntries = {};
         consoleLevels = [...set];
+        let total = 0;
         blackbar.el.querySelectorAll('#glbb-console tr[data-errname]').forEach(tr => {
             let level = tr.dataset.errname;
+            consoleEntries[level] = (consoleEntries[level] || 0) + 1;
             tr.classList.remove('glbb-hidden')
             if (~['alert','critical','emergency'].indexOf(level)) {
                 level = 'error';
             }
             if (!~consoleLevels.indexOf(level)) {
                 tr.classList.add('glbb-hidden')
+            } else {
+                total++;
             }
         })
+        blackbar.el.querySelector('a.glbb-console').dataset.info = total || '';
     }
     const onConsoleFilter = (ev) => {
         applyConsoleFilter(ev.target.value, ev.target.checked)
@@ -189,6 +196,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 el.checked = true;
             }
         })
+    })
+    consoleFilters.forEach(el => {
+        if (consoleEntries[el.value] || false) {
+            let span = document.createElement('span');
+            span.textContent = ` (${consoleEntries[el.value]})`;
+            el.parentElement.append(span)
+        }
     })
 
     // Hooks filters
