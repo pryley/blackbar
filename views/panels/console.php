@@ -20,7 +20,7 @@
                             <span class="glbb-info glbb-<?= $entry['errname']; ?>"><?= esc_html($entry['name']); ?></span>
                         </td>
                         <td>
-                            <pre><code><?= esc_html($entry['message']); ?></code></pre>
+                            <pre><code class="language-text"><?= esc_html($entry['message']); ?></code></pre>
                         </td>
                     </tr>
                 <?php endforeach; ?>
