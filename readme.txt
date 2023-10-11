@@ -3,7 +3,7 @@ Contributors: pryley, geminilabs
 Donate link: https://ko-fi.com/pryley
 Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Tested up to: 6.3
-Stable tag: 4.0.2
+Stable tag: 4.0.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -60,6 +60,11 @@ By default, Black Bar is only visible to administrator users. To enable it for a
 `add_filter('blackbar/enabled', 'is_user_logged_in');`
 
 == Changelog ==
+
+= 4.0.3 (2023-10-11) =
+
+- Fixed debugging of non-scalar values
+- Fixed display of console values with an Unknown log level
 
 = 4.0.2 (2023-09-18) =
 
