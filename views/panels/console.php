@@ -35,5 +35,6 @@
         <label><input type="checkbox" value="strict"> <?= esc_html__('Strict', 'blackbar'); ?></label>
         <label><input type="checkbox" value="warning"> <?= esc_html__('Warning', 'blackbar'); ?></label>
         <label><input type="checkbox" value="error"> <?= esc_html__('Error', 'blackbar'); ?></label>
+        <label><input type="checkbox" value="unknown"> <?= esc_html__('Unknown', 'blackbar'); ?></label>
     </form>
 <?php endif; ?>
