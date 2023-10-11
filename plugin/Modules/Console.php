@@ -70,7 +70,7 @@ class Console extends Module
         return __('Console', 'blackbar');
     }
 
-    public function store(string $message, string $errno = '', string $location = ''): void
+    public function store($message, string $errno = '', string $location = ''): void
     {
         if (is_numeric($errno)) { // entry likely stored by set_error_handler()
             $errname = 'Unknown';
@@ -85,6 +85,8 @@ class Console extends Module
             }
         }
         $errname = strtolower($errname);
+        $location = sanitize_text_field($location);
+        $message = $this->normalizeMessage($message, $location);
         $hash = md5($errno.$errname.$message.$location);
         if (array_key_exists($hash, $this->entries)) {
             ++$this->entries[$hash]['count'];
@@ -93,7 +95,7 @@ class Console extends Module
                 'count' => 0,
                 'errname' => $errname,
                 'errno' => (int) $errno,
-                'message' => $this->normalizeMessage($message, $location),
+                'message' => $message,
             ];
         }
     }

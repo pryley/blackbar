@@ -78,6 +78,10 @@ msgstr "Warning"
 msgid "Error"
 msgstr "Error"
 
+#: views/panels/console.php:38
+msgid "Unknown"
+msgstr "Unknown"
+
 #: views/panels/console.php:8
 msgid "No entries found."
 msgstr "No entries found."

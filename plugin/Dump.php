@@ -135,7 +135,7 @@ class Dump
      */
     protected function isIgnoredKey($key): bool
     {
-        return !is_string($key) || in_array($key, $this->ignore);
+        return !is_scalar($key) || in_array($key, $this->ignore);
     }
 
     protected function reset(): void

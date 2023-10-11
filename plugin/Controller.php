@@ -43,7 +43,12 @@ class Controller
         }
         $args = array_pad(func_get_args(), 4, '');
         $args = array_combine(['hook', 'message', 'errno', 'location'], $args);
-        $args = array_map('wp_kses_post', $args);
+        if (!is_numeric($args['errno'])) {
+            $args['errno'] = '';
+        }
+        if (!is_string($args['location'])) {
+            $args['location'] = '';
+        }
         $backtrace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 4);
         $entry = array_pop($backtrace); // get the fourth backtrace entry
         if (empty(trim($args['location'])) && array_key_exists('file', $entry)) {

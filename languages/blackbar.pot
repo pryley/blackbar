@@ -111,6 +111,10 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
+#: views/panels/console.php:38
+msgid "Unknown"
+msgstr ""
+
 #: views/panels/console.php:8
 msgid "No entries found."
 msgstr ""
