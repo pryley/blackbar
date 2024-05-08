@@ -109,7 +109,10 @@ class Hooks extends Module
             if (empty($callbacks)) {
                 return; // We skipped Blackbar callbacks
             }
-            $total = count(call_user_func_array('array_merge', $callbacks));
+            $total = 0;
+            for ($i = 0; $i < count($callbacks); $i++) {
+                $total += count($callbacks[$i]);
+            }
             $this->entries[$hook] = [
                 'callbacks' => $callbacks,
                 'callbacks_count' => $total,
