@@ -150,6 +150,20 @@ class Hooks extends Module
             }
             return rtrim(sprintf('%s::%s', $object, $method), ':');
         }
+        if (is_a($function, 'Closure')) {
+            $ref = new \ReflectionFunction($function);
+            $vars = $ref->getStaticVariables();
+            if (isset($vars['callback']) 
+                && 2 === count($vars['callback']) 
+                && is_string($vars['callback'][1])
+            ) {
+                list($object, $method) = $vars['callback'];
+                if (is_object($object)) {
+                    $object = get_class($object);
+                }
+                return rtrim(sprintf('%s::%s', $object, $method), ':');
+            }
+        }
         if (is_object($function)) {
             return get_class($function);
         }
