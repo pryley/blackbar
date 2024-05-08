@@ -14,11 +14,16 @@ abstract class Module
      * @var array
      */
     protected $entries;
+    /**
+     * @var array
+     */
+    public $highlighted;
 
     public function __construct(Application $app)
     {
         $this->app = $app;
         $this->entries = [];
+        $this->highlighted = $this->highlighted();
     }
 
     public function classes(): string
@@ -31,6 +36,11 @@ abstract class Module
     public function hasEntries(): bool
     {
         return !empty($this->entries);
+    }
+
+    public function highlighted(): array
+    {
+        return [];
     }
 
     public function id(): string

@@ -46,6 +46,46 @@ class Hooks extends Module
         return $this->hooks;
     }
 
+    public function highlighted(): array
+    {
+        return [
+            'admin_bar_init',
+            'admin_bar_menu',
+            'admin_enqueue_scripts',
+            'admin_footer',
+            'admin_head',
+            'admin_init',
+            'admin_menu',
+            'admin_menu',
+            'admin_notices',
+            'admin_print_footer_scripts',
+            'admin_print_scripts',
+            'admin_print_styles',
+            'after_setup_theme',
+            'all_admin_notices',
+            'current_screen',
+            'get_header',
+            'init',
+            'load_textdomain',
+            'muplugins_loaded',
+            'plugin_loaded',
+            'plugins_loaded',
+            'pre_get_posts',
+            'setup_theme',
+            'wp',
+            'wp_default_scripts',
+            'wp_default_styles',
+            'wp_enqueue_scripts',
+            'wp_footer',
+            'wp_head',
+            'wp_loaded',
+            'wp_print_footer_scripts',
+            'wp_print_scripts',
+            'wp_print_styles',
+            'wp_print_scripts',
+        ];
+    }
+
     public function info(): string
     {
         $this->entries(); // calculate the totalTime

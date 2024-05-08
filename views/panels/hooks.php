@@ -30,7 +30,11 @@
         <tbody>
             <?php foreach ($module->entries() as $hook => $data) : ?>
                 <tr class="glbb-row-collapsed" data-index="<?= esc_attr($data['index']); ?>" data-time="<?= esc_attr($data['total']); ?>">
-                    <td><div class="glbb-row-toggle dashicons-before dashicons-arrow-right"><?= esc_html($hook); ?></div></td>
+                    <td>
+                        <div class="glbb-row-toggle dashicons-before dashicons-arrow-right<?php if (in_array($hook, $module->highlighted)) { echo ' glbb-core'; } ?>">
+                            <?= esc_html($hook); ?>
+                        </div>
+                    </td>
                     <td data-callbacks="<?= esc_attr($data['callbacks_count']); ?>"><?= esc_html($data['callbacks_count']); ?></td>
                     <td data-calls="<?= esc_attr($data['count']); ?>"><?= esc_html($data['count']); ?></td>
                     <td data-percall="<?= esc_attr($data['per_call']); ?>"><?= esc_html($data['per_call']); ?></td>

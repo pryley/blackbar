@@ -421,6 +421,9 @@ body.blackbar #adminmenu {
 #glbb table.glbb-grid tr:not(.glbb-row-collapsed) .glbb-row-toggle::before {
   transform: rotate(90deg);
 }
+#glbb table.glbb-grid .glbb-row-toggle.glbb-core {
+  color: rgb(var(--glbb-rgb-active));
+}
 
 #glbb-console.glbb-panel {
   overflow: hidden;
