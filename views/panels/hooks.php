@@ -1,6 +1,6 @@
 <?php defined('WPINC') || exit; ?>
 
-<?php if (!$module->hasEntries()) : ?>
+<?php if (!$module->hasEntries()) { ?>
     <table>
         <tbody>
             <tr>
@@ -8,7 +8,12 @@
             </tr>
         </tbody>
     </table>
-<?php else : ?>
+<?php } else {
+
+$numHooks = !apply_filters('blackbar/hooks/all', false)
+    ? esc_html__('(Slowest 50)', 'blackbar')
+    : '';
+?>
     <form>
         <input type="text" id="glbb_hooks_callback" placeholder="<?= esc_attr__('Find callbacks containing', 'blackbar'); ?>">
         <input type="text" id="glbb_hooks_min_time" placeholder="<?= esc_attr__('Minimum total time', 'blackbar'); ?>">
@@ -20,7 +25,7 @@
     <table class="glbb-grid">
         <thead>
             <tr>
-                <th><?= esc_html__('Action or Filter (Slowest 50)', 'blackbar'); ?></th>
+                <th><?= trim(esc_html__('Action or Filter', 'blackbar').' '.$numHooks); ?></th>
                 <th><?= esc_html__('Callbacks', 'blackbar'); ?></th>
                 <th><?= esc_html__('Calls', 'blackbar'); ?></th>
                 <th><?= esc_html__('Per Call', 'blackbar'); ?></th>
@@ -52,4 +57,4 @@
             <?php endforeach; ?>
         </tbody>
     </table>
-<?php endif; ?>
+<?php } ?>

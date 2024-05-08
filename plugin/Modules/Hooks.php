@@ -23,9 +23,8 @@ class Hooks extends Module
         if (!$this->hasEntries()) {
             return [];
         }
-        if (!empty($this->hooks)) {
-            return $this->hooks;
-        }
+        wp_raise_memory_limit('admin');
+        $hooks = [];
         array_walk($this->entries, function (&$data) {
             $total = $this->totalTimeForHook($data);
             $perCall = (int) round($total / $data['count']);
@@ -36,14 +35,17 @@ class Hooks extends Module
         $entries = $this->entries;
         $executionOrder = array_keys($entries);
         uasort($entries, [$this, 'sortByTime']);
-        $this->hooks = array_slice($entries, 0, 50); // Keep the 50 slowest hooks
+        $hooks = $entries;
+        if (!apply_filters('blackbar/hooks/all', false)) {
+            $hooks = array_slice($entries, 0, 50); // Keep the 50 slowest hooks
+        }
         $this->totalHooks = array_sum(wp_list_pluck($this->entries, 'count'));
         $this->totalTime = array_sum(wp_list_pluck($this->entries, 'total'));
-        $order = array_intersect($executionOrder, array_keys($this->hooks));
+        $order = array_intersect($executionOrder, array_keys($hooks));
         foreach ($order as $index => $hook) {
-            $this->hooks[$hook]['index'] = $index;
+            $hooks[$hook]['index'] = $index;
         }
-        return $this->hooks;
+        return $hooks;
     }
 
     public function highlighted(): array
