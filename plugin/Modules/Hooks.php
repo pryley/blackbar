@@ -24,7 +24,6 @@ class Hooks extends Module
             return [];
         }
         wp_raise_memory_limit('admin');
-        $hooks = [];
         array_walk($this->entries, function (&$data) {
             $total = $this->totalTimeForHook($data);
             $perCall = (int) round($total / $data['count']);
@@ -153,7 +152,8 @@ class Hooks extends Module
         if (is_a($function, 'Closure')) {
             $ref = new \ReflectionFunction($function);
             $vars = $ref->getStaticVariables();
-            if (isset($vars['callback']) 
+            if (isset($vars['callback'])
+                && is_array($vars['callback'])
                 && 2 === count($vars['callback']) 
                 && is_string($vars['callback'][1])
             ) {

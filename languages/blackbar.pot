@@ -1,4 +1,4 @@
-# Copyright (C) 2023 blackbar
+# Copyright (C) 2024 blackbar
 # This file is distributed under the same license as the blackbar package.
 msgid ""
 msgstr ""
@@ -67,7 +67,7 @@ msgstr ""
 msgid "Globals"
 msgstr ""
 
-#: plugin/Modules/Hooks.php:57
+#: plugin/Modules/Hooks.php:98
 msgid "Hooks"
 msgstr ""
 
@@ -119,39 +119,43 @@ msgstr ""
 msgid "No entries found."
 msgstr ""
 
-#: views/panels/hooks.php:13
+#: views/panels/hooks.php:14
+msgid "(Slowest 50)"
+msgstr ""
+
+#: views/panels/hooks.php:18
 msgid "Find callbacks containing"
 msgstr ""
 
-#: views/panels/hooks.php:14
+#: views/panels/hooks.php:19
 msgid "Minimum total time"
 msgstr ""
 
-#: views/panels/hooks.php:16
+#: views/panels/hooks.php:21
 msgid "Sort by total time"
 msgstr ""
 
-#: views/panels/hooks.php:17, views/panels/queries.php:17
+#: views/panels/hooks.php:22, views/panels/queries.php:17
 msgid "Sort by execution order"
 msgstr ""
 
-#: views/panels/hooks.php:23
-msgid "Action or Filter (Slowest 50)"
+#: views/panels/hooks.php:28
+msgid "Action or Filter"
 msgstr ""
 
-#: views/panels/hooks.php:24
+#: views/panels/hooks.php:29
 msgid "Callbacks"
 msgstr ""
 
-#: views/panels/hooks.php:25
+#: views/panels/hooks.php:30
 msgid "Calls"
 msgstr ""
 
-#: views/panels/hooks.php:26
+#: views/panels/hooks.php:31
 msgid "Per Call"
 msgstr ""
 
-#: views/panels/hooks.php:27
+#: views/panels/hooks.php:32
 msgid "Total"
 msgstr ""
 

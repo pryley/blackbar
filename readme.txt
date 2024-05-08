@@ -2,8 +2,8 @@
 Contributors: pryley, geminilabs
 Donate link: https://ko-fi.com/pryley
 Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
-Tested up to: 6.3
-Stable tag: 4.0.3
+Tested up to: 6.5
+Stable tag: 4.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -55,11 +55,25 @@ To use the profiler, insert the following lines of PHP _before_ and _after_ the 
 
 = How do I enable the plugin for non-administrators? =
 
-By default, Black Bar is only visible to administrator users. To enable it for all logged-in users, add the following code to your child theme's functions.php file:
+By default, Black Bar is only visible to administrator users. To enable it for all logged-in users, use this code snippet:
 
 `add_filter('blackbar/enabled', 'is_user_logged_in');`
 
+= How do I change the number of slowest hooks displayed? =
+
+By default, Black Bar displays the 50 slowest action/filter hooks. To display all hooks, use this code snippet:
+
+`add_filter('blackbar/hooks/all', '__return_true');`
+
 == Changelog ==
+
+= 4.1.0 (2024-05-08) =
+
+- Added "blackbar/hooks/all" filter hook
+- Added highlighting of major WordPress hooks
+- Added support for static callables used for hook callbacks in Site Reviews
+- Change minimum PHP version to 7.4
+- Change minimum WordPress version to 6.1
 
 = 4.0.3 (2023-10-11) =
 
