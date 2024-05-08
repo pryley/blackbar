@@ -3,7 +3,7 @@ Contributors: pryley, geminilabs
 Donate link: https://ko-fi.com/pryley
 Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
 Tested up to: 6.5
-Stable tag: 4.1.0
+Stable tag: 4.1.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -67,7 +67,7 @@ By default, Black Bar displays the 50 slowest action/filter hooks. To display al
 
 == Changelog ==
 
-= 4.1.0 (2024-05-08) =
+= 4.1.1 (2024-05-08) =
 
 - Added "blackbar/hooks/all" filter hook
 - Added highlighting of major WordPress hooks
