@@ -109,9 +109,11 @@ class Hooks extends Module
             if (empty($callbacks)) {
                 return; // We skipped Blackbar callbacks
             }
+            $cb = array_values($callbacks);
+            $num = count($cb);
             $total = 0;
-            for ($i = 0; $i < count($callbacks); $i++) {
-                $total += count($callbacks[$i]);
+            for ($i = 0; $i < $num; $i++) {
+                $total += count($cb[$i]);
             }
             $this->entries[$hook] = [
                 'callbacks' => $callbacks,
