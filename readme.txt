@@ -2,8 +2,8 @@
 Contributors: pryley, geminilabs
 Donate link: https://ko-fi.com/pryley
 Tags: blackbar, black bar, debug bar, debugbar, debugging, development, blackbox
-Tested up to: 6.5
-Stable tag: 4.1.4
+Tested up to: 7.0
+Stable tag: 4.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
