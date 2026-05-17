@@ -64,6 +64,12 @@ final class Application
             if (!apply_filters('blackbar/enabled', current_user_can('administrator'))) {
                 return;
             }
+            if (function_exists('envato_theme_setup_wizard')
+                && false === get_option('envato_setup_complete')
+                && str_ends_with((string) filter_input(INPUT_SERVER, 'SCRIPT_NAME'), '/admin.php')
+                && str_contains((string) filter_input(INPUT_SERVER, 'QUERY_STRING'), '-setup')) {
+                return; // support envato setup screens
+            }
             add_action('admin_enqueue_scripts', [$controller, 'enqueueAssets']);
             add_action('wp_enqueue_scripts', [$controller, 'enqueueAssets']);
             add_action('admin_footer', [$controller, 'renderBar'], 99999);
