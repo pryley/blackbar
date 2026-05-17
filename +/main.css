@@ -450,6 +450,15 @@ body.blackbar #adminmenu {
   background-color: transparent;
 }
 
+#glbb-enqueued table.glbb-grid tr td.glbb-row-details {
+  overflow: auto;
+  padding: 10px;
+}
+#glbb-enqueued table.glbb-grid code,
+#glbb-enqueued table.glbb-grid pre {
+  background-color: transparent;
+}
+
 #glbb-hooks form {
   padding: 10px 15px 0;
   z-index: 1;

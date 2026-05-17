@@ -107,6 +107,7 @@ class Controller
                 $this->app->queries,
                 $this->app->hooks,
                 $this->app->templates,
+                $this->app->enqueued,
                 $this->app->globals,
             ],
         ]);

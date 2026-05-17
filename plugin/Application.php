@@ -3,6 +3,7 @@
 namespace GeminiLabs\BlackBar;
 
 use GeminiLabs\BlackBar\Modules\Console;
+use GeminiLabs\BlackBar\Modules\Enqueued;
 use GeminiLabs\BlackBar\Modules\Globals;
 use GeminiLabs\BlackBar\Modules\Hooks;
 use GeminiLabs\BlackBar\Modules\Profiler;
@@ -17,6 +18,7 @@ final class Application
     public const PROFILER_STOP_HOOK = 'timer:stop';
 
     public $console;
+    public $enqueued;
     public $file;
     public $globals;
     public $hooks;
@@ -31,6 +33,7 @@ final class Application
     {
         $file = wp_normalize_path((new \ReflectionClass($this))->getFileName());
         $this->console = new Console($this);
+        $this->enqueued = new Enqueued($this);
         $this->file = str_replace('plugin/Application', static::ID, $file);
         $this->globals = new Globals($this);
         $this->hooks = new Hooks($this);
