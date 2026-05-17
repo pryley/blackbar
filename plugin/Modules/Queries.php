@@ -4,6 +4,20 @@ namespace GeminiLabs\BlackBar\Modules;
 
 class Queries extends Module
 {
+    public function classes(): string
+    {
+        $entries = $this->entries();
+        $isError = array_filter(wp_list_pluck($entries, 'is_error'));
+        if (!empty($isError)) {
+            return sprintf('%s glbb-error', $this->id());
+        }
+        $isWarning = array_filter(wp_list_pluck($entries, 'is_warning'));
+        if (!empty($isWarning)) {
+            return sprintf('%s glbb-warning', $this->id());
+        }
+        return $this->id();
+    }
+
     public function entries(): array
     {
         global $wpdb;
@@ -49,6 +63,11 @@ class Queries extends Module
     {
         global $wpdb;
         return !empty($wpdb->queries);
+    }
+
+    public function icon(): string
+    {
+        return 'dashicons-database';
     }
 
     public function info(): string

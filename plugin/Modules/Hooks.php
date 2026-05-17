@@ -87,6 +87,11 @@ class Hooks extends Module
         ];
     }
 
+    public function icon(): string
+    {
+        return 'dashicons-clock';
+    }
+
     public function info(): string
     {
         $this->entries(); // calculate the totalTime

@@ -43,6 +43,12 @@ abstract class Module
         return [];
     }
 
+    public function icon(): string
+    {
+        return 'dashicons-admin-generic';
+    }
+
+
     public function id(): string
     {
         return sprintf('glbb-%s', $this->slug());

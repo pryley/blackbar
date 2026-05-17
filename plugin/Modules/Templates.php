@@ -30,6 +30,11 @@ class Templates extends Module
         return !empty($this->entries());
     }
 
+    public function icon(): string
+    {
+        return 'dashicons-welcome-widgets-menus';
+    }
+
     public function isVisible(): bool
     {
         return !is_admin() && $this->hasEntries();

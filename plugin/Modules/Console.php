@@ -52,6 +52,11 @@ class Console extends Module
         return $entries;
     }
 
+    public function icon(): string
+    {
+        return 'dashicons-warning';
+    }
+
     public function info(): string
     {
         $counts = array_count_values(wp_list_pluck($this->entries, 'errno'));

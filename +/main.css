@@ -1,21 +1,12 @@
 @import "../node_modules/@highlightjs/cdn-assets/styles/atom-one-dark.min.css";
 
 .glbb-close::before {
-  content: "\f335";
   font-size: 26px;
   margin: -3px 3px 3px -3px;
 }
 .glbb-globals::before {
-  content: "\f319";
   margin: 1px -1px -1px 1px;
 }
-.glbb-toggle::before { content: "\f340"; }
-.glbb-hooks::before { content: "\f469"; }
-.glbb-console::before { content: "\f534"; }
-.glbb-filters::before { content: "\f536"; }
-.glbb-queries::before { content: "\f17e"; }
-.glbb-profiler::before { content: "\f311"; }
-.glbb-templates::before { content: "\f116"; }
 
 body.blackbar #adminmenu {
   margin-bottom: 46px;

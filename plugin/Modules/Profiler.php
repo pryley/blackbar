@@ -42,6 +42,11 @@ class Profiler extends Module
         return $entries;
     }
 
+    public function icon(): string
+    {
+        return 'dashicons-performance';
+    }
+
     public function isVisible(): bool
     {
         return $this->hasEntries();

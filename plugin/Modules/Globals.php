@@ -32,6 +32,11 @@ class Globals extends Module
         return !empty($this->entries());
     }
 
+    public function icon(): string
+    {
+        return 'dashicons-admin-site';
+    }
+
     public function label(): string
     {
         return __('Globals', 'blackbar');

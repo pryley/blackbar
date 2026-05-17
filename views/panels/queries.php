@@ -21,7 +21,11 @@
         <tbody>
             <?php foreach ($module->entries() as $entry) : ?>
                 <tr class="glbb-row-collapsed" data-index="<?= esc_attr($entry['index']); ?>" data-time="<?= esc_attr($entry['time']); ?>">
-                    <td data-time="<?= esc_attr($entry['time_formatted']); ?>"><div class="glbb-row-toggle dashicons-before dashicons-arrow-right"><?= esc_html($entry['time_formatted']); ?></div></td>
+                    <td data-time="<?= esc_attr($entry['time_formatted']); ?>">
+                        <div class="glbb-row-toggle dashicons-before dashicons-arrow-right <?= $entry['is_error'] ? 'glbb-error' : ($entry['is_warning'] ? 'glbb-warning' : ''); ?>">
+                            <?= esc_html($entry['time_formatted']); ?>
+                        </div>
+                    </td>
                     <td data-sql><pre><code class="language-sql"><?= esc_html($entry['sql']); ?></code></pre></td>
                     <td class="glbb-row-details">
                         <ol>
