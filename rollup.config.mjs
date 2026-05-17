@@ -20,14 +20,24 @@ export default [
       resolve(),
       filesize(),
       babel({
-        babelHelpers: 'bundled',
+        babelHelpers: 'runtime',
+        plugins: [
+          '@babel/plugin-proposal-optional-chaining',
+          '@babel/plugin-transform-runtime',
+        ],
         presets: [
-          ['@babel/preset-env', {
-            include: ['@babel/plugin-proposal-optional-chaining'],
-          }],
+          '@babel/preset-env',
         ],
       }),
-    ]
+      terser({
+        compress: {
+          pure_funcs: Object.keys(console)
+            .filter(key => !~['info', 'warn', 'error'].indexOf(key))
+            .map(key => `console.${key}`),
+        },
+        format: { comments: false },
+      }),
+    ],
   },
   {
     input: '+/main.css',
@@ -44,6 +54,6 @@ export default [
         extract: true,
         minimize: true,
       }),
-    ]
+    ],
   },
 ]

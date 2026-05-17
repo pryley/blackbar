@@ -1,4 +1,4 @@
-# Copyright (C) 2024 blackbar
+# Copyright (C) 2026 blackbar
 # This file is distributed under the same license as the blackbar package.
 msgid ""
 msgstr ""
@@ -16,41 +16,6 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: activate.php:102
-msgctxt "admin-text"
-msgid "The %s plugin was deactivated."
-msgstr ""
-
-#: activate.php:103
-msgctxt "admin-text"
-msgid "PHP version"
-msgstr ""
-
-#: activate.php:104
-msgctxt "admin-text"
-msgid "You can use the %s plugin to restore %s to the previous version."
-msgstr ""
-
-#: activate.php:105
-msgctxt "admin-text"
-msgid "Please contact your hosting provider or server administrator to upgrade the version of PHP on your server (your server is running PHP version %s), or try to find an alternative plugin."
-msgstr ""
-
-#: activate.php:106
-msgctxt "admin-text"
-msgid "Update WordPress"
-msgstr ""
-
-#: activate.php:107
-msgctxt "admin-text"
-msgid "WordPress version"
-msgstr ""
-
-#: activate.php:108
-msgctxt "admin-text"
-msgid "This plugin requires %s or greater in order to work properly."
-msgstr ""
-
 #: views/debug-bar.php:20
 msgid "Close"
 msgstr ""
@@ -59,27 +24,31 @@ msgstr ""
 msgid "Toggle"
 msgstr ""
 
-#: plugin/Modules/Console.php:70
+#: plugin/Modules/Console.php:73
 msgid "Console"
 msgstr ""
 
-#: plugin/Modules/Globals.php:37
+#: plugin/Modules/Enqueued.php:76
+msgid "Enqueued"
+msgstr ""
+
+#: plugin/Modules/Globals.php:42
 msgid "Globals"
 msgstr ""
 
-#: plugin/Modules/Hooks.php:98
+#: plugin/Modules/Hooks.php:103
 msgid "Hooks"
 msgstr ""
 
-#: plugin/Modules/Profiler.php:52
+#: plugin/Modules/Profiler.php:57
 msgid "Profiler"
 msgstr ""
 
-#: plugin/Modules/Queries.php:67
+#: plugin/Modules/Queries.php:94
 msgid "SQL"
 msgstr ""
 
-#: plugin/Modules/Templates.php:40
+#: plugin/Modules/Templates.php:45
 msgid "Templates"
 msgstr ""
 

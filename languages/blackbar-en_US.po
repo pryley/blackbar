@@ -1,4 +1,4 @@
-# Copyright (C) 2024 blackbar
+# Copyright (C) 2026 blackbar
 # This file is distributed under the same license as the blackbar package.
 msgid ""
 msgstr ""
@@ -26,27 +26,31 @@ msgstr "Close"
 msgid "Toggle"
 msgstr "Toggle"
 
-#: plugin/Modules/Console.php:70
+#: plugin/Modules/Console.php:73
 msgid "Console"
 msgstr "Console"
 
-#: plugin/Modules/Globals.php:37
+#: plugin/Modules/Enqueued.php:76
+msgid "Enqueued"
+msgstr "Enqueued"
+
+#: plugin/Modules/Globals.php:42
 msgid "Globals"
 msgstr "Globals"
 
-#: plugin/Modules/Hooks.php:98
+#: plugin/Modules/Hooks.php:103
 msgid "Hooks"
 msgstr "Hooks"
 
-#: plugin/Modules/Profiler.php:52
+#: plugin/Modules/Profiler.php:57
 msgid "Profiler"
 msgstr "Profiler"
 
-#: plugin/Modules/Queries.php:67
+#: plugin/Modules/Queries.php:94
 msgid "SQL"
 msgstr "SQL"
 
-#: plugin/Modules/Templates.php:40
+#: plugin/Modules/Templates.php:45
 msgid "Templates"
 msgstr "Templates"
 
@@ -153,47 +157,6 @@ msgstr "Minimum execution time"
 #: views/panels/queries.php:16
 msgid "Sort by execution time"
 msgstr "Sort by execution time"
-
-#: activate.php:102
-msgctxt "admin-text"
-msgid "The %s plugin was deactivated."
-msgstr "The %s plugin was deactivated."
-
-#: activate.php:103
-msgctxt "admin-text"
-msgid "PHP version"
-msgstr "PHP version"
-
-#: activate.php:104
-msgctxt "admin-text"
-msgid "You can use the %s plugin to restore %s to the previous version."
-msgstr "You can use the %s plugin to restore %s to the previous version."
-
-#: activate.php:105
-msgctxt "admin-text"
-msgid ""
-"Please contact your hosting provider or server administrator to upgrade the "
-"version of PHP on your server (your server is running PHP version %s), or "
-"try to find an alternative plugin."
-msgstr ""
-"Please contact your hosting provider or server administrator to upgrade the "
-"version of PHP on your server (your server is running PHP version %s), or "
-"try to find an alternative plugin."
-
-#: activate.php:106
-msgctxt "admin-text"
-msgid "Update WordPress"
-msgstr "Update WordPress"
-
-#: activate.php:107
-msgctxt "admin-text"
-msgid "WordPress version"
-msgstr "WordPress version"
-
-#: activate.php:108
-msgctxt "admin-text"
-msgid "This plugin requires %s or greater in order to work properly."
-msgstr "This plugin requires %s or greater in order to work properly."
 
 #: views/panels/queries.php:7
 msgctxt "SAVEQUERIES"

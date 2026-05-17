@@ -7,6 +7,11 @@ parameters:
     - autoload.php
   checkGenericClassInNonGenericObjectType: false
   checkMissingIterableValueType: false
+  ignoreErrors:
+    -
+      identifier: missingType.iterableValue
+    -
+      identifier: missingType.generics
   level: 5
   paths:
     - plugin
