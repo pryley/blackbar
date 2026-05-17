@@ -20,6 +20,9 @@ class Queries extends Module
 
     public function entries(): array
     {
+        if (!empty($this->entries)) {
+            return $this->entries;
+        }
         global $wpdb;
         $entries = [];
         $index = 0;
@@ -30,6 +33,8 @@ class Queries extends Module
         $replace = array_map(function ($value) {
             return PHP_EOL.$value;
         }, $search);
+        $errorThreshold = (int) apply_filters('blackbar/queries/ms_error', 1000); // 1s
+        $warningThreshold = (int) apply_filters('blackbar/queries/ms_warning', 50); // 50ms
         foreach ($wpdb->queries as $query) {
             $sql = preg_replace('/\s\s+/', ' ', trim($query[0]));
             $sql = str_replace(PHP_EOL, ' ', $sql);
@@ -49,6 +54,8 @@ class Queries extends Module
             $nanoseconds = (int) round($query[1] * 1e9);
             $entries[] = [
                 'index' => $index++,
+                'is_error' => round($nanoseconds / 1e6, 2) > $errorThreshold,
+                'is_warning' => round($nanoseconds / 1e6, 2) > $warningThreshold,
                 'sql' => $sql,
                 'time' => $nanoseconds,
                 'time_formatted' => $this->formatTime($nanoseconds),
@@ -56,6 +63,7 @@ class Queries extends Module
             ];
         }
         uasort($entries, [$this, 'sortByTime']);
+        $this->entries = $entries;
         return $entries;
     }
 

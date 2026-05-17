@@ -10,7 +10,6 @@ class Console extends Module
         E_ERROR => 'error', // 1
         E_WARNING => 'warning', // 2
         E_NOTICE => 'notice', // 8
-        E_STRICT => 'strict', // 2048
         E_DEPRECATED => 'deprecated', // 8192
     ];
 
@@ -20,7 +19,6 @@ class Console extends Module
         'deprecated' => E_DEPRECATED, // 8192
         'error' => E_ERROR, // 1
         'notice' => E_NOTICE, // 8
-        'strict' => E_STRICT, // 2048
         'warning' => E_WARNING, // 2
         'critical' => E_ERROR, // 1
         'alert' => E_ERROR, // 1

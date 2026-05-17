@@ -76,7 +76,7 @@ final class Application
             add_action('wp_footer', [$controller, 'renderBar'], 99999);
             add_filter('admin_body_class', [$controller, 'filterBodyClasses']);
         });
-        set_error_handler([$this, 'errorHandler'], E_ALL | E_STRICT);
+        set_error_handler([$this, 'errorHandler'], E_ALL);
     }
 
     /**
