@@ -1,14 +1,12 @@
 #!/bin/sh
 # By Paul Ryley, based on work by Mike Jolley
 # License: GPLv3
-# Version: 2.0.0
+# Version: 2.1.0
 
 # ----- START EDITING HERE -----
 
 ASSETS_DIR="+/assets"
 GIT_BRANCH="main"
-MIN_PHP_VERSION="7.3"
-MIN_WORDPRESS_VERSION="5.8"
 PLUGIN_SLUG="blackbar"
 
 # ----- STOP EDITING HERE -----
@@ -18,11 +16,23 @@ clear
 
 # VARS
 ROOT_PATH=$(pwd)"/"
+MIN_PHP_VERSION=`perl -lne 'm{Requires PHP:?\s+(.+)} and print $1' ${ROOT_PATH}${PLUGIN_SLUG}.php`
+MIN_WORDPRESS_VERSION=`perl -lne 'm{Requires at least:?\s+(.+)} and print $1' ${ROOT_PATH}${PLUGIN_SLUG}.php`
 PLUGIN_VERSION=`grep "Version:" $ROOT_PATH$PLUGIN_SLUG.php | awk -F' ' '{print $NF}' | tr -d '\r'`
 STABLE_VERSION=`grep "^Stable tag:" ${ROOT_PATH}readme.txt | awk -F' ' '{print $NF}' | tr -d '\r'`
 SVN_REPO="https://plugins.svn.wordpress.org/"${PLUGIN_SLUG}"/"
 SVN_REPO_DIR=".svn"
 TEMP_GITHUB_REPO=${PLUGIN_SLUG}"-git"
+TESTED_UP_TO_VERSION=`perl -lne 'm{Tested up to:?\s+(.+)} and print $1' ${ROOT_PATH}readme.txt`
+CHANGELOG_DATE=`grep -e "^= ${PLUGIN_VERSION} (.*) =" ${ROOT_PATH}readme.txt | grep -o '....-..-..' | awk -F' ' '{print $NF}' | tr -d '\r'`
+
+# CHECK GIT STATUS
+make build
+clear
+if [[ ! -z $(git status --porcelain=v2 2>/dev/null) ]]; then
+	echo "\n❌ \033[0;31mYou forgot to commit changes.\033[0m\n"
+	exit 1;
+fi
 
 # ASK INFO
 echo "--------------------------------------------"
@@ -42,13 +52,15 @@ else
 fi
 
 echo ""
-read -p " - Updated the readme.txt changelog for "${PLUGIN_VERSION}" and prepended it to changelog.txt?"
-read -p " - Updated the POT file?"
+read -p " - Updated the 'Requires at least: ${MIN_WORDPRESS_VERSION}' in ${PLUGIN_SLUG}.php?"
+read -p " - Updated the 'Requires PHP: ${MIN_PHP_VERSION}' in ${PLUGIN_SLUG}.php?"
+read -p " - Updated the 'Tested up to: ${TESTED_UP_TO_VERSION}' in readme.txt?"
+read -p " - Updated the readme.txt changelog and prepended it to changelog.txt?"
 read -p " - Updated the screenshots?"
 read -p " - Verified compatibility with PHP v${MIN_PHP_VERSION} -> latest?"
 read -p " - Verified compatibility with Wordpress v${MIN_WORDPRESS_VERSION} -> latest?"
-read -p " - Verified the changelog release date?"
-read -p " - Committed all changes to the main branch on GITHUB?"
+read -p " - Verified the changelog release date ($CHANGELOG_DATE)?"
+read -p " - Committed all changes to the ${GIT_BRANCH} branch on GITHUB?"
 read -p " - PHPStan has passed?"
 read -p " - Scrutinizer has passed all inspections?"
 echo ""
@@ -83,7 +95,7 @@ read -p "PRESS [ENTER] TO DEPLOY BRANCH "$GIT_BRANCH
 cd $ROOT_PATH$SVN_REPO_DIR
 
 # COPY ASSETS to SVN DIR
-cp $ROOT_PATH/$ASSETS_DIR/* $ROOT_PATH$SVN_REPO_DIR/assets/
+cp -R $ROOT_PATH$ASSETS_DIR/. $ROOT_PATH$SVN_REPO_DIR/assets/
 
 # UPDATE SVN
 echo "Updating SVN"
@@ -124,7 +136,7 @@ echo ""
 # DEPLOY
 echo ""
 echo "Committing to WordPress.org...this may take a while."
-svn commit -m "Release "${PLUGIN_VERSION}", see readme.txt for the changelog." || { echo "Unable to commit."; exit 1; }
+svn commit -m "Release "${PLUGIN_VERSION}", see readme.txt for the changelog." --config-option servers:global:http-timeout=7200 || { echo "Unable to commit."; exit 1; }
 
 # REMOVE THE TEMP DIRS
 echo "CLEANING UP"

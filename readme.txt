@@ -65,7 +65,22 @@ By default, Black Bar displays the 50 slowest action/filter hooks. To display al
 
 `add_filter('blackbar/hooks/all', '__return_true');`
 
+= How do I change the millisecond threshold which determines a slow query? =
+
+By default, Black Bar marks queries that run longer than 50ms with a warning color, and longer than 1000ms with an error color. To change these thresholds, use these hooks:
+
+`add_filter('blackbar/queries/ms_error', fn () => 1000);` // 1s
+`add_filter('blackbar/queries/ms_warning', fn () => 50);` // 50ms
+
 == Changelog ==
+
+= 4.2.0 (2026-05-17) =
+
+- Added "blackbar/queries/ms_error" filter hook
+- Added "blackbar/queries/ms_warning" filter hook
+- Added Enqueued tab
+- Changed minimum PHP version to 8.1.2
+- Changed minimum WordPress version to 6.7
 
 = 4.1.4 (2024-05-08) =
 
